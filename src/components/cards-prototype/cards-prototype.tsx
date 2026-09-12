@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState, useRef, type CSSProperties } from "react";
+import { useState, useRef, type CSSProperties } from "react";
 import { useRouter } from "next/navigation";
 import { ChevronsRight } from "lucide-react";
 import { DialRoot, useDialKit } from "dialkit";
@@ -28,16 +28,9 @@ type DeckProps = { homepage?: boolean; palette?: CardPalette; hoverDuration?: nu
 /** Standalone React component; navigation is supplied by the Laravel host. */
 export function CardDeck({ homepage = false, hoverDuration = 600, returnDuration = 600, clickDuration = 650, expandedScale = 1.45, palette, onNavigate }: DeckProps) {
   const [active, setActive] = useState<string | null>(null);
-  const [expandedReady, setExpandedReady] = useState(false);
   const triggers = useRef<Record<string, HTMLButtonElement | null>>({});
-  useEffect(() => {
-    if (!active) return;
-    const timer = window.setTimeout(() => setExpandedReady(true), clickDuration);
-    return () => window.clearTimeout(timer);
-  }, [active, clickDuration]);
   const close = () => {
     if (active) triggers.current[active]?.focus({ preventScroll: true });
-    setExpandedReady(false);
     setActive(null);
   };
   return <section className={styles.design} data-expanded={!!active} aria-label="ინფორმაციის კატეგორიები"
@@ -74,15 +67,13 @@ export function CardDeck({ homepage = false, hoverDuration = 600, returnDuration
               <button ref={element => { triggers.current[card.id] = element; }} className={styles.cardTrigger}
                 aria-label={card.label} aria-expanded={selected} aria-controls={`card-action-${card.id}`}
                 onClick={() => {
-                  if (selected && card.id === "faq" && expandedReady && onNavigate) { onNavigate(card.id); return; }
+                  if (selected && card.id === "faq" && onNavigate) { onNavigate(card.id); return; }
                   if (selected) close();
-                  else { setExpandedReady(false); setActive(card.id); }
+                  else setActive(card.id);
                 }} />
-              <button id={`card-action-${card.id}`} className={styles.cardAction} aria-hidden={!selected}
-                aria-disabled={!expandedReady} tabIndex={selected && expandedReady ? 0 : -1}
-                onClick={() => { if (expandedReady) onNavigate?.(card.id); }}>
+              <span id={`card-action-${card.id}`} className={styles.cardAction} aria-hidden={!selected}>
                 {actionLabels[card.id]}<ChevronsRight size={18} aria-hidden="true" />
-              </button>
+              </span>
             </article>
           </div>
         </li>;
