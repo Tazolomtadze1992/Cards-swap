@@ -67,7 +67,7 @@ export function CardDeck({ homepage = false, hoverDuration = 600, returnDuration
               <button ref={element => { triggers.current[card.id] = element; }} className={styles.cardTrigger}
                 aria-label={card.label} aria-expanded={selected} aria-controls={`card-action-${card.id}`}
                 onClick={() => {
-                  if (selected && card.id === "faq" && onNavigate) { onNavigate(card.id); return; }
+                  if (selected && (card.id === "faq" || card.id === "resources") && onNavigate) { onNavigate(card.id); return; }
                   if (selected) close();
                   else setActive(card.id);
                 }} />
@@ -98,7 +98,10 @@ export default function CardsPrototype({ homepage = false }: { homepage?: boolea
   } as CSSProperties}>
     {showPrototypeSwitcher && <PrototypeSwitcher homepage={homepage} />}
     {homepage && <HomepageHero />}
-    <div id="homepage-cards"><CardDeck homepage={homepage} onNavigate={homepage ? id => { if (id === "faq") router.push("/prototypes/faq"); } : undefined} palette={{ support: colors.services, video: colors.video, resources: colors.resources, faq: colors.faq, quiz: colors.quizzes }} /></div>
+    <div id="homepage-cards"><CardDeck homepage={homepage} onNavigate={homepage ? id => {
+      if (id === "faq") router.push("/prototypes/faq");
+      if (id === "resources") router.push("/prototypes/resources");
+    } : undefined} palette={{ support: colors.services, video: colors.video, resources: colors.resources, faq: colors.faq, quiz: colors.quizzes }} /></div>
     {homepage && <HomepageFaq />}
     <DialRoot position="bottom-right" theme="dark" productionEnabled />
   </main>;

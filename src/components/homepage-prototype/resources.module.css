@@ -1,0 +1,79 @@
+.page { min-height: 100svh; background: #faf4ea; color: #20291b; }
+.page > header { color: #737373; }
+.page > header > a { background: #005c53; color: #faf4ea; }
+.intro { max-width: 1440px; margin: auto; padding: 110px 24px 150px; text-align: center; }
+.intro h1 { margin: 0; font: 400 64px/1 "Cards Hakuna", sans-serif; }
+.catalogue { max-width: 1440px; margin: auto; padding: 0 32px 140px; }
+.toolbar { display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+.controls { display: flex; flex-wrap: wrap; align-items: center; gap: 16px; }
+.typeFilter { position: relative; z-index: 5; }
+.typeTrigger, .ageFilters button, .clearFilters, .empty button { min-height: 44px; border: 0; border-radius: 999px; padding: 12px 16px; color: #5a3a00; font-size: 14px; font-weight: 700; cursor: pointer; }
+.typeTrigger { display: flex; align-items: center; gap: 8px; background: #5a3a00; color: #faf4ea; }
+.typeTrigger svg { transition: transform 180ms ease; }
+.typeTrigger[aria-expanded="true"] svg { transform: rotate(180deg); }
+.typeMenu { position: absolute; top: calc(100% + 10px); left: 0; min-width: 238px; padding: 10px; border-radius: 18px; background: #fffdf7; box-shadow: 0 18px 55px #5a3a0030; }
+.typeMenu label { display: flex; align-items: center; gap: 12px; padding: 11px 12px; border-radius: 10px; cursor: pointer; }
+.typeMenu label:hover { background: #5a3a000d; }
+.typeMenu input { width: 18px; height: 18px; accent-color: #5a3a00; }
+.ageFilters { display: flex; flex-wrap: wrap; gap: 8px; }
+.ageFilters button { background: #5a3a000d; }
+.ageFilters button:hover { background: #5a3a0017; }
+.ageFilters button[aria-pressed="true"] { background: #5a3a00; color: #faf4ea; }
+.clearFilters { display: flex; align-items: center; gap: 8px; padding-inline: 24px; background: #ffcfcf80; color: #cc3033; }
+.clearFilters:disabled { opacity: .36; cursor: default; }
+.clearFilters img { width: 16px; height: 16px; }
+.count { flex: none; margin: 0; color: #5a3a0066; font-size: 14px; font-weight: 700; text-transform: uppercase; }
+.count strong { color: #5a3a00; }
+.divider { height: 1px; margin: 32px 0; background: #5a3a001f; }
+.grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 32px; align-items: stretch; }
+.card { display: flex; min-height: 420px; flex-direction: column; gap: 24px; padding: 32px; overflow: hidden; border-radius: 24px; background: var(--card-color); color: #20291b; }
+.videoPreview { position: relative; display: block; width: 100%; height: 244px; padding: 0; overflow: hidden; border: 0; border-radius: 12px; background: #20291b; cursor: pointer; }
+.thumbnail { width: 100%; height: 100%; object-fit: cover; filter: brightness(.62); transition: transform 350ms ease; }
+.videoPreview:hover .thumbnail { transform: scale(1.035); }
+.play { position: absolute; left: 50%; top: 50%; display: grid; width: 64px; height: 64px; place-items: center; transform: translate(-50%, -50%); border-radius: 50%; background: #ffffff4a; backdrop-filter: blur(2px); }
+.play img { width: 24px; height: 24px; }
+.documentIcon { display: block; width: 92px; height: auto; object-fit: contain; }
+.copy { display: flex; flex-direction: column; gap: 12px; }
+.kind { color: currentColor; font-size: 12px; font-weight: 700; opacity: .68; text-transform: uppercase; }
+.copy h2 { margin: 0; font: 400 28px/1 "Cards Hakuna", sans-serif; }
+.copy p { margin: 0; font-size: 16px; line-height: 24px; }
+.download { display: flex; align-items: center; justify-content: center; gap: 8px; width: 100%; min-height: 52px; margin-top: auto; padding: 14px 22px; border: 0; border-radius: 999px; background: #0006; color: #fff; font-size: 14px; font-weight: 600; cursor: pointer; }
+.download:hover { background: #00000078; }
+.download img { width: 24px; height: 24px; }
+.empty { padding: 96px 24px; text-align: center; }
+.empty h2 { margin: 0 0 16px; font: 400 42px/1 "Cards Hakuna", sans-serif; }
+.empty p { margin: 0 0 28px; }
+.empty button { background: #5a3a00; color: #faf4ea; }
+.overlay { position: fixed; z-index: 100; inset: 0; display: grid; place-items: center; padding: 24px; background: #20291bcc; backdrop-filter: blur(8px); }
+.preview { position: relative; width: min(100%, 560px); padding: 32px; border-radius: 24px; background: #faf4ea; box-shadow: 0 24px 80px #0006; }
+.close { position: absolute; z-index: 2; top: 16px; right: 16px; width: 44px; height: 44px; border: 0; border-radius: 50%; background: #20291b; color: white; font-size: 28px; cursor: pointer; }
+.previewMedia { position: relative; height: 280px; margin-bottom: 28px; overflow: hidden; border-radius: 16px; background: #20291b; }
+.previewMedia > img { width: 100%; height: 100%; object-fit: cover; filter: brightness(.62); }
+.previewIcon { display: block; width: 92px; height: auto; margin-bottom: 28px; }
+.preview h2 { margin: 10px 0 16px; font: 400 34px/1.1 "Cards Hakuna", sans-serif; }
+.preview > p { line-height: 1.6; }
+.prototypeNote { padding-top: 18px; border-top: 1px solid #20291b24; color: #20291ba6; font-size: 14px; }
+@media (max-width: 1050px) {
+  .toolbar { align-items: flex-start; }
+  .controls { max-width: 720px; }
+  .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 720px) {
+  .intro { padding: 72px 20px 88px; }
+  .intro h1 { font-size: 46px; line-height: 1.05; }
+  .catalogue { padding: 0 20px 80px; }
+  .toolbar { display: grid; }
+  .controls { display: grid; width: 100%; }
+  .typeTrigger { width: 100%; justify-content: space-between; }
+  .typeMenu { width: 100%; }
+  .ageFilters { display: grid; grid-template-columns: repeat(2, 1fr); }
+  .clearFilters { width: 100%; justify-content: center; }
+  .count { justify-self: end; }
+  .grid { grid-template-columns: 1fr; gap: 20px; }
+  .card { min-height: 390px; padding: 24px; }
+  .preview { padding: 24px; }
+  .previewMedia { height: 210px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .typeTrigger svg, .thumbnail { transition: none; }
+}

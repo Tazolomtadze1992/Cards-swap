@@ -9,19 +9,20 @@ export function PrototypeSwitcher({ homepage }: { homepage: boolean }) {
   </nav>;
 }
 
-export function SiteHeader({ faqPage = false }: { faqPage?: boolean }) {
+export function SiteHeader({ faqPage = false, glossaryPage = false, resourcesPage = false }: { faqPage?: boolean; glossaryPage?: boolean; resourcesPage?: boolean }) {
+  const innerPage = faqPage || glossaryPage || resourcesPage;
   return <header className={styles.header}>
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img className={styles.logo} src="/assets/homepage/logo.png" width={174} height={29} alt="ბავშვთა ციფრული უსაფრთხოება" />
       <nav className={styles.navigation} aria-label="მთავარი ნავიგაცია">
-        {faqPage && <a href="/prototypes/homepage">მთავარი</a>}
-        <a href={faqPage ? "/prototypes/homepage#homepage-cards" : "#homepage-cards"}>სწავლა და პრაქტიკა</a>
-        <a href={faqPage ? "/prototypes/homepage#card-resources" : "#card-resources"}>რესურსები</a>
-        <span aria-disabled="true" title="მალე">ლექსიკონი</span>
-        {!faqPage && <a href="#card-support">მხარდამჭერი სერვისები</a>}
+        {innerPage && <a href="/prototypes/homepage">მთავარი</a>}
+        <a href={innerPage ? "/prototypes/homepage#homepage-cards" : "#homepage-cards"}>სწავლა და პრაქტიკა</a>
+        <a href="/prototypes/resources" aria-current={resourcesPage ? "page" : undefined}>რესურსები</a>
+        <a href="/prototypes/glossary" aria-current={glossaryPage ? "page" : undefined}>ლექსიკონი</a>
+        {!innerPage && <a href="#card-support">მხარდამჭერი სერვისები</a>}
         <a href="/prototypes/faq" aria-current={faqPage ? "page" : undefined}>ხშირად დასმული კითხვები</a>
       </nav>
-      <a className={styles.contact} href={faqPage ? "/prototypes/homepage#homepage-faq" : "#homepage-faq"}><Phone size={16} aria-hidden="true" />კონტაქტი</a>
+      <a className={styles.contact} href={innerPage ? "/prototypes/homepage#homepage-faq" : "#homepage-faq"}><Phone size={16} aria-hidden="true" />კონტაქტი</a>
     </header>
 }
 
