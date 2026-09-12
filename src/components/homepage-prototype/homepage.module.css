@@ -1,3 +1,9 @@
+@font-face {
+  font-family: "Cards Hakuna";
+  src: url("/fonts/ss-geo-hakuna.otf") format("opentype");
+  font-weight: 400;
+  font-display: swap;
+}
 .switcher { display: flex; justify-content: center; gap: 4px; padding: 8px 16px; background: #faf4ea; border-bottom: 1px solid #00384b18; color: #00384b; font: 500 13px/20px Arial, sans-serif; }
 .switcher a { padding: 8px 18px; border-radius: 999px; text-decoration: none; }
 .switcher a[aria-current="page"] { background: #00384b; color: #fff; }
@@ -8,6 +14,7 @@
 .navigation { display: flex; gap: 24px; align-items: center; font-size: 14px; font-weight: 600; line-height: 20px; }
 .navigation a { text-decoration: none; }
 .navigation a:hover { text-decoration: underline; text-underline-offset: 5px; }
+.navigation a[aria-current="page"] { text-decoration: underline; text-underline-offset: 5px; }
 .navigation span { cursor: default; }
 .contact, .start { display: inline-flex; align-items: center; justify-content: center; gap: 8px; border-radius: 999px; background: #faf4ea; color: #00403a; font-size: 14px; font-weight: 600; line-height: 20px; text-decoration: none; }
 .contact { background: white; padding: 12px 24px; flex: none; }
@@ -20,15 +27,23 @@
 .faq { background: #005c53; color: white; padding: 150px 24px 240px; scroll-margin-top: 24px; }
 .faqIllustration { display: block; width: 220.156px; height: 167.643px; object-fit: contain; margin: 0 auto 88px; }
 .faq h2 { font: 400 68px/1 "Cards Hakuna", sans-serif; margin: 0 auto 88px; text-align: center; }
-.questions { max-width: 909px; margin: auto; display: grid; gap: 16px; }
+.questions, .fullQuestions { margin: auto; display: grid; gap: 16px; }
+.questions { max-width: 909px; }
+.fullQuestions { max-width: 1191px; }
 .question { border-radius: 20px; background: #0003; padding: 0 32px; font-size: 18px; font-weight: 600; line-height: 24px; }
 .question summary { padding: 32px 0; display: flex; justify-content: space-between; gap: 24px; align-items: center; cursor: pointer; list-style: none; }
 .question summary::-webkit-details-marker { display: none; }
 .question[open] summary img { transform: rotate(45deg); }
 .question p { margin: 0; padding-bottom: 32px; max-width: 760px; font-size: 16px; font-weight: 400; line-height: 1.8; color: #f2f2f2; }
 .question img { flex: none; width: 24px; height: 24px; }
-.viewAll { display: flex; align-items: center; justify-content: center; margin: 80px auto 0; border: 0; border-radius: 999px; padding: 16px 32px; background: #0003; color: white; font-size: 14px; font-weight: 600; line-height: 20px; cursor: pointer; }
+.viewAll { display: flex; width: max-content; align-items: center; justify-content: center; margin: 80px auto 0; border: 0; border-radius: 999px; padding: 16px 32px; background: #0003; color: white; font-size: 14px; font-weight: 600; line-height: 20px; text-decoration: none; cursor: pointer; }
 .viewAll:hover { background: #00000040; }
+.faqPage { min-height: 100svh; background: #005c53; color: #faf4ea; overflow: clip; }
+.faqPageContent { width: min(100%, 1239px); margin: 142px auto 0; padding: 0 24px 96px; }
+.faqPageIntro { display: flex; flex-direction: column; align-items: center; gap: 64px; margin-bottom: 120px; }
+.faqPageIllustration { display: block; width: 136.236px; height: 103.739px; object-fit: contain; transform: rotate(2.17deg); }
+.faqPage h1 { margin: 0; color: #e0e0e0; font: 400 64px/1 "Cards Hakuna", sans-serif; text-align: center; }
+.faqPage .question { color: #faf4ea; font-weight: 700; }
 @media (max-width: 1200px) {
   .header { flex-wrap: wrap; }
   .navigation { order: 3; justify-content: center; width: 100%; flex-wrap: wrap; gap: 16px 24px; }
@@ -49,4 +64,8 @@
   .faqIllustration { width: 176px; height: 134px; margin-bottom: 48px; }
   .faq h2 { font-size: 42px; line-height: 1.1; margin-bottom: 40px; }
   .question { padding: 0 32px; font-size: 15px; }
+  .faqPageContent { margin-top: 72px; padding: 0 20px 72px; }
+  .faqPageIntro { gap: 40px; margin-bottom: 56px; }
+  .faqPageIllustration { width: 120px; height: 92px; }
+  .faqPage h1 { font-size: 42px; line-height: 1.1; }
 }

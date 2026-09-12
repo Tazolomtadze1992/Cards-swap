@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useRef, type CSSProperties } from "react";
+import { useRouter } from "next/navigation";
 import { ChevronsRight } from "lucide-react";
 import { DialRoot, useDialKit } from "dialkit";
 import "dialkit/styles.css";
@@ -63,9 +64,11 @@ export function CardDeck({ homepage = false, hoverDuration = 600, returnDuration
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img src={`/assets/cards/${card.id}.svg`} width={card.illustrationWidth} height={card.illustrationHeight} alt="" />
               <h2>{card.label}</h2>
-              <button ref={element => { triggers.current[card.id] = element; }} className={styles.cardTrigger}
-                aria-label={card.label} aria-expanded={selected} aria-controls={`card-action-${card.id}`}
-                onClick={() => { if (selected) close(); else setActive(card.id); }} />
+              {homepage && card.id === "faq" ?
+                <a className={styles.cardTrigger} href="/prototypes/faq" aria-label={card.label} /> :
+                <button ref={element => { triggers.current[card.id] = element; }} className={styles.cardTrigger}
+                  aria-label={card.label} aria-expanded={selected} aria-controls={`card-action-${card.id}`}
+                  onClick={() => { if (selected) close(); else setActive(card.id); }} />}
               <button id={`card-action-${card.id}`} className={styles.cardAction} aria-hidden={!selected} tabIndex={selected ? 0 : -1}
                 onClick={() => onNavigate?.(card.id)}>
                 {actionLabels[card.id]}<ChevronsRight size={18} aria-hidden="true" />
@@ -79,6 +82,7 @@ export function CardDeck({ homepage = false, hoverDuration = 600, returnDuration
 }
 
 export default function CardsPrototype({ homepage = false }: { homepage?: boolean }) {
+  const router = useRouter();
   const showPrototypeSwitcher = process.env.NODE_ENV !== "production";
   const colors = useDialKit("Colors", {
     page: { _collapsed: true, background: "#faf4ea", heading: "#00384B" },
@@ -93,7 +97,7 @@ export default function CardsPrototype({ homepage = false }: { homepage?: boolea
   } as CSSProperties}>
     {showPrototypeSwitcher && <PrototypeSwitcher homepage={homepage} />}
     {homepage && <HomepageHero />}
-    <div id="homepage-cards"><CardDeck homepage={homepage} palette={{ support: colors.services, video: colors.video, resources: colors.resources, faq: colors.faq, quiz: colors.quizzes }} /></div>
+    <div id="homepage-cards"><CardDeck homepage={homepage} onNavigate={id => { if (id === "faq") router.push("/prototypes/faq"); }} palette={{ support: colors.services, video: colors.video, resources: colors.resources, faq: colors.faq, quiz: colors.quizzes }} /></div>
     {homepage && <HomepageFaq />}
     <DialRoot position="bottom-right" theme="dark" productionEnabled />
   </main>;
