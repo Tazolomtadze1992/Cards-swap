@@ -98,7 +98,7 @@ export default function CardsPrototype({ homepage = false }: { homepage?: boolea
   } as CSSProperties}>
     {showPrototypeSwitcher && <PrototypeSwitcher homepage={homepage} />}
     {homepage && <HomepageHero />}
-    <div id="homepage-cards"><CardDeck homepage={homepage} onNavigate={id => { if (id === "faq") router.push("/prototypes/faq"); }} palette={{ support: colors.services, video: colors.video, resources: colors.resources, faq: colors.faq, quiz: colors.quizzes }} /></div>
+    <div id="homepage-cards"><CardDeck homepage={homepage} onNavigate={homepage ? id => { if (id === "faq") router.push("/prototypes/faq"); } : undefined} palette={{ support: colors.services, video: colors.video, resources: colors.resources, faq: colors.faq, quiz: colors.quizzes }} /></div>
     {homepage && <HomepageFaq />}
     <DialRoot position="bottom-right" theme="dark" productionEnabled />
   </main>;
