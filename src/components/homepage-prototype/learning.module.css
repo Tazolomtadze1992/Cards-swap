@@ -5,11 +5,22 @@
 .content h1 { margin:0 0 82px; text-align:center; color:#151515; font:400 64px/1 "Cards Hakuna",sans-serif; }
 .content h1:focus { outline:none; }
 .filters { display:flex; align-items:center; justify-content:space-between; gap:20px; padding-bottom:40px; margin-bottom:40px; border-bottom:1px solid #5a3a001a; }
-.ageFilter { display:flex; align-items:center; gap:8px; border:0; border-radius:32px; background:#5a3a00; color:#faf4ea; padding:12px 16px; min-height:44px; font-family:inherit; font-size:14px; font-weight:700; line-height:20px; cursor:pointer; }
+.controls { display:flex; flex-wrap:wrap; align-items:center; gap:16px; }
+.filter { position:relative; z-index:5; }
+.filterTrigger, .clearFilters { display:flex; align-items:center; justify-content:space-between; gap:8px; min-height:44px; border:0; border-radius:999px; padding:12px 16px; color:#5a3a00; background:#5a3a000d; font-size:14px; font-weight:700; text-transform:uppercase; cursor:pointer; }
+.filterTrigger[data-active="true"] { gap:16px; background:#5a3a00; color:#faf4ea; }
+.filterTrigger svg { flex:none; transition:transform 180ms ease; }
+.filterTrigger[aria-expanded="true"] svg { transform:rotate(180deg); }
+.filterMenu { position:absolute; top:calc(100% + 10px); left:0; width:min(420px,calc(100vw - 40px)); padding:10px; border-radius:18px; background:#fffdf7; box-shadow:0 18px 55px #5a3a0030; }
+.filterMenu label { display:flex; align-items:flex-start; gap:12px; padding:11px 12px; border-radius:10px; cursor:pointer; }
+.filterMenu label:hover { background:#5a3a000d; }
+.filterMenu input { flex:none; width:18px; height:18px; margin-top:1px; accent-color:#5a3a00; }
+.clearFilters { gap:8px; padding-inline:24px; background:#ffcfcf80; color:#cc3033; }
+.clearFilters:disabled { opacity:.36; cursor:default; }
 .filters p { margin:0; font-size:14px; color:#5a3a0066; }
 .filters strong { color:#5a3a00; }
 .grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:32px; }
-.card { display:flex; flex-direction:column; padding:16px 0 0; border:0; border-radius:32px; background:var(--card-color); text-align:left; color:#393939; cursor:pointer; overflow:hidden; }
+.card { display:flex; flex-direction:column; padding:16px 0 0; border:0; border-radius:32px; background:var(--card-color); text-align:left; text-decoration:none; color:#393939; cursor:pointer; overflow:hidden; }
 .cardBody { display:flex; flex:1; flex-direction:column; width:100%; border:8px solid var(--card-color); border-radius:32px; overflow:hidden; background:#fff; }
 .card img { display:block; width:100%; height:auto; aspect-ratio:1.554; object-fit:cover; }
 .cardTitle { display:block; flex:1; padding:24px 20px 40px; font-size:20px; line-height:1.5; font-weight:600; }
@@ -25,7 +36,7 @@
 .switcher button { padding:12px 20px; min-height:44px; border:1px solid #5a3a0030; border-radius:30px; background:transparent; color:#5a3a00; cursor:pointer; }
 .switcher button[aria-pressed="true"] { background:#5a3a00; color:#fdf9ed; }
 .ageDialog { box-sizing:border-box; width:min(1168px,calc(100% - 48px)); max-height:calc(100svh - 48px); border:0; border-radius:56px; padding:72px 80px 80px; background:#fdf9ed; color:#151515; overflow:auto; }
-.ageDialog::backdrop, .topicDialog::backdrop { background:#000c; backdrop-filter:blur(8px); }
+.ageDialog::backdrop { background:#000c; backdrop-filter:blur(8px); }
 .ageDialog h2 { font:400 64px/1.1 "Cards Hakuna",sans-serif; text-align:center; margin:0 0 100px; }
 .ages { display:grid; grid-template-columns:repeat(3,1fr); gap:30px; border:0; padding:0; margin:0; }
 .ageOption { display:grid; position:relative; place-items:center; min-height:206px; border:3px solid transparent; border-radius:32px; background:#5a3a000d; color:#5a3a00; font-size:40px; font-weight:700; cursor:pointer; }
@@ -34,12 +45,8 @@
 .ageNotice { min-height:24px; margin:24px 0 40px; text-align:center; font-size:14px; }
 .continue { display:flex; align-items:center; justify-content:center; gap:12px; margin:auto; width:min(372px,100%); min-height:96px; border:0; border-radius:999px; background:#5ea8ff; color:#fff; font-size:20px; font-weight:600; cursor:pointer; }
 .continue:disabled { opacity:.45; cursor:not-allowed; }
-.topicDialog { box-sizing:border-box; width:min(700px,calc(100% - 32px)); max-height:90svh; padding:32px; border:0; border-radius:32px; background:#fdf9ed; color:#393939; }
-.topicDialog > img { width:100%; height:auto; border-radius:16px; }
-.topicDialog h2 { font:400 32px/1.25 "Cards Hakuna",sans-serif; }
-.topicDialog p { font-size:18px; line-height:1.7; }
-.close { display:flex; align-items:center; justify-content:center; margin:0 0 16px auto; width:44px; height:44px; border:0; border-radius:50%; background:#5a3a000d; cursor:pointer; }
 .srOnly { position:absolute; width:1px; height:1px; padding:0; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; }
 @media(max-width:1050px) { .grid { grid-template-columns:repeat(2,minmax(0,1fr)); } .ageDialog { padding:48px 32px; } .ageDialog h2 { font-size:48px; margin-bottom:56px; } .ageOption { min-height:160px; font-size:32px; } }
 @media(max-width:640px) { .content { padding:64px 20px; } .content h1 { font-size:40px; margin-bottom:48px; } .filters { flex-wrap:wrap; padding-bottom:24px; margin-bottom:24px; } .grid { grid-template-columns:1fr; gap:24px; } .ageDialog { width:calc(100% - 24px); padding:36px 20px; border-radius:32px; } .ageDialog h2 { font-size:38px; margin-bottom:32px; } .ages { gap:10px; } .ageOption { min-height:110px; font-size:26px; border-radius:20px; } .ageNotice { margin:20px 0; } .continue { min-height:68px; font-size:18px; } .switcher > span { width:100%; text-align:center; } }
-.ageDialog, .topicDialog { margin:auto; }
+.ageDialog { margin:auto; }
+@media(prefers-reduced-motion:reduce) { .filterTrigger svg { transition:none; } }
