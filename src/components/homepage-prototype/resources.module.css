@@ -8,7 +8,8 @@
 .controls { display: flex; flex-wrap: wrap; align-items: center; gap: 16px; }
 .filter { position: relative; z-index: 5; }
 .filterTrigger, .clearFilters, .empty button { min-height: 44px; border: 0; border-radius: 999px; padding: 12px 16px; color: #5a3a00; font-size: 14px; font-weight: 700; cursor: pointer; }
-.filterTrigger { display: flex; align-items: center; justify-content: space-between; gap: 16px; min-width: 190px; background: #5a3a00; color: #faf4ea; }
+.filterTrigger { display: flex; align-items: center; justify-content: space-between; gap: 8px; min-width: 190px; background: #5a3a000d; color: #5a3a00; text-transform: uppercase; }
+.filterTrigger[data-active="true"] { gap: 16px; background: #5a3a00; color: #faf4ea; }
 .filterTrigger svg { flex: none; transition: transform 180ms ease; }
 .filterTrigger[aria-expanded="true"] svg { transform: rotate(180deg); }
 .filterMenu { position: absolute; top: calc(100% + 10px); left: 0; min-width: 238px; padding: 10px; border-radius: 18px; background: #fffdf7; box-shadow: 0 18px 55px #5a3a0030; }

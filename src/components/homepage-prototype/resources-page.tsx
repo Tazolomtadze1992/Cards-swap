@@ -43,7 +43,7 @@ export default function ResourcesPagePrototype() {
       <div className={styles.toolbar}>
         <div className={styles.controls} ref={filterRef}>
           <div className={styles.filter}>
-            <button className={styles.filterTrigger} type="button" aria-expanded={openMenu === "type"} aria-controls="resource-type-menu" onClick={() => setOpenMenu(value => value === "type" ? null : "type")}>
+            <button className={styles.filterTrigger} data-active={types.length > 0} type="button" aria-expanded={openMenu === "type"} aria-controls="resource-type-menu" onClick={() => setOpenMenu(value => value === "type" ? null : "type")}>
               {types.length ? `რესურსის ტიპი : ${types.length}` : "ყველა რესურსი"}<ChevronDown size={18} aria-hidden="true" />
             </button>
             {openMenu === "type" && <div className={styles.filterMenu} id="resource-type-menu">
@@ -54,7 +54,7 @@ export default function ResourcesPagePrototype() {
             </div>}
           </div>
           <div className={styles.filter}>
-            <button className={styles.filterTrigger} type="button" aria-expanded={openMenu === "age"} aria-controls="resource-age-menu" onClick={() => setOpenMenu(value => value === "age" ? null : "age")}>
+            <button className={styles.filterTrigger} data-active={age !== "all"} type="button" aria-expanded={openMenu === "age"} aria-controls="resource-age-menu" onClick={() => setOpenMenu(value => value === "age" ? null : "age")}>
               {age === "all" ? "ყველა ასაკი" : `არჩეული ასაკის ჯგუფი : ${age}`}<ChevronDown size={18} aria-hidden="true" />
             </button>
             {openMenu === "age" && <div className={styles.filterMenu} id="resource-age-menu" role="radiogroup" aria-label="ასაკით გაფილტვრა">
