@@ -5,12 +5,6 @@
   font-display: swap;
 }
 .playground { min-height: 100svh; background: var(--page-background, #faf4ea); color: #393939; }
-.toolbar { min-height: 76px; padding: 16px 28px; display: flex; align-items: center; justify-content: space-between; gap: 20px; border-bottom: 1px solid #005c531c; font: 14px/1.4 Arial, sans-serif; }
-.toolbar strong { display: block; font-size: 16px; color: #005c53; }
-.toolbar span { color: #6c6b63; }
-.toolbar nav { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
-.toolbar button, .toolbar a { padding: 12px 16px; border: 0; border-radius: 24px; background: transparent; color: #005c53; cursor: pointer; text-decoration: none; }
-.toolbar button[aria-pressed="true"] { background: #005c53; color: #fff; }
 .design { container-type: inline-size; width: min(100%, 1440px); margin: 0 auto; min-height: min(1017px, 70.625vw); padding-top: 6.67%; overflow: clip; }
 .design h1 { font: 400 4.444cqw/1 "Cards Hakuna", sans-serif; width: 47.64%; margin: 0 auto; color: var(--page-heading, #005c53); text-align: center; }
 .deck { position: relative; container-type: inline-size; width: 77.475%; height: 27.6cqw; margin: 11.11% auto 0; padding: 0; list-style: none; }
@@ -21,13 +15,7 @@
 .card h2 { font: 400 2.51cqw/1 "Cards Hakuna", sans-serif; margin: 0; }
 .card[data-card="video"] h2 { max-width: 16.873cqw; }
 .card[data-card="faq"] h2 { max-width: 14.458cqw; }
-.reference { max-width: 1100px; padding: 48px 24px; margin: auto; font: 16px/1.6 Arial, sans-serif; }
-.reference h1 { font-size: 28px; color: #005c53; }
-.reference video { display: block; width: 100%; border-radius: 16px; background: white; margin: 28px 0; }
-.footer { padding: 20px 24px; text-align: center; color: #6c6b63; font: 14px/1.5 Arial, sans-serif; }
 @media (max-width: 600px) {
-  .toolbar { padding: 16px; flex-direction: column; align-items: flex-start; gap: 12px; }
-  .toolbar button, .toolbar a { padding: 12px; }
   .design { padding: 40px 20px; min-height: 0; }
   .design h1 { width: 100%; font-size: 32px; }
   .deck { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; width: 100%; height: auto; margin-top: 40px; }
@@ -59,9 +47,6 @@
 .slot[data-selected="true"] .card h2 { top: calc(2.868cqw + var(--illustration-height) + 1.6cqw); transform: translateY(0); max-width: none; }
 .slot[data-selected="true"] .cardAction { opacity: 1; visibility: visible; transform: translateY(0); pointer-events: auto; cursor: pointer; transition-delay: 180ms; }
 .design[data-expanded="true"] .card { transform: none; }
-.closeDeck { display: block; position: relative; margin: 14cqw auto 0; border: 1px solid #005c5333; border-radius: 24px; background: transparent; color: #005c53; padding: 10px 20px; min-height: 44px; cursor: pointer; }
-.closeDeck span { margin-left: 12px; font-size: 22px; }
-.notice { max-width: 540px; margin: 16px auto; text-align: center; font-size: 14px; padding: 0 16px; }
 @media (max-width: 600px) {
   .card h2 { top: calc(100% - 18px); left: 18px; right: 18px; }
   .design[data-expanded="true"] .deck { display: block; height: 410px; margin-top: 50px; }
@@ -70,7 +55,6 @@
   .design[data-expanded="true"] .hitArea { height: 240px; }
   .slot[data-selected="true"] .card h2 { top: 90px; font-size: 24px; }
   .cardAction { left: 18px; right: 18px; bottom: 18px; min-height: 40px; font-size: 12px; padding: 8px; }
-  .closeDeck { margin-top: 0; }
 }
 @media (prefers-reduced-motion: reduce) {
   .slot, .hitArea, .card h2, .cardAction { transition: none; }

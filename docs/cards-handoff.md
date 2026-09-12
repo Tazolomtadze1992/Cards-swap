@@ -8,9 +8,9 @@ The resting layout uses the exact exported SVG illustrations, font, colors, labe
 
 Hover retains the approved 600ms entry and return timing, with a 3% lift and 1.03 scale. A stationary rotated hit area prevents edge flicker.
 
-Click enlarges and straightens the selected card at center, moves its title up, and reveals its action. Remaining cards gather underneath at 0.65 scale, retaining their order and a small angle. They slightly overlap the selected card without covering its action. Click another card to switch. Click the active card or background, use the Return control, or press Escape to close. Native buttons support keyboard and touch activation. Reduced-motion settings disable geometric transitions. Mobile uses a compact fixed-size expanded layout and smaller selection row.
+Click enlarges and straightens the selected card at center, moves its title up, and reveals its action. Remaining cards gather underneath at 0.65 scale, retaining their order and a small angle. They slightly overlap the selected card without covering its action. Click another card to switch. Click the active card or background, or press Escape to close. Native buttons support keyboard and touch activation. Reduced-motion settings disable geometric transitions. Mobile uses a compact fixed-size expanded layout and smaller selection row.
 
-The starting click calibration is 650ms, cubic-bezier(0.22, 1, 0.36, 1), with 1.45 enlarged scale; this approximates the recording rather than claiming exact original timing. Interrupted transitions resume from their current values. The new click recording is playable in Motion reference.
+The starting click calibration is 650ms, cubic-bezier(0.22, 1, 0.36, 1), with 1.45 enlarged scale; this approximates the recording rather than claiming exact original timing. Interrupted transitions resume from their current values.
 
 ## Live controls
 
@@ -18,13 +18,13 @@ DialKit controls hover and return duration independently (100–1500ms; default 
 
 ## Developer integration
 
-The preview shell uses Next.js, React, TypeScript and CSS modules. CardDeck uses no Next.js APIs and receives timing, scale and optional onNavigate(categoryId) props. The Laravel host supplies the destination navigation callback. Without a callback, an action displays a clear prototype notice; it does not invent a destination page. Transfer CardDeck, the card data and labels, the CSS module, font and five SVG assets to the Laravel React entry or existing Inertia React page. Adjust asset URLs to the host base path. DialKit belongs to the review wrapper and is not required by CardDeck.
+The preview shell uses Next.js, React, TypeScript and CSS modules. CardDeck uses no Next.js APIs and receives timing, scale and optional onNavigate(categoryId) props. The Laravel host supplies the destination navigation callback. Without a callback, the action remains inert. Transfer CardDeck, the card data and labels, the CSS module, font and five SVG assets to the Laravel React entry or existing Inertia React page. Adjust asset URLs to the host base path. DialKit belongs to the review wrapper and is not required by CardDeck.
 
 The existing local font is used for review; confirm web embedding rights before production delivery. Next steps are visual tuning and real destination wiring.
 
 ## Validation
 
-Production build and TypeScript passed. Browser checks covered opening, switching, action notice, and Escape return. Real-device touch testing remains for final handoff.
+Production build and TypeScript passed. Browser checks covered opening, switching, action activation, and Escape return. Real-device touch testing remains for final handoff.
 
 ## Color review
 

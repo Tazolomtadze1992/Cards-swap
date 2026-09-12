@@ -26,12 +26,10 @@ type DeckProps = { palette?: CardPalette; hoverDuration?: number; returnDuration
 /** Standalone React component; navigation is supplied by the Laravel host. */
 export function CardDeck({ hoverDuration = 600, returnDuration = 600, clickDuration = 650, expandedScale = 1.45, palette, onNavigate }: DeckProps) {
   const [active, setActive] = useState<string | null>(null);
-  const [notice, setNotice] = useState("");
   const triggers = useRef<Record<string, HTMLButtonElement | null>>({});
   const close = () => {
     if (active) triggers.current[active]?.focus({ preventScroll: true });
     setActive(null);
-    setNotice("");
   };
   return <section className={styles.design} data-expanded={!!active} aria-label="ინფორმაციის კატეგორიები"
     onKeyDown={event => { if (event.key === "Escape") close(); }}
@@ -66,9 +64,9 @@ export function CardDeck({ hoverDuration = 600, returnDuration = 600, clickDurat
               <h2>{card.label}</h2>
               <button ref={element => { triggers.current[card.id] = element; }} className={styles.cardTrigger}
                 aria-label={card.label} aria-expanded={selected} aria-controls={`card-action-${card.id}`}
-                onClick={() => { setNotice(""); if (selected) close(); else setActive(card.id); }} />
+                onClick={() => { if (selected) close(); else setActive(card.id); }} />
               <button id={`card-action-${card.id}`} className={styles.cardAction} aria-hidden={!selected} tabIndex={selected ? 0 : -1}
-                onClick={() => { if (onNavigate) onNavigate(card.id); else setNotice("ეს ღილაკი შესაბამის გვერდზე გადავა — ბმულს მოგვიანებით დავამატებთ."); }}>
+                onClick={() => onNavigate?.(card.id)}>
                 {actionLabels[card.id]}<ChevronsRight size={18} aria-hidden="true" />
               </button>
             </article>
@@ -76,13 +74,10 @@ export function CardDeck({ hoverDuration = 600, returnDuration = 600, clickDurat
         </li>;
       })}
     </ul>
-    {active && <button className={styles.closeDeck} onClick={close}>დაბრუნება <span aria-hidden="true">×</span></button>}
-    <p className={styles.notice} role="status">{notice}</p>
   </section>;
 }
 
 export default function CardsPrototype() {
-  const [view, setView] = useState("design");
   const timing = useDialKit("Card hover · milliseconds", {
     hoverDuration: [600, 100, 1500, 10],
     returnDuration: [600, 100, 1500, 10],
@@ -102,21 +97,7 @@ export default function CardsPrototype() {
   return <main className={styles.playground} style={{
     "--page-background": colors.page.background, "--page-heading": colors.page.heading,
   } as CSSProperties}>
-    <header className={styles.toolbar} lang="en">
-      <div><strong>Card playground</strong><span>03 / Click interaction</span></div>
-      <nav aria-label="Playground views">
-        {[["design", "Design"], ["reference", "Motion reference"]].map(([id, label]) =>
-          <button key={id} aria-pressed={view === id} onClick={() => setView(id)}>{label}</button>)}
-        <a href="https://www.figma.com/design/YqyCMj54On5xNGIHkZ1t6k/First-Design-Draft?node-id=396-7803" target="_blank" rel="noreferrer">Figma ↗</a>
-      </nav>
-    </header>
-    {view === "design" ? <CardDeck hoverDuration={timing.hoverDuration} returnDuration={timing.returnDuration} clickDuration={click.duration} expandedScale={click.expandedScale} palette={{ support: colors.services, video: colors.video, resources: colors.resources, faq: colors.faq, quiz: colors.quizzes }} /> : <section className={styles.reference} lang="en">
-      <h1>Interaction reference</h1>
-      <p>Fan → expanded card with a smaller deck below → return to fan.</p>
-      <video controls playsInline preload="metadata" src="/assets/cards/motion-reference.mp4" aria-label="Original card interaction recording" />
-      <p>Click reference: enlarge, gather the remaining cards, and return to the fan.</p>
-    </section>}
-    <footer className={styles.footer} lang="en">Click a card to open it. Click another to switch; click the background or press Escape to return.</footer>
+    <CardDeck hoverDuration={timing.hoverDuration} returnDuration={timing.returnDuration} clickDuration={click.duration} expandedScale={click.expandedScale} palette={{ support: colors.services, video: colors.video, resources: colors.resources, faq: colors.faq, quiz: colors.quizzes }} />
     <DialRoot position="bottom-right" theme="light" productionEnabled />
   </main>;
 }

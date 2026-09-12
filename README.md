@@ -9,7 +9,7 @@ The prototype includes:
 - click-to-expand, card switching, and return interactions;
 - responsive, keyboard, touch, and reduced-motion behavior;
 - DialKit controls for animation timing, expanded scale, and colors; and
-- the supplied motion recording as an in-page reference.
+- a distraction-free review canvas containing only the cards and DialKit.
 
 ## Run locally
 
