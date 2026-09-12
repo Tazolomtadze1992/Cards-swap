@@ -24,7 +24,7 @@ type CardPalette = Partial<Record<(typeof cards)[number]["id"], { background: st
 type DeckProps = { palette?: CardPalette; hoverDuration?: number; returnDuration?: number; clickDuration?: number; expandedScale?: number; onNavigate?: (id: string) => void };
 
 /** Standalone React component; navigation is supplied by the Laravel host. */
-export function CardDeck({ hoverDuration = 600, returnDuration = 600, clickDuration = 650, expandedScale = 1.55, palette, onNavigate }: DeckProps) {
+export function CardDeck({ hoverDuration = 600, returnDuration = 600, clickDuration = 650, expandedScale = 1.45, palette, onNavigate }: DeckProps) {
   const [active, setActive] = useState<string | null>(null);
   const [notice, setNotice] = useState("");
   const triggers = useRef<Record<string, HTMLButtonElement | null>>({});
@@ -89,8 +89,8 @@ export default function CardsPrototype() {
   }, { id: "cards-hover-timing-600", persist: true, defaultCollapsed: true });
   const click = useDialKit("Card click", {
     duration: [650, 200, 1600, 10],
-    expandedScale: [1.55, 1.3, 1.7, 0.05],
-  }, { id: "cards-click-v1", persist: true, defaultCollapsed: true });
+    expandedScale: [1.45, 1.3, 1.7, 0.05],
+  }, { id: "cards-click-v2", persist: true, defaultCollapsed: true });
   const colors = useDialKit("Colors", {
     page: { _collapsed: true, background: "#faf4ea", heading: "#005c53" },
     services: { _collapsed: true, background: cards[0].color, text: cards[0].ink },

@@ -10,11 +10,11 @@ Hover retains the approved 600ms entry and return timing, with a 3% lift and 1.0
 
 Click enlarges and straightens the selected card at center, moves its title up, and reveals its action. Remaining cards gather underneath at 0.65 scale, retaining their order and a small angle. They slightly overlap the selected card without covering its action. Click another card to switch. Click the active card or background, use the Return control, or press Escape to close. Native buttons support keyboard and touch activation. Reduced-motion settings disable geometric transitions. Mobile uses a compact fixed-size expanded layout and smaller selection row.
 
-The starting click calibration is 650ms, cubic-bezier(0.22, 1, 0.36, 1), with 1.55 enlarged scale; this approximates the recording rather than claiming exact original timing. Interrupted transitions resume from their current values. The new click recording is playable in Motion reference.
+The starting click calibration is 650ms, cubic-bezier(0.22, 1, 0.36, 1), with 1.45 enlarged scale; this approximates the recording rather than claiming exact original timing. Interrupted transitions resume from their current values. The new click recording is playable in Motion reference.
 
 ## Live controls
 
-DialKit controls hover and return duration independently (100–1500ms; default 600ms), plus click duration (200–1600ms; default 650ms) and desktop expanded scale (1.3–1.7; default 1.55). Values persist locally. Use Copy parameters to share a chosen setting. The mobile expanded size is constrained for readability and does not use the desktop scale control.
+DialKit controls hover and return duration independently (100–1500ms; default 600ms), plus click duration (200–1600ms; default 650ms) and desktop expanded scale (1.3–1.7; default 1.45). Values persist locally. Use Copy parameters to share a chosen setting. The mobile expanded size is constrained for readability and does not use the desktop scale control.
 
 ## Developer integration
 
