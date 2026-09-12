@@ -90,6 +90,6 @@ export default function CardsPrototype() {
     "--page-background": colors.page.background, "--page-heading": colors.page.heading,
   } as CSSProperties}>
     <CardDeck palette={{ support: colors.services, video: colors.video, resources: colors.resources, faq: colors.faq, quiz: colors.quizzes }} />
-    <DialRoot position="bottom-right" theme="light" productionEnabled />
+    <DialRoot position="bottom-right" theme="dark" productionEnabled />
   </main>;
 }
