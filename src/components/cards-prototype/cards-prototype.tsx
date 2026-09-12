@@ -5,6 +5,7 @@ import { ChevronsRight } from "lucide-react";
 import { DialRoot, useDialKit } from "dialkit";
 import "dialkit/styles.css";
 import styles from "./cards-prototype.module.css";
+import { HomepageHero, HomepageFaq, PrototypeSwitcher } from "../homepage-prototype/homepage-sections";
 
 export const cards = [
   { id: "support", illustrationWidth: 70.938, illustrationHeight: 73.801, label: "სერვისები და დახმარება", color: "#f8ecd7", ink: "#393939", x: 0, y: 5.77, width: 361.575, height: 380.813, angle: -14.6 },
@@ -21,10 +22,10 @@ const actionLabels: Record<string, string> = {
 
 type CardPalette = Partial<Record<(typeof cards)[number]["id"], { background: string; text: string }>>;
 
-type DeckProps = { palette?: CardPalette; hoverDuration?: number; returnDuration?: number; clickDuration?: number; expandedScale?: number; onNavigate?: (id: string) => void };
+type DeckProps = { homepage?: boolean; palette?: CardPalette; hoverDuration?: number; returnDuration?: number; clickDuration?: number; expandedScale?: number; onNavigate?: (id: string) => void };
 
 /** Standalone React component; navigation is supplied by the Laravel host. */
-export function CardDeck({ hoverDuration = 600, returnDuration = 600, clickDuration = 650, expandedScale = 1.45, palette, onNavigate }: DeckProps) {
+export function CardDeck({ homepage = false, hoverDuration = 600, returnDuration = 600, clickDuration = 650, expandedScale = 1.45, palette, onNavigate }: DeckProps) {
   const [active, setActive] = useState<string | null>(null);
   const triggers = useRef<Record<string, HTMLButtonElement | null>>({});
   const close = () => {
@@ -34,7 +35,7 @@ export function CardDeck({ hoverDuration = 600, returnDuration = 600, clickDurat
   return <section className={styles.design} data-expanded={!!active} aria-label="ინფორმაციის კატეგორიები"
     onKeyDown={event => { if (event.key === "Escape") close(); }}
     onClick={event => { if (!(event.target as HTMLElement).closest("[data-card-slot], button")) close(); }}>
-    <h1>ერთი სივრცე ყველა საჭირო ინფორმაციისთვის</h1>
+    {homepage ? <h2 className={styles.sectionHeading}>ერთი სივრცე ყველა საჭირო ინფორმაციისთვის</h2> : <h1>ერთი სივრცე ყველა საჭირო ინფორმაციისთვის</h1>}
     <ul className={styles.deck}>
       {cards.map((card, index) => {
         const selected = active === card.id;
@@ -43,7 +44,7 @@ export function CardDeck({ hoverDuration = 600, returnDuration = 600, clickDurat
         const centerY = card.y + card.height / 2;
         const targetX = selected ? 557.821 : 407.821 + smallIndex * 100;
         const targetY = selected ? 135 : 135 + 317.76 * expandedScale / 2 + 83;
-        return <li key={card.id} className={styles.slot} data-card-slot data-selected={selected} data-small={!!active && !selected} style={{
+        return <li key={card.id} id={`card-${card.id}`} className={styles.slot} data-card-slot data-selected={selected} data-small={!!active && !selected} style={{
           "--x": `${card.x / 11.15642}%`, "--y": `${card.y / 11.15642}cqw`,
           "--w": `${card.width / 11.15642}%`, "--h": `${card.height / 11.15642}cqw`,
           "--illustration-width": `${card.illustrationWidth / 11.15642}cqw`, "--illustration-height": `${card.illustrationHeight / 11.15642}cqw`,
@@ -77,7 +78,7 @@ export function CardDeck({ hoverDuration = 600, returnDuration = 600, clickDurat
   </section>;
 }
 
-export default function CardsPrototype() {
+export default function CardsPrototype({ homepage = false }: { homepage?: boolean }) {
   const colors = useDialKit("Colors", {
     page: { _collapsed: true, background: "#faf4ea", heading: "#00384B" },
     services: { _collapsed: true, background: cards[0].color, text: cards[0].ink },
@@ -89,7 +90,10 @@ export default function CardsPrototype() {
   return <main className={styles.playground} style={{
     "--page-background": colors.page.background, "--page-heading": colors.page.heading,
   } as CSSProperties}>
-    <CardDeck palette={{ support: colors.services, video: colors.video, resources: colors.resources, faq: colors.faq, quiz: colors.quizzes }} />
+    <PrototypeSwitcher homepage={homepage} />
+    {homepage && <HomepageHero />}
+    <div id="homepage-cards"><CardDeck homepage={homepage} palette={{ support: colors.services, video: colors.video, resources: colors.resources, faq: colors.faq, quiz: colors.quizzes }} /></div>
+    {homepage && <HomepageFaq />}
     <DialRoot position="bottom-right" theme="dark" productionEnabled />
   </main>;
 }
