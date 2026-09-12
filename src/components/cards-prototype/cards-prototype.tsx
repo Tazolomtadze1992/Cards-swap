@@ -9,7 +9,7 @@ import styles from "./cards-prototype.module.css";
 export const cards = [
   { id: "support", illustrationWidth: 70.938, illustrationHeight: 73.801, label: "სერვისები და დახმარება", color: "#f8ecd7", ink: "#393939", x: 0, y: 5.77, width: 361.575, height: 380.813, angle: -14.6 },
   { id: "video", illustrationWidth: 98.879, illustrationHeight: 67.613, label: "ვიდეო ბიბლიოთეკა", color: "#ff8361", ink: "#301912", x: 203.6, y: 41.23, width: 333.255, height: 356.023, angle: -8.21 },
-  { id: "resources", illustrationWidth: 92.197, illustrationHeight: 80.192, label: "რესურსები", color: "#0093d9", ink: "#ffffff", x: 394.63, y: 0, width: 306.458, height: 331.956, angle: -2.88 },
+  { id: "resources", illustrationWidth: 92.197, illustrationHeight: 80.192, label: "რესურსები", color: "#5EA8FF", ink: "#ffffff", x: 394.63, y: 0, width: 306.458, height: 331.956, angle: -2.88 },
   { id: "faq", illustrationWidth: 79.501, illustrationHeight: 60.537, label: "ხშირად დასმული კითხვები", color: "#dddd62", ink: "#331a13", x: 584.27, y: 54.3, width: 302.694, height: 328.538, angle: 2.17 },
   { id: "quiz", illustrationWidth: 96.001, illustrationHeight: 85.191, label: "ქვიზები და სცენარები", color: "#a5d089", ink: "#393939", x: 755.99, y: 6.01, width: 359.652, height: 379.156, angle: 14.13 },
 ] as const;
@@ -85,7 +85,7 @@ export default function CardsPrototype() {
     resources: { _collapsed: true, background: cards[2].color, text: cards[2].ink },
     faq: { _collapsed: true, background: cards[3].color, text: cards[3].ink },
     quizzes: { _collapsed: true, background: cards[4].color, text: cards[4].ink },
-  }, { id: "cards-colors-v1", persist: true });
+  }, { id: "cards-colors-v2", persist: true });
   return <main className={styles.playground} style={{
     "--page-background": colors.page.background, "--page-heading": colors.page.heading,
   } as CSSProperties}>
