@@ -18,12 +18,10 @@
 .start:hover, .contact:hover { background: #eee3d2; }
 .heroPerson { position: absolute; width: 273px; height: 240px; object-fit: contain; bottom: 0; right: max(3.49%, calc((100% - 1340px) / 2)); }
 .faq { background: #005c53; color: white; padding: 150px 24px 240px; scroll-margin-top: 24px; }
-.questionArt { position: relative; width: 241px; height: 281px; margin: 0 auto 88px; }
-.questionPerson { position: absolute; width: 206px; height: 206px; left: 0; top: 75px; }
-.questionMark { position: absolute; width: 71.099px; height: 102.502px; right: 0; top: 0; }
+.faqIllustration { display: block; width: 220.156px; height: 167.643px; object-fit: contain; margin: 0 auto 88px; }
 .faq h2 { font: 400 68px/1 "Cards Hakuna", sans-serif; margin: 0 auto 88px; text-align: center; }
 .questions { max-width: 909px; margin: auto; display: grid; gap: 16px; }
-.question { border-radius: 20px; background: #ffffff0d; padding: 0 24px; font-size: 18px; font-weight: 600; line-height: 24px; }
+.question { border-radius: 20px; background: #0003; padding: 0 32px; font-size: 18px; font-weight: 600; line-height: 24px; }
 .question summary { padding: 32px 0; display: flex; justify-content: space-between; gap: 24px; align-items: center; cursor: pointer; list-style: none; }
 .question summary::-webkit-details-marker { display: none; }
 .question[open] summary img { transform: rotate(45deg); }
@@ -46,10 +44,7 @@
   .start { margin-top: 36px; }
   .heroPerson { width: 180px; height: 158px; right: 20px; }
   .faq { padding: 72px 20px 100px; }
-  .questionArt { margin-bottom: 48px; transform: scale(.8); transform-origin: bottom center; height: 240px; }
-  .questionPerson { top: 34px; }
-  .questionMark { top: -41px; }
+  .faqIllustration { width: 176px; height: 134px; margin-bottom: 48px; }
   .faq h2 { font-size: 42px; line-height: 1.1; margin-bottom: 40px; }
-  .question { padding: 0 20px; font-size: 15px; }
-  .question summary { padding: 24px 0; }
+  .question { padding: 0 32px; font-size: 15px; }
 }

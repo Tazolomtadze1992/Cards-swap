@@ -44,12 +44,8 @@ const answers = [
 
 export function HomepageFaq() {
   return <section className={styles.faq} id="homepage-faq" aria-labelledby="faq-heading">
-    <div className={styles.questionArt} aria-hidden="true">
-      {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img src="/assets/homepage/question-person.svg" className={styles.questionPerson} width={206} height={206} alt="" />
-      {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img src="/assets/homepage/question-mark.svg" className={styles.questionMark} width={71} height={103} alt="" />
-    </div>
+    {/* eslint-disable-next-line @next/next/no-img-element */}
+    <img src="/assets/cards/faq.svg" className={styles.faqIllustration} width={220.156} height={167.643} alt="" />
     <h2 id="faq-heading">ხშირად დასმული კითხვები</h2>
     <div className={styles.questions}>
       {questions.map((question, index) => <details className={styles.question} key={index} name="homepage-faq">
