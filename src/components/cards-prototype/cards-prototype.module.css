@@ -6,7 +6,7 @@
 }
 .playground { min-height: 100svh; background: var(--page-background, #faf4ea); color: #393939; }
 .design { container-type: inline-size; width: min(100%, 1440px); margin: 0 auto; min-height: min(1017px, 70.625vw); padding-top: 6.67%; overflow: clip; }
-.design h1 { font: 400 4.444cqw/1 "Cards Hakuna", sans-serif; width: 47.64%; margin: 0 auto; color: var(--page-heading, #005c53); text-align: center; }
+.design h1 { font: 400 4.444cqw/1 "Cards Hakuna", sans-serif; width: 47.64%; margin: 0 auto; color: var(--page-heading, #00384B); text-align: center; }
 .deck { position: relative; container-type: inline-size; width: 77.475%; height: 27.6cqw; margin: 11.11% auto 0; padding: 0; list-style: none; }
 .slot { pointer-events: none; position: absolute; left: var(--x); top: var(--y); width: var(--w); height: var(--h); display: flex; align-items: center; justify-content: center; }
 .hitArea { flex: none; width: 26.073cqw; height: 28.482cqw; transform: rotate(var(--angle)); pointer-events: auto; }

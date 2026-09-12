@@ -79,13 +79,13 @@ export function CardDeck({ hoverDuration = 600, returnDuration = 600, clickDurat
 
 export default function CardsPrototype() {
   const colors = useDialKit("Colors", {
-    page: { _collapsed: true, background: "#faf4ea", heading: "#005c53" },
+    page: { _collapsed: true, background: "#faf4ea", heading: "#00384B" },
     services: { _collapsed: true, background: cards[0].color, text: cards[0].ink },
     video: { _collapsed: true, background: cards[1].color, text: cards[1].ink },
     resources: { _collapsed: true, background: cards[2].color, text: cards[2].ink },
     faq: { _collapsed: true, background: cards[3].color, text: cards[3].ink },
     quizzes: { _collapsed: true, background: cards[4].color, text: cards[4].ink },
-  }, { id: "cards-colors-v2", persist: true });
+  }, { id: "cards-colors-v3", persist: true });
   return <main className={styles.playground} style={{
     "--page-background": colors.page.background, "--page-heading": colors.page.heading,
   } as CSSProperties}>
