@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useRef, useState, type CSSProperties } from "react";
 import { ChevronDown, ChevronsRight } from "lucide-react";
@@ -83,10 +82,6 @@ export default function LearningPage() {
           </div>
           <button className={styles.filterTrigger} data-active={Boolean(age)} type="button" onClick={() => setChoosingAge(true)}>
             {age ? `${age} ასაკის ჯგუფი` : "ყველა ასაკი"}<ChevronDown size={18} aria-hidden="true" />
-          </button>
-          <button className={styles.clearFilters} type="button" disabled={!selectedThemes.length && !age} onClick={() => { setSelectedThemes([]); setAge(""); setChoosingAge(true); }}>
-            ფილტრების გასუფთავება
-            <Image src="/assets/resources/reset.svg" width={16} height={16} alt="" />
           </button>
         </div>
         <p aria-live="polite">ნაჩვენებია : <strong>{filteredTopics.length} თემა</strong></p>
