@@ -6,7 +6,7 @@ Source: Figma `YqyCMj54On5xNGIHkZ1t6k`, node `396:7780`.
 
 Hero and FAQ artwork are exact downloaded Figma exports in `public/assets/homepage`. Layout uses CSS modules, with the desktop design adapted to a narrow screen layout. No extra runtime dependencies were added.
 
-The FAQ reuses the card deck's `public/assets/cards/faq.svg` illustration at the Figma-specified `220.156 × 167.643px` desktop size. FAQ rows use 20% black backgrounds and 32px padding on every side.
+The FAQ reuses the card deck's `public/assets/cards/faq.svg` illustration at the Figma-specified `220.156 × 167.643px` desktop size. FAQ rows use 20% black backgrounds and 32px padding on every side. The `ყველას ნახვა` review button follows the rows with the Figma-specified 20% black pill, 32px horizontal padding and 16px vertical padding; its final navigation destination still needs to be supplied.
 
 FAQ answers are temporary Georgian review copy approved for this prototype, not final editorial content. The repeated final FAQ title matches Figma. Native details/summary provides keyboard-operable, single-open accordions. Navigation targets the available page sections; the glossary label is inactive because no glossary design is part of this homepage. Contact currently points to the support-related FAQ; wire the final contact destination when supplied. Existing card action destinations still belong to the Laravel host via `onNavigate`.
 

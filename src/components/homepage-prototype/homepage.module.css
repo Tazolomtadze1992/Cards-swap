@@ -27,6 +27,8 @@
 .question[open] summary img { transform: rotate(45deg); }
 .question p { margin: 0; padding-bottom: 32px; max-width: 760px; font-size: 16px; font-weight: 400; line-height: 1.8; color: #f2f2f2; }
 .question img { flex: none; width: 24px; height: 24px; }
+.viewAll { display: flex; align-items: center; justify-content: center; margin: 80px auto 0; border: 0; border-radius: 999px; padding: 16px 32px; background: #0003; color: white; font-size: 14px; font-weight: 600; line-height: 20px; cursor: pointer; }
+.viewAll:hover { background: #00000040; }
 @media (max-width: 1200px) {
   .header { flex-wrap: wrap; }
   .navigation { order: 3; justify-content: center; width: 100%; flex-wrap: wrap; gap: 16px 24px; }

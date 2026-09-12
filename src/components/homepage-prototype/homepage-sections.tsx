@@ -57,5 +57,6 @@ export function HomepageFaq() {
         <p>{answers[index]}</p>
       </details>)}
     </div>
+    <button className={styles.viewAll} type="button">ყველას ნახვა</button>
   </section>;
 }
