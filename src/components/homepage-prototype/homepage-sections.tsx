@@ -9,8 +9,8 @@ export function PrototypeSwitcher({ homepage }: { homepage: boolean }) {
   </nav>;
 }
 
-export function SiteHeader({ faqPage = false, glossaryPage = false, resourcesPage = false }: { faqPage?: boolean; glossaryPage?: boolean; resourcesPage?: boolean }) {
-  const innerPage = faqPage || glossaryPage || resourcesPage;
+export function SiteHeader({ faqPage = false, glossaryPage = false, resourcesPage = false, articlesPage = false }: { faqPage?: boolean; glossaryPage?: boolean; resourcesPage?: boolean; articlesPage?: boolean }) {
+  const innerPage = faqPage || glossaryPage || resourcesPage || articlesPage;
   return <header className={styles.header}>
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img className={styles.logo} src="/assets/homepage/logo.png" width={174} height={29} alt="ბავშვთა ციფრული უსაფრთხოება" />

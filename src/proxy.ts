@@ -55,5 +55,6 @@ export const config = {
     "/prototypes/faq/:path*",
     "/prototypes/glossary/:path*",
     "/prototypes/resources/:path*",
+    "/prototypes/articles/:path*",
   ],
 };

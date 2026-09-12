@@ -1,13 +1,16 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect, useRef, useState, type CSSProperties } from "react";
+import { useRouter } from "next/navigation";
+import { useEffect, useRef, useState } from "react";
 import { ChevronDown } from "lucide-react";
 import { SiteHeader } from "./homepage-sections";
+import { ResourceCard } from "./resource-card";
 import { ageGroups, resources, resourceTypes, type AgeGroup, type ResourceItem, type ResourceType } from "./resources-data";
 import styles from "./resources.module.css";
 
 export default function ResourcesPagePrototype() {
+  const router = useRouter();
   const [types, setTypes] = useState<ResourceType[]>([]);
   const [age, setAge] = useState<AgeGroup | "all">("all");
   const [openMenu, setOpenMenu] = useState<"type" | "age" | null>(null);
@@ -35,6 +38,10 @@ export default function ResourcesPagePrototype() {
 
   const clear = () => { setTypes([]); setAge("all"); setOpenMenu(null); };
   const showPreview = (item: ResourceItem, trigger: HTMLButtonElement) => { returnFocusRef.current = trigger; setPreview(item); };
+  const openResource = (item: ResourceItem, trigger: HTMLButtonElement) => {
+    if (item.type === "სტატია") { router.push("/prototypes/articles"); return; }
+    showPreview(item, trigger);
+  };
   const closePreview = () => setPreview(null);
   return <main className={styles.page}>
     <SiteHeader resourcesPage />
@@ -77,23 +84,7 @@ export default function ResourcesPagePrototype() {
       </div>
       <div className={styles.divider} />
       {filtered.length ? <div className={styles.grid}>
-        {filtered.map(item => <article className={styles.card} key={item.id} style={{ "--card-color": item.color } as CSSProperties}>
-          {item.video ? <>
-            <div className={styles.videoMeta}>
-              <span className={styles.durationPill}>{item.duration}</span>
-              <span className={styles.agePill}>{item.age}</span>
-            </div>
-            <button className={styles.videoPreview} type="button" aria-label={`${item.title} — ვიდეოს ნახვა`} onClick={event => showPreview(item, event.currentTarget)}>
-              <Image className={styles.thumbnail} src={`/assets/resources/${item.image}`} width={756} height={504} alt="" />
-              <span className={styles.play}><Image src="/assets/resources/play.svg" width={24} height={24} alt="" /></span>
-            </button>
-          </> : <div className={styles.cardTop}>
-            <Image className={styles.documentIcon} src={`/assets/resources/${item.image}`} width={92} height={80} alt="" />
-            <span className={styles.agePill}>{item.age}</span>
-          </div>}
-          {item.video ? <div className={styles.videoCopy}><h2>{item.title}</h2><p>{item.description}</p></div> : <div className={styles.copy}><h2>{item.title}</h2><p>{item.description}</p></div>}
-          {!item.video && <button className={styles.download} type="button" onClick={event => showPreview(item, event.currentTarget)}>{item.type === "დოკუმენტი" ? "დოკუმენტის გადმოწერა" : "რესურსის ნახვა"}{item.type === "დოკუმენტი" && <Image src="/assets/resources/download.svg" width={24} height={24} alt="" />}</button>}
-        </article>)}
+        {filtered.map(item => <ResourceCard item={item} key={item.id} onOpen={openResource} />)}
       </div> : <div className={styles.empty}><h2>რესურსი ვერ მოიძებნა</h2><p>სცადე სხვა ტიპი ან ასაკობრივი ჯგუფი.</p><button type="button" onClick={clear}>ფილტრების გასუფთავება</button></div>}
     </section>
     {preview && <div className={styles.overlay} role="presentation" onPointerDown={event => { if (event.target === event.currentTarget) closePreview(); }}>
