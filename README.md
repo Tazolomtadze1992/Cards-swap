@@ -1,36 +1,39 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Cards Swap prototype
 
-## Getting Started
+Interactive React prototype for the Digital Child Safety Hub card deck.
 
-First, run the development server:
+The prototype includes:
+
+- five illustrated category cards based on the supplied Figma designs;
+- a 600ms lift-and-scale hover treatment;
+- click-to-expand, card switching, and return interactions;
+- responsive, keyboard, touch, and reduced-motion behavior;
+- DialKit controls for animation timing, expanded scale, and colors; and
+- the supplied motion recording as an in-page reference.
+
+## Run locally
+
+This project uses Node.js and pnpm.
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
+pnpm install
 pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000). The dedicated review route is also available at `/prototypes/cards`.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Review and developer handoff
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Use the DialKit panel in the lower-right corner to test values. Settings are saved in the current browser, and **Copy parameters** produces values that can be shared back with the team.
 
-## Learn More
+The reusable `CardDeck` component uses plain React and CSS. A Laravel application can mount it through an existing React or Inertia entry point. See [docs/cards-handoff.md](docs/cards-handoff.md) for behavior, integration notes, current values, and remaining production decisions.
 
-To learn more about Next.js, take a look at the following resources:
+## Main stack
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- Next.js 16
+- React 19 and TypeScript
+- CSS Modules
+- DialKit
+- Lucide React
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Run `pnpm build` to verify a production build.

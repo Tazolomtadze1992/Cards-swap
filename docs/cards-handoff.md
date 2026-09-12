@@ -1,0 +1,31 @@
+# Card prototype — stage 03
+
+Review route: `/prototypes/cards`.
+
+## Design and behavior
+
+The resting layout uses the exact exported SVG illustrations, font, colors, labels, and rotations from Figma node `396:7803`. Expanded card treatment follows node `604:1893`: title moves beneath the illustration and a rounded, translucent action button appears near the bottom. The mockup pairs a puzzle illustration with FAQ text; the implementation intentionally preserves the correct category labels across all five cards. Button labels other than the supplied FAQ label are provisional.
+
+Hover retains the approved 600ms entry and return timing, with a 3% lift and 1.03 scale. A stationary rotated hit area prevents edge flicker.
+
+Click enlarges and straightens the selected card at center, moves its title up, and reveals its action. Remaining cards gather underneath at 0.65 scale, retaining their order and a small angle. They slightly overlap the selected card without covering its action. Click another card to switch. Click the active card or background, use the Return control, or press Escape to close. Native buttons support keyboard and touch activation. Reduced-motion settings disable geometric transitions. Mobile uses a compact fixed-size expanded layout and smaller selection row.
+
+The starting click calibration is 650ms, cubic-bezier(0.22, 1, 0.36, 1), with 1.55 enlarged scale; this approximates the recording rather than claiming exact original timing. Interrupted transitions resume from their current values. The new click recording is playable in Motion reference.
+
+## Live controls
+
+DialKit controls hover and return duration independently (100–1500ms; default 600ms), plus click duration (200–1600ms; default 650ms) and desktop expanded scale (1.3–1.7; default 1.55). Values persist locally. Use Copy parameters to share a chosen setting. The mobile expanded size is constrained for readability and does not use the desktop scale control.
+
+## Developer integration
+
+The preview shell uses Next.js, React, TypeScript and CSS modules. CardDeck uses no Next.js APIs and receives timing, scale and optional onNavigate(categoryId) props. The Laravel host supplies the destination navigation callback. Without a callback, an action displays a clear prototype notice; it does not invent a destination page. Transfer CardDeck, the card data and labels, the CSS module, font and five SVG assets to the Laravel React entry or existing Inertia React page. Adjust asset URLs to the host base path. DialKit belongs to the review wrapper and is not required by CardDeck.
+
+The existing local font is used for review; confirm web embedding rights before production delivery. Next steps are visual tuning and real destination wiring.
+
+## Validation
+
+Production build and TypeScript passed. Browser checks covered opening, switching, action notice, and Escape return. Real-device touch testing remains for final handoff.
+
+## Color review
+
+The Colors panel groups page background/heading and background/text controls for each category. Defaults come from the current Figma palette. Card colors apply consistently to resting, hovering, expanded and small-deck states; the translucent action background follows its card and its text/chevrons inherit the text color. SVG illustration colors remain as supplied. Colors persist on each reviewer’s browser under `cards-colors-v1`; DialKit versions and Copy parameters allow comparison and sharing. CardDeck accepts an optional palette prop independently of DialKit.
