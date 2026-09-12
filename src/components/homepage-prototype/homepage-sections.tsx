@@ -9,14 +9,14 @@ export function PrototypeSwitcher({ homepage }: { homepage: boolean }) {
   </nav>;
 }
 
-export function SiteHeader({ faqPage = false, glossaryPage = false, resourcesPage = false, articlesPage = false }: { faqPage?: boolean; glossaryPage?: boolean; resourcesPage?: boolean; articlesPage?: boolean }) {
-  const innerPage = faqPage || glossaryPage || resourcesPage || articlesPage;
+export function SiteHeader({ faqPage = false, glossaryPage = false, resourcesPage = false, articlesPage = false, learningPage = false }: { faqPage?: boolean; glossaryPage?: boolean; resourcesPage?: boolean; articlesPage?: boolean; learningPage?: boolean }) {
+  const innerPage = faqPage || glossaryPage || resourcesPage || articlesPage || learningPage;
   return <header className={styles.header}>
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img className={styles.logo} src="/assets/homepage/logo.png" width={174} height={29} alt="ბავშვთა ციფრული უსაფრთხოება" />
       <nav className={styles.navigation} aria-label="მთავარი ნავიგაცია">
         {innerPage && <a href="/prototypes/homepage">მთავარი</a>}
-        <a href={innerPage ? "/prototypes/homepage#homepage-cards" : "#homepage-cards"}>სწავლა და პრაქტიკა</a>
+        <a href="/prototypes/learning" aria-current={learningPage ? "page" : undefined}>სწავლა და პრაქტიკა</a>
         <a href="/prototypes/resources" aria-current={resourcesPage ? "page" : undefined}>რესურსები</a>
         <a href="/prototypes/glossary" aria-current={glossaryPage ? "page" : undefined}>ლექსიკონი</a>
         {!innerPage && <a href="#card-support">მხარდამჭერი სერვისები</a>}
@@ -32,7 +32,7 @@ export function HomepageHero() {
     <div className={styles.heroContent}>
       <h1 id="hero-heading">გაიგე მეტი, ივარჯიშე, იპოვე დახმარება.</h1>
       <p>გაიგე, როგორ დაიცვა თავი ონლაინ, ივარჯიშე რეალურ სიტუაციებში და საჭიროებისას იპოვე სანდო დახმარება.</p>
-      <a className={styles.start} href="#homepage-cards">სწავლის დაწყება</a>
+      <a className={styles.start} href="/prototypes/learning">სწავლის დაწყება</a>
     </div>
     {/* eslint-disable-next-line @next/next/no-img-element */}
     <img className={styles.heroPerson} src="/assets/homepage/hero-person.svg" width={273} height={240} alt="" />
