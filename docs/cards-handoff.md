@@ -12,9 +12,9 @@ Click enlarges and straightens the selected card at center, moves its title up, 
 
 The starting click calibration is 650ms, cubic-bezier(0.22, 1, 0.36, 1), with 1.45 enlarged scale; this approximates the recording rather than claiming exact original timing. Interrupted transitions resume from their current values.
 
-## Live controls
+## Approved motion values
 
-DialKit controls hover and return duration independently (100–1500ms; default 600ms), plus click duration (200–1600ms; default 650ms) and desktop expanded scale (1.3–1.7; default 1.45). Values persist locally. Use Copy parameters to share a chosen setting. The mobile expanded size is constrained for readability and does not use the desktop scale control.
+The live prototype fixes hover and return duration at 600ms, click duration at 650ms, and desktop expanded scale at 1.45. `CardDeck` still accepts these as props for developer integration, but the reviewer-facing DialKit does not expose them. The mobile expanded size is constrained independently for readability.
 
 ## Developer integration
 
@@ -28,4 +28,4 @@ Production build and TypeScript passed. Browser checks covered opening, switchin
 
 ## Color review
 
-The Colors panel groups page background/heading and background/text controls for each category. Defaults come from the current Figma palette. Card colors apply consistently to resting, hovering, expanded and small-deck states; the translucent action background follows its card and its text/chevrons inherit the text color. SVG illustration colors remain as supplied. Colors persist on each reviewer’s browser under `cards-colors-v1`; DialKit versions and Copy parameters allow comparison and sharing. CardDeck accepts an optional palette prop independently of DialKit.
+Colors is the only reviewer-facing DialKit panel. It groups page background/heading and background/text controls for each category. Defaults come from the current Figma palette. Card colors apply consistently to resting, hovering, expanded and small-deck states; the translucent action background follows its card and its text/chevrons inherit the text color. SVG illustration colors remain as supplied. Colors persist on each reviewer’s browser under `cards-colors-v1`; DialKit versions and Copy parameters allow comparison and sharing. CardDeck accepts an optional palette prop independently of DialKit.

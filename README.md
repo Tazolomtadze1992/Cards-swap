@@ -8,7 +8,7 @@ The prototype includes:
 - a 600ms lift-and-scale hover treatment;
 - click-to-expand, card switching, and return interactions;
 - responsive, keyboard, touch, and reduced-motion behavior;
-- DialKit controls for animation timing, expanded scale, and colors; and
+- DialKit color controls for the page and cards; and
 - a distraction-free review canvas containing only the cards and DialKit.
 
 ## Run locally
@@ -24,7 +24,7 @@ Open [http://localhost:3000](http://localhost:3000). The dedicated review route 
 
 ## Review and developer handoff
 
-Use the DialKit panel in the lower-right corner to test values. Settings are saved in the current browser, and **Copy parameters** produces values that can be shared back with the team.
+Use the DialKit panel in the lower-right corner to test colors. Settings are saved in the current browser, and **Copy parameters** produces values that can be shared back with the team. Motion settings are fixed to the approved values so reviewers only see relevant controls.
 
 The reusable `CardDeck` component uses plain React and CSS. A Laravel application can mount it through an existing React or Inertia entry point. See [docs/cards-handoff.md](docs/cards-handoff.md) for behavior, integration notes, current values, and remaining production decisions.
 

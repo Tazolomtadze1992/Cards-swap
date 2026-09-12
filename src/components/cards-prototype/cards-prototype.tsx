@@ -78,14 +78,6 @@ export function CardDeck({ hoverDuration = 600, returnDuration = 600, clickDurat
 }
 
 export default function CardsPrototype() {
-  const timing = useDialKit("Card hover · milliseconds", {
-    hoverDuration: [600, 100, 1500, 10],
-    returnDuration: [600, 100, 1500, 10],
-  }, { id: "cards-hover-timing-600", persist: true, defaultCollapsed: true });
-  const click = useDialKit("Card click", {
-    duration: [650, 200, 1600, 10],
-    expandedScale: [1.45, 1.3, 1.7, 0.05],
-  }, { id: "cards-click-v2", persist: true, defaultCollapsed: true });
   const colors = useDialKit("Colors", {
     page: { _collapsed: true, background: "#faf4ea", heading: "#005c53" },
     services: { _collapsed: true, background: cards[0].color, text: cards[0].ink },
@@ -97,7 +89,7 @@ export default function CardsPrototype() {
   return <main className={styles.playground} style={{
     "--page-background": colors.page.background, "--page-heading": colors.page.heading,
   } as CSSProperties}>
-    <CardDeck hoverDuration={timing.hoverDuration} returnDuration={timing.returnDuration} clickDuration={click.duration} expandedScale={click.expandedScale} palette={{ support: colors.services, video: colors.video, resources: colors.resources, faq: colors.faq, quiz: colors.quizzes }} />
+    <CardDeck palette={{ support: colors.services, video: colors.video, resources: colors.resources, faq: colors.faq, quiz: colors.quizzes }} />
     <DialRoot position="bottom-right" theme="light" productionEnabled />
   </main>;
 }
