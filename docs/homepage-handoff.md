@@ -2,7 +2,7 @@
 
 Source: Figma `YqyCMj54On5xNGIHkZ1t6k`, node `396:7780`.
 
-`/prototypes/homepage` adds the original hero and FAQ around the shared `CardDeck`. `/` and `/prototypes/cards` retain the standalone cards playground. A top navigation switches between the two views. Both use the existing persisted Colors panel, dark theme, approved heading/resources colors, 600ms hover and 1.45 expanded scale.
+`/prototypes/homepage` adds the original hero and FAQ around the shared `CardDeck`. `/` and `/prototypes/cards` retain the standalone cards playground. A top navigation switches between the two views during local development. It is hidden in production so people using the shared live cards link see only the cards prototype and its DialKit color controls. The homepage remains available by its direct route. Both use the existing persisted Colors panel, dark theme, approved heading/resources colors, 600ms hover and 1.45 expanded scale.
 
 Hero and FAQ artwork are exact downloaded Figma exports in `public/assets/homepage`. Layout uses CSS modules, with the desktop design adapted to a narrow screen layout. No extra runtime dependencies were added.
 

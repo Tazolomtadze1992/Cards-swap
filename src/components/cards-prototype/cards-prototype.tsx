@@ -79,6 +79,7 @@ export function CardDeck({ homepage = false, hoverDuration = 600, returnDuration
 }
 
 export default function CardsPrototype({ homepage = false }: { homepage?: boolean }) {
+  const showPrototypeSwitcher = process.env.NODE_ENV !== "production";
   const colors = useDialKit("Colors", {
     page: { _collapsed: true, background: "#faf4ea", heading: "#00384B" },
     services: { _collapsed: true, background: cards[0].color, text: cards[0].ink },
@@ -90,7 +91,7 @@ export default function CardsPrototype({ homepage = false }: { homepage?: boolea
   return <main className={styles.playground} style={{
     "--page-background": colors.page.background, "--page-heading": colors.page.heading,
   } as CSSProperties}>
-    <PrototypeSwitcher homepage={homepage} />
+    {showPrototypeSwitcher && <PrototypeSwitcher homepage={homepage} />}
     {homepage && <HomepageHero />}
     <div id="homepage-cards"><CardDeck homepage={homepage} palette={{ support: colors.services, video: colors.video, resources: colors.resources, faq: colors.faq, quiz: colors.quizzes }} /></div>
     {homepage && <HomepageFaq />}
