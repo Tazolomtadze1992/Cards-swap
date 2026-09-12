@@ -6,6 +6,6 @@ The page is available at `/prototypes/resources` and reuses the homepage header.
 
 Resource type and age use compact dropdowns. Resource type supports multiple selections while age is a single-select choice (`ყველა ასაკი`, `6–9`, `9–13`, `13–18`). Both filters combine, the file count updates immediately, and the clear action resets both controls. The selected states use native checkboxes and radio inputs.
 
-Each resource card shows its age as a 14px pill with a 15% black fill. Document cards place it at the top-right; video cards align it at the lower-right beside the 26px title.
+Each resource card shows its age as a 14px pill. Document cards place the 15% black pill at the top-right. Video cards start with a metadata row containing a 25% white duration pill on the left and age pill on the right, followed by the thumbnail, 26px title, and description.
 
 The 23 Georgian resource entries are temporary prototype content. The two video thumbnails and resource illustrations are exact exported Figma assets; final video URLs and downloadable files still need to be connected by the Laravel application.

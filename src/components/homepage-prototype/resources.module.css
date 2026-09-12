@@ -25,6 +25,7 @@
 .grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 32px; align-items: stretch; }
 .card { display: flex; min-height: 420px; flex-direction: column; gap: 24px; padding: 32px; overflow: hidden; border-radius: 24px; background: var(--card-color); color: #20291b; }
 .cardTop { display: flex; align-items: flex-start; justify-content: space-between; width: 100%; }
+.videoMeta { display: flex; align-items: flex-start; justify-content: space-between; width: 100%; }
 .videoPreview { position: relative; display: block; width: 100%; height: 244px; padding: 0; overflow: hidden; border: 0; border-radius: 12px; background: #20291b; cursor: pointer; }
 .thumbnail { width: 100%; height: 100%; object-fit: cover; filter: brightness(.62); transition: transform 350ms ease; }
 .videoPreview:hover .thumbnail { transform: scale(1.035); }
@@ -32,12 +33,13 @@
 .play img { width: 24px; height: 24px; }
 .documentIcon { display: block; width: 92px; height: auto; object-fit: contain; }
 .copy { display: flex; flex-direction: column; gap: 12px; }
-.videoCopy { display: flex; align-items: flex-end; gap: 24px; width: 100%; }
+.videoCopy { display: flex; flex-direction: column; gap: 16px; width: 100%; }
 .agePill { display: inline-flex; flex: none; align-items: center; justify-content: center; padding: 4px 12px; border-radius: 999px; background: #00000026; color: #20291b; font-size: 14px; font-weight: 600; line-height: 16px; text-transform: uppercase; white-space: nowrap; }
+.durationPill { display: inline-flex; flex: none; align-items: center; justify-content: center; padding: 4px 12px; border-radius: 999px; background: #ffffff40; color: #20291b; font-size: 14px; font-weight: 600; line-height: 16px; text-transform: uppercase; white-space: nowrap; }
+.videoMeta .agePill { background: #ffffff40; }
 .kind { color: currentColor; font-size: 12px; font-weight: 700; opacity: .68; text-transform: uppercase; }
 .copy h2, .videoCopy h2 { margin: 0; font: 400 26px/28px "Cards Hakuna", sans-serif; letter-spacing: .52px; }
-.videoCopy h2 { flex: 1; min-width: 0; }
-.copy p { margin: 0; font-size: 16px; line-height: 24px; }
+.copy p, .videoCopy p { margin: 0; font-size: 16px; line-height: 24px; }
 .download { display: flex; align-items: center; justify-content: center; gap: 8px; width: 100%; min-height: 52px; margin-top: auto; padding: 14px 22px; border: 0; border-radius: 999px; background: #0006; color: #fff; font-size: 14px; font-weight: 600; cursor: pointer; }
 .download:hover { background: #00000078; }
 .download img { width: 24px; height: 24px; }

@@ -13,6 +13,7 @@ export type ResourceItem = {
   color: string;
   image: string;
   video?: boolean;
+  duration?: string;
 };
 
 const documents = ["document-a.svg", "document-b.svg", "document-c.svg", "document-d.svg", "document-e.svg", "document-f.svg"];
@@ -52,4 +53,5 @@ export const resources: ResourceItem[] = entries.map(([type, age, title, descrip
   color: type === "ვიდეო" ? (index % 2 ? "#9ccaed" : "#5ea8ff") : colors[index % colors.length],
   image: type === "ვიდეო" ? (index % 2 ? "video-celebration.png" : "video-safety.png") : documents[index % documents.length],
   video: type === "ვიდეო",
+  duration: type === "ვიდეო" ? "4 წუთი" : undefined,
 }));
