@@ -3,9 +3,10 @@
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { ChevronsRight } from "lucide-react";
-import { SiteHeader } from "./homepage-sections";
+import { SiteHeader } from "./site-header";
 import { ResourceCard } from "./resource-card";
 import { resources } from "./resources-data";
+import { labelText } from "./label-text";
 import styles from "./articles.module.css";
 
 const recommendedResources = [resources[0], resources[1], resources[3], resources[2], resources[6]];
@@ -17,11 +18,11 @@ export default function ArticlesPagePrototype({ recommendedCount }: ArticlesPage
   const recommendations = recommendedResources.slice(0, recommendedCount);
 
   return <main className={styles.page}>
-    <SiteHeader articlesPage />
+    <SiteHeader />
     <article className={styles.article}>
       <div className={styles.titleRow}>
         <h1>სტატიის სათაური</h1>
-        <a className={styles.skip} href="#recommended">გამოტოვე სტატია <ChevronsRight size={24} aria-hidden="true" /></a>
+        <a className={styles.skip} href="#recommended">{labelText("გამოტოვე სტატია")} <ChevronsRight size={24} aria-hidden="true" /></a>
       </div>
       <Image className={styles.heroImage} src="/assets/articles/article-hero.png" width={1936} height={1446} priority alt="აბსტრაქტული ილუსტრაცია სტატიაში" />
       <div className={styles.copy}>
@@ -44,7 +45,7 @@ export default function ArticlesPagePrototype({ recommendedCount }: ArticlesPage
       <div className={styles.recommendationGrid} data-count={recommendations.length}>
         {recommendations.map(item => <ResourceCard className={styles.recommendedCard} item={item} key={item.id} onOpen={() => router.push("/prototypes/resources")} />)}
       </div>
-      <a className={styles.next} href="/prototypes/homepage#homepage-cards">სცენარზე გადასვლა <ChevronsRight size={32} aria-hidden="true" /></a>
+      <a className={styles.next} href="/prototypes/homepage#homepage-cards">{labelText("სცენარზე გადასვლა")} <ChevronsRight size={32} aria-hidden="true" /></a>
     </section>
   </main>;
 }

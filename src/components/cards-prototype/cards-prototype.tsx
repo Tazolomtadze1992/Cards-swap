@@ -3,15 +3,15 @@
 import { useState, useRef, type CSSProperties } from "react";
 import { useRouter } from "next/navigation";
 import { ChevronsRight } from "lucide-react";
-import { DialRoot, useDialKit } from "dialkit";
-import "dialkit/styles.css";
+import { useDialKit } from "dialkit";
 import styles from "./cards-prototype.module.css";
+import { labelText } from "../homepage-prototype/label-text";
 import { HomepageHero, HomepageFaq, PrototypeSwitcher } from "../homepage-prototype/homepage-sections";
 
 export const cards = [
   { id: "support", illustrationWidth: 70.938, illustrationHeight: 73.801, label: "სერვისები და დახმარება", color: "#f8ecd7", ink: "#393939", x: 0, y: 5.77, width: 361.575, height: 380.813, angle: -14.6 },
   { id: "video", illustrationWidth: 98.879, illustrationHeight: 67.613, label: "ვიდეო ბიბლიოთეკა", color: "#ff8361", ink: "#301912", x: 203.6, y: 41.23, width: 333.255, height: 356.023, angle: -8.21 },
-  { id: "resources", illustrationWidth: 92.197, illustrationHeight: 80.192, label: "რესურსები", color: "#5EA8FF", ink: "#ffffff", x: 394.63, y: 0, width: 306.458, height: 331.956, angle: -2.88 },
+  { id: "resources", illustrationWidth: 92.197, illustrationHeight: 80.192, label: "რესურსები", color: "#5EA8FF", ink: "#FAF4EA", x: 394.63, y: 0, width: 306.458, height: 331.956, angle: -2.88 },
   { id: "faq", illustrationWidth: 79.501, illustrationHeight: 60.537, label: "ხშირად დასმული კითხვები", color: "#dddd62", ink: "#331a13", x: 584.27, y: 54.3, width: 302.694, height: 328.538, angle: 2.17 },
   { id: "quiz", illustrationWidth: 96.001, illustrationHeight: 85.191, label: "ქვიზები და სცენარები", color: "#a5d089", ink: "#393939", x: 755.99, y: 6.01, width: 359.652, height: 379.156, angle: 14.13 },
 ] as const;
@@ -22,6 +22,24 @@ const actionLabels: Record<string, string> = {
 };
 
 type CardPalette = Partial<Record<(typeof cards)[number]["id"], { background: string; text: string }>>;
+
+type CardColors = {
+  page: { background: string; heading: string };
+  services: { background: string; text: string };
+  video: { background: string; text: string };
+  resources: { background: string; text: string };
+  faq: { background: string; text: string };
+  quizzes: { background: string; text: string };
+};
+
+const defaultColors: CardColors = {
+  page: { background: "#FAF4EA", heading: "#005C53" },
+  services: { background: cards[0].color, text: cards[0].ink },
+  video: { background: cards[1].color, text: cards[1].ink },
+  resources: { background: cards[2].color, text: cards[2].ink },
+  faq: { background: cards[3].color, text: cards[3].ink },
+  quizzes: { background: cards[4].color, text: cards[4].ink },
+};
 
 type DeckProps = { homepage?: boolean; palette?: CardPalette; hoverDuration?: number; returnDuration?: number; clickDuration?: number; expandedScale?: number; onNavigate?: (id: string) => void };
 
@@ -72,7 +90,7 @@ export function CardDeck({ homepage = false, hoverDuration = 600, returnDuration
                   else setActive(card.id);
                 }} />
               <span id={`card-action-${card.id}`} className={styles.cardAction} aria-hidden={!selected}>
-                {actionLabels[card.id]}<ChevronsRight size={18} aria-hidden="true" />
+                {labelText(actionLabels[card.id])}<ChevronsRight size={18} aria-hidden="true" />
               </span>
             </article>
           </div>
@@ -82,17 +100,9 @@ export function CardDeck({ homepage = false, hoverDuration = 600, returnDuration
   </section>;
 }
 
-export default function CardsPrototype({ homepage = false }: { homepage?: boolean }) {
+function CardsPrototypeView({ homepage = false, colors }: { homepage?: boolean; colors: CardColors }) {
   const router = useRouter();
   const showPrototypeSwitcher = process.env.NODE_ENV !== "production";
-  const colors = useDialKit("Colors", {
-    page: { _collapsed: true, background: "#faf4ea", heading: "#00384B" },
-    services: { _collapsed: true, background: cards[0].color, text: cards[0].ink },
-    video: { _collapsed: true, background: cards[1].color, text: cards[1].ink },
-    resources: { _collapsed: true, background: cards[2].color, text: cards[2].ink },
-    faq: { _collapsed: true, background: cards[3].color, text: cards[3].ink },
-    quizzes: { _collapsed: true, background: cards[4].color, text: cards[4].ink },
-  }, { id: "cards-colors-v3", persist: true });
   return <main className={styles.playground} style={{
     "--page-background": colors.page.background, "--page-heading": colors.page.heading,
   } as CSSProperties}>
@@ -103,6 +113,23 @@ export default function CardsPrototype({ homepage = false }: { homepage?: boolea
       if (id === "resources") router.push("/prototypes/resources");
     } : undefined} palette={{ support: colors.services, video: colors.video, resources: colors.resources, faq: colors.faq, quiz: colors.quizzes }} /></div>
     {homepage && <HomepageFaq />}
-    <DialRoot position="bottom-right" theme="dark" productionEnabled />
   </main>;
+}
+
+function CardsPrototypeWithColorControls() {
+  const colors = useDialKit("Colors", {
+    page: { _collapsed: true, background: "#FAF4EA", heading: "#005C53" },
+    services: { _collapsed: true, background: cards[0].color, text: cards[0].ink },
+    video: { _collapsed: true, background: cards[1].color, text: cards[1].ink },
+    resources: { _collapsed: true, background: cards[2].color, text: cards[2].ink },
+    faq: { _collapsed: true, background: cards[3].color, text: cards[3].ink },
+    quizzes: { _collapsed: true, background: cards[4].color, text: cards[4].ink },
+  }, { id: "cards-colors-v3", persist: true });
+
+  return <CardsPrototypeView colors={colors} />;
+}
+
+export default function CardsPrototype({ homepage = false }: { homepage?: boolean }) {
+  if (homepage) return <CardsPrototypeView homepage colors={defaultColors} />;
+  return <CardsPrototypeWithColorControls />;
 }

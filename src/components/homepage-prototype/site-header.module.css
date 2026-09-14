@@ -1,0 +1,169 @@
+.header {
+  display: flex;
+  max-width: var(--layout-wide);
+  margin: auto;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 32px;
+}
+
+.header[data-appearance="light"] {
+  color: var(--color-text-secondary);
+}
+
+.header[data-appearance="brand-surface"] {
+  --color-focus-ring: var(--color-focus-inverse);
+  color: var(--color-text-inverse-secondary);
+}
+
+.logoLink {
+  display: block;
+  width: 186px;
+  height: 31px;
+  flex: none;
+}
+
+.brandLogo {
+  display: none;
+  width: 186px;
+  height: 31px;
+  object-fit: contain;
+}
+
+.lightLogo {
+  display: flex;
+  width: 180px;
+  height: 31px;
+  align-items: center;
+  gap: 0;
+}
+
+.lightLogo img {
+  display: block;
+  height: 31px;
+  object-fit: contain;
+}
+
+.header[data-appearance="brand-surface"] .brandLogo {
+  display: block;
+}
+
+.header[data-appearance="brand-surface"] .lightLogo {
+  display: none;
+}
+
+.navigation {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  text-transform: var(--type-label-transform, uppercase);
+  font-size: var(--type-label-size);
+  line-height: var(--type-label-line);
+  font-weight: var(--type-label-weight);
+  letter-spacing: var(--type-label-tracking);
+}
+
+.navigation a {
+  min-height: 40px;
+  display: inline-flex;
+  align-items: center;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.navigation a:hover,
+.navigation a[aria-current="page"] {
+  text-decoration: underline;
+  text-underline-offset: 5px;
+}
+
+.header[data-appearance="light"] .navigation a:hover,
+.header[data-appearance="light"] .navigation a[aria-current="page"] {
+  color: var(--color-accent-text);
+}
+
+.header[data-appearance="brand-surface"] .navigation a:hover,
+.header[data-appearance="brand-surface"] .navigation a[aria-current="page"] {
+  color: var(--color-text-inverse);
+}
+
+.contact {
+  display: inline-flex;
+  min-height: 44px;
+  padding: 12px 24px;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border-radius: var(--radius-pill);
+  text-decoration: none;
+  text-transform: var(--type-label-transform, uppercase);
+  font-size: var(--type-label-size);
+  line-height: var(--type-label-line);
+  font-weight: var(--type-label-weight);
+  letter-spacing: var(--type-label-tracking);
+}
+
+.header[data-appearance="light"] .contact {
+  background: var(--color-accent-solid);
+  color: var(--color-text-inverse);
+}
+
+.header[data-appearance="light"] .contact:hover {
+  background: var(--color-accent-solid-hover);
+}
+
+.header[data-appearance="brand-surface"] .contact {
+  background: var(--color-surface);
+  color: var(--color-accent-solid);
+}
+
+.header[data-appearance="brand-surface"] .contact:hover {
+  background: var(--color-text-inverse-secondary);
+}
+
+@media (max-width: 1200px) {
+  .header {
+    flex-wrap: wrap;
+  }
+
+  .navigation {
+    order: 3;
+    width: 100%;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 16px 24px;
+  }
+}
+
+@media (max-width: 600px) {
+  .header {
+    padding: 24px 20px;
+    gap: 24px 12px;
+  }
+
+  .logoLink,
+  .brandLogo {
+    width: 150px;
+    height: 25px;
+  }
+
+  .lightLogo {
+    width: 145px;
+    height: 25px;
+  }
+
+  .lightLogo img {
+    height: 25px;
+    width: auto;
+  }
+
+  .contact {
+    padding: 10px 14px;
+  }
+
+  .navigation {
+    gap: 12px 16px;
+  }
+}

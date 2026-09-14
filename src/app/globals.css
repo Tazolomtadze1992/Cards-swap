@@ -1,6 +1,42 @@
 @import "tailwindcss";
 
 :root {
+  /* Typography v1: semantic roles; mobile values change together at 760px. */
+  --type-display-size: 64px;
+  --type-display-line: 64px;
+  --type-display-weight: 700;
+  --type-h1-size: 56px;
+  --type-h1-line: 72px;
+  --type-h1-weight: 700;
+  --type-h2-size: 40px;
+  --type-h2-line: 44px;
+  --type-h2-weight: 700;
+  --type-h3-size: 24px;
+  --type-h3-line: 32px;
+  --type-h3-weight: 600;
+  --type-h4-size: 20px;
+  --type-h4-line: 28px;
+  --type-h4-weight: 600;
+  --type-body-size: 16px;
+  --type-body-line: 24px;
+  --type-body-weight: 400;
+  --type-body-tracking: 0px;
+  --type-body-sm-size: 14px;
+  --type-body-sm-line: 20px;
+  --type-body-sm-weight: 400;
+  --type-body-sm-tracking: 0px;
+  --type-label-transform: uppercase;
+  --type-label-size: 14px;
+  --type-label-line: 20px;
+  --type-label-weight: 500;
+  --type-label-tracking: 0px;
+  --type-accordion-question-size: 18px;
+  --type-accordion-question-line: 28px;
+  --type-accordion-question-weight: 500;
+  --type-accordion-question-tracking: 0px;
+  --type-accordion-question-transform: none;
+
+  /* Legacy direction values remain below for the unreferenced prototype. */
   --cream: #fffbf2;
   --cream-soft: #f7ebd7;
   --paper: #fffefd;
@@ -14,6 +50,133 @@
   --lavender: #e9dcff;
   --peach: #ffdb9f;
   --orange: #d74416;
+
+  /* Palette A primitives. */
+  --font-body: "FiraGO", sans-serif;
+  --font-display: "Cards Hakuna", sans-serif;
+
+  --color-cream-primary: oklch(0.969 0.015 80.708);
+  --color-cream-secondary: oklch(0.86 0.015 80.708);
+  --color-neutral-warm-100: oklch(0.94 0.008 80.708);
+  --color-neutral-warm-200: oklch(0.9 0.01 80.708);
+  --color-neutral-warm-300: oklch(0.84 0.012 80.708);
+  --color-neutral-warm-700: oklch(0.43 0.014 80.708);
+  --color-neutral-warm-900: oklch(0.3 0.012 80.708);
+  --color-green-primary: oklch(0.426 0.076 183.445);
+  --color-green-secondary: oklch(0.5 0.089 183.445);
+  --color-green-soft: oklch(0.92 0.025 183.445);
+  --color-blue-light: oklch(0.722 0.148 253.765);
+  --color-blue-strong: oklch(0.52 0.164 253.765);
+  --color-blue-soft: oklch(0.88 0.06 253.765);
+
+  /* Palette A semantic roles. */
+  --color-canvas: var(--color-cream-primary);
+  --color-surface: var(--color-cream-primary);
+  --color-text-primary: var(--color-neutral-warm-900);
+  --color-text-secondary: var(--color-neutral-warm-700);
+  --color-text-inverse: var(--color-cream-primary);
+  --color-text-inverse-secondary: var(--color-cream-secondary);
+  --color-accent-subtle-bg: var(--color-green-soft);
+  --color-accent-border: var(--color-green-primary);
+  --color-accent-solid: var(--color-green-primary);
+  --color-accent-solid-hover: var(--color-green-secondary);
+  --color-accent-text: var(--color-green-primary);
+  --color-brand: var(--color-accent-solid);
+  --color-accent: var(--color-accent-solid);
+  --color-accent-soft: var(--color-accent-subtle-bg);
+  --color-action-primary-bg: var(--color-accent-solid);
+  --color-action-primary-fg: var(--color-cream-primary);
+  --color-focus: var(--color-accent-solid);
+  --color-focus-inverse: var(--color-cream-primary);
+  --color-control-subtle-bg: var(--color-neutral-warm-100);
+  --color-control-hover-bg: var(--color-neutral-warm-200);
+  --color-control-inverse-hover-bg: oklch(0.969 0.015 80.708 / 0.19);
+  --color-border-subtle: var(--color-neutral-warm-200);
+  --color-border-default: var(--color-neutral-warm-300);
+  --color-border-inverse: oklch(0.969 0.015 80.708 / 0.12);
+  --color-danger: oklch(0.557 0.192 25.247);
+  --color-danger-soft: oklch(0.896 0.054 18.216 / 0.5);
+  --color-overlay-hover: oklch(0 0 0 / 0.1);
+  --color-overlay-soft: oklch(0 0 0 / 0.2);
+  --color-overlay-control: oklch(0 0 0 / 0.4);
+  --color-overlay-control-hover: oklch(0 0 0 / 0.47);
+  --color-overlay-scrim: oklch(0 0 0 / 0.8);
+
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-7: 32px;
+  --space-8: 40px;
+  --space-9: 48px;
+  --space-10: 64px;
+  --space-11: 80px;
+  --space-12: 96px;
+  --space-13: 120px;
+  --space-14: 160px;
+
+  --radius-sm: 8px;
+  --radius-control: 12px;
+  --radius-surface: 16px;
+  --radius-row: 20px;
+  --radius-card: 24px;
+  --radius-expressive: 32px;
+  --radius-dialog: 56px;
+  --radius-pill: 999px;
+
+  --control-height-compact: 44px;
+  --control-height-default: 48px;
+  --control-height-prominent: 52px;
+
+  --layout-wide: 1440px;
+  --layout-content: 1200px;
+  --layout-reading: 48rem;
+  --layout-dialog: 560px;
+  --gutter-desktop: 32px;
+  --gutter-mobile: 20px;
+
+  --shadow-popover: 0 18px 55px oklch(0.3 0.012 80.708 / 0.18);
+  --shadow-modal: 0 24px 80px oklch(0 0 0 / 0.4);
+}
+
+@font-face {
+  font-family: "Cards Hakuna";
+  src: url("/fonts/ss-geo-hakuna.otf") format("opentype");
+  font-weight: 400;
+  font-display: swap;
+}
+
+
+/* FiraGO outlines, with Unicode Mtavruli mappings; see public/fonts/firago/README.md. */
+@font-face {
+  font-family: "FiraGO";
+  src: url("/fonts/firago/HubUI-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "FiraGO";
+  src: url("/fonts/firago/HubUI-Medium.woff2") format("woff2");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "FiraGO";
+  src: url("/fonts/firago/HubUI-SemiBold.woff2") format("woff2");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "FiraGO";
+  src: url("/fonts/firago/HubUI-Bold.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
 }
 
 * {
@@ -26,9 +189,13 @@ html {
 
 body {
   margin: 0;
-  background: var(--cream);
-  color: var(--ink);
-  font-family: Inter, "Noto Sans Georgian", Arial, sans-serif;
+  background: var(--color-canvas);
+  color: var(--color-text-primary);
+  font-family: var(--font-body);
+  font-size: var(--type-body-size);
+  line-height: var(--type-body-line);
+  font-weight: var(--type-body-weight);
+  letter-spacing: var(--type-body-tracking);
   font-synthesis: none;
   text-rendering: optimizeLegibility;
 }
@@ -50,12 +217,12 @@ a {
 }
 
 ::selection {
-  background: var(--pink);
-  color: var(--ink);
+  background: var(--color-accent-soft);
+  color: var(--color-text-primary);
 }
 
 :focus-visible {
-  outline: 3px solid var(--blue);
+  outline: 3px solid var(--color-focus-ring, var(--color-focus));
   outline-offset: 4px;
 }
 
@@ -73,3 +240,31 @@ a {
     transition-duration: 0.01ms !important;
   }
 }
+
+@media (max-width: 760px) {
+  :root {
+    --type-display-size: 40px;
+    --type-display-line: 48px;
+    --type-h1-size: 32px;
+    --type-h1-line: 40px;
+    --type-h2-size: 28px;
+    --type-h2-line: 36px;
+  }
+}
+
+/* Keep inline emphasis within the three agreed weights. */
+strong, b { font-weight: 700; }
+
+/* Family roles also cover headings without a component-specific rule. */
+h1, h2, h3, h4, h5, h6 { font-family: var(--font-display); }
+
+/* Controls retain the UI family even inside a heading. */
+button, input, select, textarea { font-family: var(--font-body); }
+
+/* Keep the prototype's third-party typography tuner in the same UI family. */
+.dialkit-root, .dialkit-root * { font-family: var(--font-body) !important; }
+
+/* Chromium can reshape Georgian under CSS uppercase. Render our Mtavruli unchanged.
+   Explicit English language scopes retain Latin CSS casing. */
+:lang(ka) { --type-label-transform: none; }
+:lang(en) { --type-label-transform: uppercase; }

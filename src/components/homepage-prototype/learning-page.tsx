@@ -3,8 +3,9 @@
 import Link from "next/link";
 import { useEffect, useRef, useState, type CSSProperties } from "react";
 import { ChevronDown, ChevronsRight } from "lucide-react";
-import { SiteHeader } from "./homepage-sections";
+import { SiteHeader } from "./site-header";
 import { learningTopics } from "./learning-data";
+import { labelText } from "./label-text";
 import styles from "./learning.module.css";
 
 const frameColors = ["#00cd9c", "#cc80ff", "#00b68e", "#19aeeb", "#5acc00", "#f888ff"];
@@ -64,24 +65,24 @@ export default function LearningPage() {
   }
 
   return <main className={styles.page}>
-    <SiteHeader learningPage />
+    <SiteHeader activeItem="learning" />
     <section className={styles.content}>
       <h1 ref={heading} tabIndex={-1}>აირჩიე თემა და დაიწყე</h1>
       <div className={styles.filters}>
         <div className={styles.controls} ref={filtersRef}>
           <div className={styles.filter}>
             <button className={styles.filterTrigger} data-active={selectedThemes.length > 0} type="button" aria-expanded={themeMenuOpen} aria-controls="learning-theme-menu" onClick={() => setThemeMenuOpen(value => !value)}>
-              {selectedThemes.length ? `არჩეული თემა : ${selectedThemes.length}` : "ყველა თემა"}<ChevronDown size={18} aria-hidden="true" />
+              {labelText(selectedThemes.length ? `არჩეული თემა : ${selectedThemes.length}` : "ყველა თემა")}<ChevronDown size={18} aria-hidden="true" />
             </button>
             {themeMenuOpen && <div className={styles.filterMenu} id="learning-theme-menu">
               {themes.map((theme, index) => <label key={theme}>
                 <input type="checkbox" checked={selectedThemes.includes(index)} onChange={() => setSelectedThemes(current => current.includes(index) ? current.filter(value => value !== index) : [...current, index])} />
-                <span>{theme}</span>
+                <span>{labelText(theme)}</span>
               </label>)}
             </div>}
           </div>
           <button className={styles.filterTrigger} data-active={Boolean(age)} type="button" onClick={() => setChoosingAge(true)}>
-            {age ? `${age} ასაკის ჯგუფი` : "ყველა ასაკი"}<ChevronDown size={18} aria-hidden="true" />
+            {labelText(age ? `${age} ასაკის ჯგუფი` : "ყველა ასაკი")}<ChevronDown size={18} aria-hidden="true" />
           </button>
         </div>
         <p aria-live="polite">ნაჩვენებია : <strong>{filteredTopics.length} თემა</strong></p>
@@ -97,12 +98,12 @@ export default function LearningPage() {
             <img src={item.image} alt="" width={1000} height={646} loading={index < 3 ? "eager" : "lazy"} />
             <span className={styles.cardTitle}>{item.title}</span>
           </span>
-          {variant === 2 && <span className={styles.start}>დაწყება</span>}
+          {variant === 2 && <span className={styles.start}>{labelText("დაწყება")}</span>}
         </Link>})}
       </div>
       <div className={styles.switcher} role="group" aria-label="დიზაინის ვარიანტი">
         <span>დიზაინის ვარიანტი</span>
-        {([1, 2] as const).map(value => <button key={value} aria-pressed={variant === value} onClick={() => setVariant(value)}>ვარიანტი {value}</button>)}
+        {([1, 2] as const).map(value => <button key={value} aria-pressed={variant === value} onClick={() => setVariant(value)}>{labelText(`ვარიანტი ${value}`)}</button>)}
       </div>
     </section>
     <dialog ref={ageDialog} className={styles.ageDialog} aria-labelledby="age-title" onCancel={event => event.preventDefault()}>
@@ -115,7 +116,7 @@ export default function LearningPage() {
         </label>)}
       </fieldset>
       <p className={styles.ageNotice} role="status">{age && age !== "10-13" ? "ეს ასაკობრივი ჯგუფი მალე დაემატება. ახლა შეგიძლია აირჩიო 10-13." : ""}</p>
-      <button className={styles.continue} disabled={age !== "10-13"} onClick={continueToTopics}>გაგრძელება <ChevronsRight aria-hidden="true" /></button>
+      <button className={styles.continue} disabled={age !== "10-13"} onClick={continueToTopics}>{labelText("გაგრძელება")} <ChevronsRight aria-hidden="true" /></button>
     </dialog>
   </main>;
 }

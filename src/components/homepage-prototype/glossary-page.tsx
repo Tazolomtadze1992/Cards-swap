@@ -1,8 +1,9 @@
 "use client";
 
 import { useRef, useState } from "react";
-import { SiteHeader } from "./homepage-sections";
+import { SiteHeader } from "./site-header";
 import { alphabet, glossaryItems } from "./glossary-data";
+import { labelText } from "./label-text";
 import styles from "./glossary.module.css";
 
 const normalize = (value: string) => value.normalize("NFKC").toLocaleLowerCase("ka").trim();
@@ -21,7 +22,7 @@ export default function GlossaryPagePrototype() {
   const reset = () => { setQuery(""); setLetters([]); };
 
   return <main className={styles.page}>
-    <SiteHeader glossaryPage />
+    <SiteHeader activeItem="glossary" />
     <div className={styles.intro}><h1>მოძებნე სასურველი სიტყვა და გაიგე მნიშვნელობა</h1></div>
     <section className={styles.body} aria-label="ლექსიკონი">
       <div className={styles.layout}>
@@ -33,21 +34,21 @@ export default function GlossaryPagePrototype() {
             {query && <button type="button" className={styles.clearSearch} aria-label="ძიების გასუფთავება" onClick={() => { setQuery(""); searchRef.current?.focus(); }}>×</button>}
           </div>
           <div className={styles.alphabet} role="group" aria-label="გაფილტრე საწყისი ასოებით">
-            {alphabet.map(letter => <button key={letter} type="button" aria-pressed={letters.includes(letter)} aria-controls="glossary-results" onClick={() => setLetters(current => current.includes(letter) ? current.filter(value => value !== letter) : [...current, letter])}>{letter}</button>)}
+            {alphabet.map(letter => <button key={letter} type="button" aria-pressed={letters.includes(letter)} aria-controls="glossary-results" onClick={() => setLetters(current => current.includes(letter) ? current.filter(value => value !== letter) : [...current, letter])}>{labelText(letter)}</button>)}
           </div>
           <button className={styles.reset} type="button" disabled={!hasFilters} onClick={reset}>
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src="/assets/glossary/reset.svg" width={16} height={16} alt="" />
-            ფილტრების გასუფთავება
+            {labelText("ფილტრების გასუფთავება")}
           </button>
           <p className={styles.srOnly} role="status" aria-live="polite">ნაპოვნია {filtered.length} სიტყვა</p>
         </aside>
         <div className={styles.results} id="glossary-results">
           {groups.map(group => <section key={group.letter} className={styles.group} aria-labelledby={`letter-${group.letter}`}>
             <h2 id={`letter-${group.letter}`}>{group.letter}</h2>
-            <dl>{group.items.map(item => <div className={styles.entry} key={item.term}><dt>{item.term}</dt><dd>{item.definition}</dd></div>)}</dl>
+            <dl>{group.items.map(item => <div className={styles.entry} key={item.term}><dt>{labelText(item.term)}</dt><dd>{item.definition}</dd></div>)}</dl>
           </section>)}
-          {!filtered.length && <div className={styles.empty}><h2>სიტყვა ვერ მოიძებნა</h2><p>სცადე სხვა სიტყვა ან შეცვალე არჩეული ასოები.</p><button type="button" className={styles.reset} onClick={reset}>ფილტრების გასუფთავება</button></div>}
+          {!filtered.length && <div className={styles.empty}><h2>სიტყვა ვერ მოიძებნა</h2><p>სცადე სხვა სიტყვა ან შეცვალე არჩეული ასოები.</p><button type="button" className={styles.reset} onClick={reset}>{labelText("ფილტრების გასუფთავება")}</button></div>}
         </div>
       </div>
     </section>
