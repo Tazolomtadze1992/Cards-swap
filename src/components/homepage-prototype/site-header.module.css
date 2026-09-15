@@ -88,41 +88,6 @@
   color: var(--color-text-inverse);
 }
 
-.contact {
-  display: inline-flex;
-  min-height: 44px;
-  padding: 12px 24px;
-  flex: none;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  border-radius: var(--radius-pill);
-  text-decoration: none;
-  text-transform: var(--type-label-transform, uppercase);
-  font-size: var(--type-label-size);
-  line-height: var(--type-label-line);
-  font-weight: var(--type-label-weight);
-  letter-spacing: var(--type-label-tracking);
-}
-
-.header[data-appearance="light"] .contact {
-  background: var(--color-accent-solid);
-  color: var(--color-text-inverse);
-}
-
-.header[data-appearance="light"] .contact:hover {
-  background: var(--color-accent-solid-hover);
-}
-
-.header[data-appearance="brand-surface"] .contact {
-  background: var(--color-surface);
-  color: var(--color-accent-solid);
-}
-
-.header[data-appearance="brand-surface"] .contact:hover {
-  background: var(--color-text-inverse-secondary);
-}
-
 @media (max-width: 1200px) {
   .header {
     flex-wrap: wrap;
@@ -157,10 +122,6 @@
   .lightLogo img {
     height: 25px;
     width: auto;
-  }
-
-  .contact {
-    padding: 10px 14px;
   }
 
   .navigation {

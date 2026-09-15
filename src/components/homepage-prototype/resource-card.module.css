@@ -1,0 +1,18 @@
+.card { --resource-card-ink: #20291b; min-height: 420px; gap: var(--space-6); padding: var(--space-7); overflow: hidden; border-radius: var(--radius-card); background: var(--card-color); color: var(--resource-card-ink); }
+.card[data-context="recommendation"] { min-height: 448px; }
+.metadata { display: flex; align-items: flex-start; justify-content: space-between; width: 100%; }
+.videoPreview { position: relative; display: block; width: 100%; height: 244px; padding: 0; overflow: hidden; border: 0; border-radius: var(--radius-control); background: var(--resource-card-ink); cursor: pointer; }
+.thumbnail { width: 100%; height: 100%; object-fit: cover; filter: brightness(.62); transition: transform 350ms ease; }
+.videoPreview:hover .thumbnail { transform: scale(1.035); }
+.documentIcon { display: block; width: 92px; height: auto; object-fit: contain; }
+.copy, .videoCopy { display: flex; flex-direction: column; }
+.copy { gap: var(--space-3); }
+.videoCopy { gap: var(--space-4); width: 100%; }
+.title { letter-spacing: .52px; }
+.action { margin-top: auto; width: 100%; }
+@media (max-width: 720px) {
+  .card { min-height: 390px; padding: var(--space-6); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .thumbnail { transition: none; }
+}

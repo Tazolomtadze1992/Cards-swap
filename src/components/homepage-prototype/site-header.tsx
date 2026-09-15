@@ -1,6 +1,7 @@
+import { Button } from "../ui/button";
 import Image from "next/image";
 import Link from "next/link";
-import { Phone } from "lucide-react";
+import { Icon } from "../ui/icon";
 import { labelText } from "./label-text";
 import styles from "./site-header.module.css";
 
@@ -32,9 +33,9 @@ export function SiteHeader({ activeItem, appearance = "light" }: SiteHeaderProps
         {labelText(item.label)}
       </Link>)}
     </nav>
-    <Link className={styles.contact} href="/prototypes/homepage#homepage-faq">
-      <Phone size={16} aria-hidden="true" />
+    <Button asChild size="contact" variant={appearance === "brand-surface" ? "inverse" : "primary"}><Link href="/prototypes/homepage#homepage-faq">
+      <Icon name="phone" size="small" />
       {labelText("კონტაქტი")}
-    </Link>
+    </Link></Button>
   </header>;
 }

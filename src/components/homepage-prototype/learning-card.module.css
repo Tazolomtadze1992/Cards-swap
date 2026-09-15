@@ -1,0 +1,9 @@
+.card { padding: var(--space-4) 0 0; border: 0; border-radius: var(--radius-expressive); background: var(--card-color); text-align: left; text-decoration: none; color: #393939; cursor: pointer; overflow: hidden; }
+.body { display: flex; flex: 1; flex-direction: column; width: 100%; border: var(--space-2) solid var(--card-color); border-radius: var(--radius-expressive); overflow: hidden; background: var(--color-surface); }
+.card img { display: block; width: 100%; height: auto; aspect-ratio: 1.554; object-fit: cover; }
+.title { display: block; flex: 1; padding: var(--space-6) var(--space-5) var(--space-8); }
+.card[data-appearance="filled"] { border-radius: var(--radius-card); padding: var(--space-6); gap: var(--space-9); }
+.card[data-appearance="filled"] .body { border: 0; border-radius: 0; background: transparent; gap: var(--space-6); }
+.card[data-appearance="filled"] img { border-radius: var(--radius-sm); }
+.card[data-appearance="filled"] .title { padding: 0; letter-spacing: .52px; color: #20291b; }
+.card:hover { filter: brightness(.98); }

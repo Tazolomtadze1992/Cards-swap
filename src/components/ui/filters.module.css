@@ -1,0 +1,65 @@
+.shell { position: relative; }
+.trigger, .panel {
+  font-family: var(--font-body);
+  text-transform: var(--type-label-transform, uppercase);
+  font-size: var(--type-label-size);
+  line-height: var(--type-label-line);
+  font-weight: var(--type-label-weight);
+  letter-spacing: var(--type-label-tracking);
+}
+.trigger {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  min-height: var(--control-height-compact);
+  border: 0;
+  border-radius: var(--radius-pill);
+  padding: var(--space-3) var(--space-4);
+  cursor: pointer;
+}
+.trigger { justify-content: space-between; color: var(--color-text-primary); background: var(--color-control-subtle-bg); }
+@media (hover: hover) {
+  .trigger:not(:disabled):not([aria-disabled="true"]):not([data-active="true"]):hover { background: var(--color-control-hover-bg); }
+}
+.trigger:not([data-active="true"])[aria-expanded="true"],
+.trigger:not([data-active="true"])[data-state="open"] { background: var(--color-control-hover-bg); }
+.trigger[data-layout="catalogue"] { min-width: 190px; }
+.trigger[data-active="true"] { gap: var(--space-4); background: var(--color-accent-subtle-bg); color: var(--color-accent-text); }
+.trigger svg { flex: none; transition: transform 180ms ease; }
+.trigger[aria-expanded="true"] > svg, .trigger[data-state="open"] > svg { transform: rotate(180deg); }
+.panel {
+  z-index: 50;
+  width: max-content;
+  min-width: 238px;
+  max-width: calc(100vw - 40px);
+  max-height: var(--radix-popover-content-available-height, var(--radix-select-content-available-height));
+  overflow-y: auto;
+  padding: 10px;
+  border-radius: 18px;
+  background: var(--color-surface);
+  color: var(--color-text-primary);
+  box-shadow: var(--shadow-popover);
+}
+.panel[data-layout="content"] { width: min(420px, calc(100vw - 40px)); }
+.option { display: flex; align-items: center; gap: var(--space-3); padding: 11px var(--space-3); border-radius: 10px; cursor: pointer; }
+.panel[data-layout="content"] .option { align-items: flex-start; }
+.panel[data-layout="content"] .checkbox { margin-top: 1px; }
+.option:hover, .option[data-highlighted] { background: var(--color-control-subtle-bg); }
+.checkbox, .radio { display: grid; flex: none; place-items: center; width: 18px; height: 18px; border: 1px solid var(--color-text-secondary); background: var(--color-surface); padding: 0; }
+.checkbox { border-radius: 3px; cursor: pointer; }
+.checkbox[data-state="checked"] { background: var(--color-accent-solid); border-color: var(--color-accent-solid); color: var(--color-text-inverse); }
+.checkIndicator { display: grid; place-items: center; }
+.radio { border-radius: 50%; }
+.option[data-state="checked"] .radio { border-color: var(--color-accent-solid); }
+.radioIndicator { width: 10px; height: 10px; border-radius: 50%; background: var(--color-accent-solid); }
+.trigger:focus-visible, .checkbox:focus-visible { outline: 3px solid var(--color-focus-ring, var(--color-focus)); outline-offset: 4px; }
+.scrollButton { display: flex; justify-content: center; padding: var(--space-1); }
+@media (max-width: 720px) {
+  .shell[data-layout="catalogue"], .trigger[data-layout="catalogue"] { width: 100%; }
+  .panel[data-layout="catalogue"] { width: var(--radix-popover-trigger-width, var(--radix-select-trigger-width)); }
+}
+
+@media (prefers-reduced-motion: reduce) { .trigger svg { transition: none; } }
+
+/* Select uses its highlighted option surface; outlines would clip in its viewport. */
+.option:focus-visible { outline: none; background: var(--color-control-subtle-bg); }

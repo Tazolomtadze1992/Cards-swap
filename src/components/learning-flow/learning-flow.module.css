@@ -1,0 +1,59 @@
+.page { min-height: 100svh; background: var(--color-canvas); color: var(--color-text-primary); }
+.shell { max-width: calc(var(--layout-reading) + 2 * var(--gutter-desktop)); margin: auto; padding: var(--space-9) var(--gutter-desktop) var(--space-10); }
+.topbar, .meta, .progressHeading, .actions, .help { display: flex; align-items: center; justify-content: space-between; gap: var(--space-4); }
+.meta { justify-content: flex-start; font-size: var(--type-label-size); line-height: var(--type-label-line); font-weight: var(--type-label-weight); }
+.progressHeading { margin: var(--space-6) 0 var(--space-3); align-items: baseline; color: var(--color-text-secondary); font-size: var(--type-body-sm-size); line-height: var(--type-body-sm-line); }
+.progressHeading > :last-child { flex: none; font-variant-numeric: tabular-nums; }
+.progress { display: block; width: 100%; height: var(--space-2); border: 0; border-radius: var(--radius-pill); overflow: hidden; background: var(--color-border-subtle); color: var(--color-accent-solid); appearance: none; }
+.progress::-webkit-progress-bar { background: var(--color-border-subtle); }
+.progress::-webkit-progress-value { background: var(--color-accent-solid); border-radius: var(--radius-pill); }
+.progress::-moz-progress-bar { background: var(--color-accent-solid); border-radius: var(--radius-pill); }
+.question, .recommendation { margin-top: var(--space-8); }
+.questionTitle { margin: 0; font-family: var(--font-body); font-size: var(--type-h3-size); line-height: var(--type-h3-line); font-weight: var(--type-h3-weight); overflow-wrap: anywhere; scroll-margin-top: var(--space-6); }
+.hint { margin: var(--space-4) 0 var(--space-6); color: var(--color-text-secondary); font-size: var(--type-body-sm-size); line-height: var(--type-body-sm-line); }
+.answers { display: grid; gap: var(--space-3); border: 0; padding: 0; margin: 0; min-width: 0; }
+.answer { display: flex; align-items: flex-start; gap: var(--space-4); padding: var(--space-5); border: 2px solid var(--color-border-default); border-radius: var(--radius-surface); background: var(--color-surface); cursor: pointer; }
+.answer input { flex: none; width: var(--space-5); height: var(--space-5); margin: 2px 0 0; accent-color: var(--color-accent-solid); }
+.answerCopy { min-width: 0; overflow-wrap: anywhere; }
+.answer[data-state="selected"] { border-color: var(--color-accent-border); background: var(--color-accent-subtle-bg); }
+.answer[data-state="correct"] { border-color: var(--color-success); background: var(--color-success-soft); }
+.answer[data-state="incorrect"] { border-color: var(--color-danger); background: var(--color-danger-soft); }
+.answer:has(input:disabled) { cursor: default; }
+.answer:has(input:focus-visible) { outline: 3px solid var(--color-focus); outline-offset: 4px; }
+.answer input:focus-visible { outline: none; }
+.answerStatus { display: flex; align-items: center; gap: var(--space-2); margin-top: var(--space-3); font-size: var(--type-body-sm-size); line-height: var(--type-body-sm-line); font-weight: var(--type-h4-weight); }
+.answer[data-state="correct"] .answerStatus { color: var(--color-success); }
+/* Body text stays on the primary text token; border, icon and label provide the state. */
+.answer[data-state="incorrect"] .answerStatus { color: var(--color-text-primary); }
+.story { background: var(--color-control-subtle-bg); border-radius: var(--radius-card); padding: var(--space-6); margin-bottom: var(--space-7); }
+.story p, .feedback p { margin: 0; }
+.story p + p { margin-top: var(--space-3); }
+.eyebrow { font-size: var(--type-label-size); line-height: var(--type-label-line); font-weight: var(--type-label-weight); color: var(--color-text-secondary); }
+.feedback { display: flex; align-items: flex-start; gap: var(--space-3); margin-top: var(--space-6); padding: var(--space-5); border-radius: var(--radius-surface); background: var(--color-danger-soft); }
+.feedback[data-correct="true"] { background: var(--color-success-soft); }
+.feedbackIcon { color: var(--color-danger); flex: none; margin-top: 2px; }
+.feedback[data-correct="true"] .feedbackIcon { color: var(--color-success); }
+.feedbackTitle { font-weight: var(--type-h4-weight); padding-bottom: var(--space-2); }
+.actionArea { margin-top: var(--space-7); }
+.actions { margin-top: var(--space-6); flex-wrap: wrap; }
+.actions > :last-child { margin-left: auto; }
+.help { flex-wrap: wrap; justify-content: center; margin-top: var(--space-9); color: var(--color-text-secondary); font-size: var(--type-body-sm-size); line-height: var(--type-body-sm-line); }
+.recommendation h1, .index h1 { margin: 0 0 var(--space-6); font-size: var(--type-h2-size); line-height: var(--type-h2-line); font-weight: var(--type-h2-weight); }
+.recommendation > p { margin: 0; }
+.srOnly { position: absolute; width: 1px; height: 1px; padding: 0; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+.index { max-width: calc(var(--layout-reading) + 2 * var(--gutter-desktop)); margin: auto; padding: var(--space-10) var(--gutter-desktop); }
+.indexIntro { color: var(--color-text-secondary); margin: var(--space-4) 0 var(--space-7); }
+.activityList { display: grid; gap: var(--space-4); }
+.activityCard { border-radius: var(--radius-card); padding: var(--space-6); background: var(--color-control-subtle-bg); }
+.activityCard h2 { font-family: var(--font-body); font-size: var(--type-h4-size); line-height: var(--type-h4-line); font-weight: var(--type-h4-weight); margin: 0; }
+.activityCard p { margin: var(--space-3) 0 var(--space-5); color: var(--color-text-secondary); }
+@media (hover: hover) { .answer[data-state="default"]:not(:has(input:disabled)):hover { background: var(--color-control-hover-bg); } }
+@media (max-width: 600px) {
+  .shell, .index { padding: var(--space-7) var(--gutter-mobile) var(--space-9); }
+  .progressHeading { flex-wrap: wrap; gap: var(--space-2); }
+  .answer { padding: var(--space-4); gap: var(--space-3); }
+  .story { padding: var(--space-5); }
+  .actions { flex-direction: column; align-items: stretch; }
+  .actions > :last-child { margin-left: 0; }
+  .help { flex-direction: column; }
+}

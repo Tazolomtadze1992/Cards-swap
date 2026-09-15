@@ -1,4 +1,4 @@
-import { FaqList } from "./homepage-sections";
+import { FaqList } from "./faq-list";
 import { SiteHeader } from "./site-header";
 import { faqItems } from "./faq-data";
 import styles from "./homepage.module.css";

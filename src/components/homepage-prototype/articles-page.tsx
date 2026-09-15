@@ -1,8 +1,10 @@
 "use client";
 
+import { Separator } from "../ui/separator";
+import { Button } from "../ui/button";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { ChevronsRight } from "lucide-react";
+import { Icon } from "../ui/icon";
 import { SiteHeader } from "./site-header";
 import { ResourceCard } from "./resource-card";
 import { resources } from "./resources-data";
@@ -22,7 +24,7 @@ export default function ArticlesPagePrototype({ recommendedCount }: ArticlesPage
     <article className={styles.article}>
       <div className={styles.titleRow}>
         <h1>სტატიის სათაური</h1>
-        <a className={styles.skip} href="#recommended">{labelText("გამოტოვე სტატია")} <ChevronsRight size={24} aria-hidden="true" /></a>
+        <Button asChild variant="subtle" size="compact"><a href="#recommended">{labelText("გამოტოვე სტატია")} <Icon name="chevronsRight" /></a></Button>
       </div>
       <Image className={styles.heroImage} src="/assets/articles/article-hero.png" width={1936} height={1446} priority alt="აბსტრაქტული ილუსტრაცია სტატიაში" />
       <div className={styles.copy}>
@@ -39,13 +41,14 @@ export default function ArticlesPagePrototype({ recommendedCount }: ArticlesPage
         <p>ბევრ დაუსრულებელ გვერდს გვიჩვენებენ. წლების მანძილზე ამ ტექსტის უამრავი ვერსია გამოჩნდა, ზოგი შემთხვევით დაშვებული შეცდომის გამო, ზოგი კი — განზრახ, ხუმრობით. ვებგვერდი იყენებს Lorem Ipsum-ს, როგორც დროებით ტექსტს წყობის შესავსებად; Lorem Ipsum-ის მოძებნისას კი საძიებო სისტემები ბევრ დაუსრულებელ გვერდს გვიჩვენებენ.</p>
         <p>წლების მანძილზე ამ ტექსტის უამრავი ვერსია გამოჩნდა, ზოგი შემთხვევით დაშვებული შეცდომის გამო, ზოგი კი — განზრახ, ხუმრობით. ვებგვერდი იყენებს Lorem Ipsum-ს, როგორც დროებით ტექსტს წყობის შესავსებად.</p>
       </section>
+      <Separator />
     </article>
     <section className={styles.recommended} id="recommended" aria-labelledby="recommended-heading">
       <h2 id="recommended-heading">რეკომენდირებული მასალა</h2>
       <div className={styles.recommendationGrid} data-count={recommendations.length}>
-        {recommendations.map(item => <ResourceCard className={styles.recommendedCard} item={item} key={item.id} onOpen={() => router.push("/prototypes/resources")} />)}
+        {recommendations.map(item => <ResourceCard context="recommendation" item={item} key={item.id} onOpen={() => router.push("/prototypes/resources")} />)}
       </div>
-      <a className={styles.next} href="/prototypes/homepage#homepage-cards">{labelText("სცენარზე გადასვლა")} <ChevronsRight size={32} aria-hidden="true" /></a>
+      <a className={styles.next} href="/prototypes/homepage#homepage-cards">{labelText("სცენარზე გადასვლა")} <Icon name="chevronsRight" size="large" /></a>
     </section>
   </main>;
 }

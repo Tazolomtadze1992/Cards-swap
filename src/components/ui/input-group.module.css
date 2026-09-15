@@ -1,0 +1,12 @@
+.group { display: flex; align-items: center; gap: var(--space-3); min-height: var(--control-height-default); border-radius: var(--radius-pill); padding: 0 var(--space-4); background: var(--color-control-subtle-bg); color: var(--color-text-primary); }
+.group[data-appearance="on-brand"] { background: var(--color-surface); }
+.group:focus-within { outline: 3px solid var(--color-focus); outline-offset: 4px; }
+.group[data-appearance="on-brand"]:focus-within { outline-color: var(--color-focus-inverse); }
+.input { width: 100%; min-width: 0; padding: var(--space-3) 0; border: 0; background: transparent; color: var(--color-text-primary); outline: none; font-family: var(--font-body); font-size: var(--type-body-size); line-height: var(--type-body-line); font-weight: var(--type-body-weight); letter-spacing: var(--type-body-tracking); }
+.input::placeholder { color: var(--color-text-secondary); }
+.input::-webkit-search-cancel-button { display: none; }
+.addon { display: flex; align-items: center; flex: none; }
+.addon[data-align="inline-start"] { order: -1; }
+.addon[data-align="inline-end"] { order: 1; }
+.addon :is(svg, img) { width: var(--space-4); height: var(--space-4); flex: none; }
+.button { width: var(--space-7); height: var(--space-8); flex: none; border: 0; background: transparent; color: inherit; cursor: pointer; font-family: var(--font-body); font-size: var(--type-h3-size); line-height: var(--type-h3-line); font-weight: var(--type-h3-weight); }

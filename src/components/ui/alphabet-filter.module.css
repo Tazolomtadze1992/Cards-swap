@@ -1,0 +1,46 @@
+.alphabet {
+  --letter-bg: var(--color-control-subtle-bg);
+  --letter-fg: var(--color-text-primary);
+  --letter-hover: var(--color-control-hover-bg);
+  --letter-selected-bg: var(--color-accent-subtle-bg);
+  --letter-selected-fg: var(--color-accent-text);
+  --letter-focus: var(--color-focus);
+  display: grid;
+  grid-template-columns: repeat(8, 44px);
+  gap: var(--space-4);
+}
+.alphabet[data-appearance="on-brand"] {
+  --letter-bg: var(--color-overlay-soft);
+  --letter-fg: var(--color-text-inverse);
+  --letter-hover: var(--color-control-inverse-hover-bg);
+  --letter-selected-bg: var(--color-surface);
+  --letter-selected-fg: var(--color-text-primary);
+  --letter-focus: var(--color-focus-inverse);
+}
+.letter {
+  width: 44px;
+  height: 44px;
+  border: 0;
+  border-radius: var(--radius-pill);
+  background: var(--letter-bg);
+  color: var(--letter-fg);
+  cursor: pointer;
+  font-family: var(--font-body);
+  text-transform: var(--type-label-transform, uppercase);
+  font-size: var(--type-label-size);
+  line-height: var(--type-label-line);
+  font-weight: var(--type-label-weight);
+  letter-spacing: var(--type-label-tracking);
+}
+@media (hover: hover) {
+  .letter:not(:disabled):not([data-state="on"]):hover { background: var(--letter-hover); }
+}
+.letter[data-state="on"] { background: var(--letter-selected-bg); color: var(--letter-selected-fg); }
+.letter:focus-visible { outline: 3px solid var(--letter-focus); outline-offset: 4px; }
+.letter:disabled { opacity: .36; cursor: default; }
+@media (max-width: 1100px) {
+  .alphabet { grid-template-columns: repeat(6, 44px); }
+}
+@media (max-width: 760px) {
+  .alphabet { grid-template-columns: repeat(auto-fit, 44px); gap: var(--space-3); }
+}

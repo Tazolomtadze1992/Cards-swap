@@ -9,6 +9,10 @@ type TypographyTunerProps = {
 };
 
 export function PrototypeTypographyTuner({ children }: TypographyTunerProps) {
+  const icons = useDialKit("Icons", {
+    strokeWidth: [2.5, 1, 4, 0.1],
+  }, { id: "prototype-icons-v1", persist: true });
+
   const type = useDialKit("Typography", {
     display: { size: [64, 40, 120, 1], line: [64, 44, 132, 1] },
     h1: { size: [56, 32, 96, 1], line: [72, 36, 108, 1] },
@@ -38,11 +42,13 @@ export function PrototypeTypographyTuner({ children }: TypographyTunerProps) {
       line: [28, 20, 52, 1],
       tracking: [0, -0.5, 2, 0.1],
       weight: { type: "select", default: "500", options: ["400", "500", "600", "700"] },
-      uppercase: false,
     },
   }, { id: "prototype-typography-v3", persist: true });
 
-  const css = `@media (min-width: 761px) {
+  const css = `[data-prototype-typography] {
+  --icon-stroke-width: ${icons.strokeWidth};
+}
+@media (min-width: 761px) {
   [data-prototype-typography] {
     --type-display-size: ${type.display.size}px;
     --type-display-line: ${type.display.line}px;
@@ -70,13 +76,11 @@ export function PrototypeTypographyTuner({ children }: TypographyTunerProps) {
     --type-accordion-question-line: ${type.accordionQuestion.line}px;
     --type-accordion-question-weight: ${type.accordionQuestion.weight};
     --type-accordion-question-tracking: ${type.accordionQuestion.tracking}px;
-    --type-accordion-question-transform: ${type.accordionQuestion.uppercase ? "uppercase" : "none"};
   }
 }`;
 
   return <div
     data-prototype-typography
-    data-accordion-question-uppercase={type.accordionQuestion.uppercase}
   >
     <style>{css}</style>
     {children}

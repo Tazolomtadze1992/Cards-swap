@@ -1,0 +1,3 @@
+.list, .fullList { margin: auto; }
+.list { max-width: 909px; }
+.fullList { max-width: 1191px; }

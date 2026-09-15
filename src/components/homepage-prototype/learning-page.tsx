@@ -1,8 +1,16 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useRef, useState, type CSSProperties } from "react";
-import { ChevronDown, ChevronsRight } from "lucide-react";
+import { Button } from "../ui/button";
+import { Separator } from "../ui/separator";
+import { FilterTrigger, MultiSelectFilter } from "../ui/filters";
+import { LearningCard } from "./learning-card";
+import { TeenLearningCard } from "./teen-learning-card";
+import { teenLearningTopics } from "./teen-learning-data";
+import { resources } from "./resources-data";
+import { useRouter } from "next/navigation";
+import { useEffect, useRef, useState } from "react";
+import { Icon } from "../ui/icon";
 import { SiteHeader } from "./site-header";
 import { learningTopics } from "./learning-data";
 import { labelText } from "./label-text";
@@ -21,16 +29,18 @@ const themes = [
 ] as const;
 const topicThemeIndexes = [0, 0, 0, 0, 1, 2, 3, 3, 4, 5, 5, 6];
 
-export default function LearningPage() {
-  const [age, setAge] = useState("");
-  const [choosingAge, setChoosingAge] = useState(true);
+export default function LearningPage({ initialAge = "" }: { initialAge?: string }) {
+  const router = useRouter();
+  const isTeen = initialAge === "14-18";
+  const [age, setAge] = useState(initialAge);
+  const [choosingAge, setChoosingAge] = useState(!initialAge);
   const [variant, setVariant] = useState<1 | 2>(1);
   const [selectedThemes, setSelectedThemes] = useState<number[]>([]);
-  const [themeMenuOpen, setThemeMenuOpen] = useState(false);
   const ageDialog = useRef<HTMLDialogElement>(null);
-  const filtersRef = useRef<HTMLDivElement>(null);
   const heading = useRef<HTMLHeadingElement>(null);
   const filteredTopics = learningTopics.filter((_, index) => !selectedThemes.length || selectedThemes.includes(topicThemeIndexes[index]));
+  const filteredTeenTopics = teenLearningTopics.filter(item => !selectedThemes.length || selectedThemes.includes(item.theme));
+  const teenColors = [...new Set(resources.filter(item => !item.video).map(item => item.color))].filter(color => color !== "#2d944d");
 
   useEffect(() => {
     const dialog = ageDialog.current;
@@ -43,23 +53,11 @@ export default function LearningPage() {
     document.body.style.overflow = "hidden";
     return () => { document.body.style.overflow = previous; };
   }, [choosingAge]);
-  useEffect(() => {
-    const close = (event: PointerEvent) => {
-      if (!filtersRef.current?.contains(event.target as Node)) setThemeMenuOpen(false);
-    };
-    const escape = (event: KeyboardEvent) => {
-      if (event.key === "Escape") setThemeMenuOpen(false);
-    };
-    document.addEventListener("pointerdown", close);
-    document.addEventListener("keydown", escape);
-    return () => {
-      document.removeEventListener("pointerdown", close);
-      document.removeEventListener("keydown", escape);
-    };
-  }, []);
 
   function continueToTopics() {
-    if (age !== "10-13") return;
+    if (age !== "10-13" && age !== "14-18") return;
+    if (age === "14-18" && !isTeen) { router.push("/prototypes/learning/14-18"); return; }
+    if (age === "10-13" && isTeen) { router.push("/prototypes/learning"); return; }
     setChoosingAge(false);
     requestAnimationFrame(() => heading.current?.focus());
   }
@@ -68,45 +66,32 @@ export default function LearningPage() {
     <SiteHeader activeItem="learning" />
     <section className={styles.content}>
       <h1 ref={heading} tabIndex={-1}>აირჩიე თემა და დაიწყე</h1>
+      {!isTeen && <div className={styles.practiceLink}><Button asChild><Link href="/prototypes/learning/practice">{labelText("სცენარი და ქვიზი")}<Icon name="chevronsRight" /></Link></Button></div>}
       <div className={styles.filters}>
-        <div className={styles.controls} ref={filtersRef}>
-          <div className={styles.filter}>
-            <button className={styles.filterTrigger} data-active={selectedThemes.length > 0} type="button" aria-expanded={themeMenuOpen} aria-controls="learning-theme-menu" onClick={() => setThemeMenuOpen(value => !value)}>
-              {labelText(selectedThemes.length ? `არჩეული თემა : ${selectedThemes.length}` : "ყველა თემა")}<ChevronDown size={18} aria-hidden="true" />
-            </button>
-            {themeMenuOpen && <div className={styles.filterMenu} id="learning-theme-menu">
-              {themes.map((theme, index) => <label key={theme}>
-                <input type="checkbox" checked={selectedThemes.includes(index)} onChange={() => setSelectedThemes(current => current.includes(index) ? current.filter(value => value !== index) : [...current, index])} />
-                <span>{labelText(theme)}</span>
-              </label>)}
-            </div>}
-          </div>
-          <button className={styles.filterTrigger} data-active={Boolean(age)} type="button" onClick={() => setChoosingAge(true)}>
-            {labelText(age ? `${age} ასაკის ჯგუფი` : "ყველა ასაკი")}<ChevronDown size={18} aria-hidden="true" />
-          </button>
+        <div className={styles.controls}>
+          <MultiSelectFilter label="თემით გაფილტვრა" placeholder={labelText("ყველა თემა")} selectedLabel={labelText("არჩეული თემა")}
+            options={themes.map((theme, index) => ({ value: index, label: labelText(theme) }))}
+            value={selectedThemes} onValueChange={setSelectedThemes} />
+          <FilterTrigger active={Boolean(age)} aria-haspopup="dialog" aria-expanded={choosingAge} aria-controls="learning-age-dialog" onClick={() => setChoosingAge(true)}>
+            {labelText(age ? `${age} ასაკის ჯგუფი` : "ყველა ასაკი")}
+          </FilterTrigger>
         </div>
-        <p aria-live="polite">ნაჩვენებია : <strong>{filteredTopics.length} თემა</strong></p>
+        <p className={styles.count} aria-live="polite">{labelText("ნაჩვენებია : ")}<strong>{labelText(`${isTeen ? filteredTeenTopics.length : filteredTopics.length} თემა`)}</strong></p>
       </div>
-      <div className={styles.grid} data-variant={variant}>
-        {filteredTopics.map((item) => {
+      <div className={styles.divider}><Separator /></div>
+      <div className={styles.grid}>
+        {isTeen ? filteredTeenTopics.map(item => <TeenLearningCard key={item.id} item={item} color={teenColors[teenLearningTopics.indexOf(item) % teenColors.length]} />) : filteredTopics.map((item) => {
           const index = learningTopics.indexOf(item);
-          return <Link key={item.id} className={styles.card}
-          style={{ "--card-color": (variant === 1 ? frameColors : fillColors)[index % 6] } as CSSProperties}
-          href="/prototypes/articles" aria-label={`${item.title} — სტატიის გახსნა`}>
-          <span className={styles.cardBody}>
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src={item.image} alt="" width={1000} height={646} loading={index < 3 ? "eager" : "lazy"} />
-            <span className={styles.cardTitle}>{item.title}</span>
-          </span>
-          {variant === 2 && <span className={styles.start}>{labelText("დაწყება")}</span>}
-        </Link>})}
+          return <LearningCard key={item.id} item={item} appearance={variant === 1 ? "framed" : "filled"}
+            color={(variant === 1 ? frameColors : fillColors)[index % 6]} eager={index < 3} />;
+        })}
       </div>
-      <div className={styles.switcher} role="group" aria-label="დიზაინის ვარიანტი">
+      {!isTeen && <div className={styles.switcher} role="group" aria-label="დიზაინის ვარიანტი">
         <span>დიზაინის ვარიანტი</span>
         {([1, 2] as const).map(value => <button key={value} aria-pressed={variant === value} onClick={() => setVariant(value)}>{labelText(`ვარიანტი ${value}`)}</button>)}
-      </div>
+      </div>}
     </section>
-    <dialog ref={ageDialog} className={styles.ageDialog} aria-labelledby="age-title" onCancel={event => event.preventDefault()}>
+    <dialog id="learning-age-dialog" ref={ageDialog} className={styles.ageDialog} aria-labelledby="age-title" onCancel={event => event.preventDefault()}>
       <h2 id="age-title">აირჩიე შენი ასაკი</h2>
       <fieldset className={styles.ages}>
         <legend className={styles.srOnly}>ასაკობრივი ჯგუფი</legend>
@@ -115,8 +100,8 @@ export default function LearningPage() {
           <span>{value}</span>
         </label>)}
       </fieldset>
-      <p className={styles.ageNotice} role="status">{age && age !== "10-13" ? "ეს ასაკობრივი ჯგუფი მალე დაემატება. ახლა შეგიძლია აირჩიო 10-13." : ""}</p>
-      <button className={styles.continue} disabled={age !== "10-13"} onClick={continueToTopics}>{labelText("გაგრძელება")} <ChevronsRight aria-hidden="true" /></button>
+      <p className={styles.ageNotice} role="status">{age === "6-9" ? "ეს ასაკობრივი ჯგუფი მალე დაემატება." : ""}</p>
+      <button className={styles.continue} disabled={age !== "10-13" && age !== "14-18"} onClick={continueToTopics}>{labelText("გაგრძელება")} <Icon name="chevronsRight" /></button>
     </dialog>
   </main>;
 }
