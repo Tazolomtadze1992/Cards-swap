@@ -1,0 +1,11 @@
+.contactRow { display: flex; align-items: center; justify-content: space-between; gap: var(--space-6); flex-wrap: wrap; }
+.contactActions { display: flex; gap: var(--space-2); flex-wrap: wrap; }
+.contactEntry { display: grid; gap: var(--space-7); }
+.phoneNumber { display: grid; gap: var(--space-2); }
+.phoneNumber span { color: var(--color-text-secondary); font-size: var(--type-body-sm-size); }
+.phoneNumber strong { font-size: var(--type-h3-size); line-height: var(--type-h3-line); font-weight: var(--type-h3-weight); font-variant-numeric: tabular-nums; }
+
+@media (max-width: 760px) {
+  .contactActions { width: 100%; }
+  .contactActions > * { flex: 1; }
+}

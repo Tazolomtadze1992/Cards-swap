@@ -7,7 +7,7 @@ The approved prototype pages use the free Hugeicons Stroke Rounded set through t
 - Use semantic names from `src/components/ui/icon.tsx`; pages and components do not import individual Hugeicons.
 - Icons inherit the surrounding text color and use a default `2.5` stroke width.
 - Active interface icons use `16` pixels. Accordion Plus/Minus icons use `20` pixels, and the existing `32` pixel scenario CTA arrow remains an intentional exception for now.
-- Dialkit exposes an `Icons → Stroke Width` control from `1` to `4` in `0.1` increments across all prototype pages.
+- Stroke width is fixed to the approved `2.5` default across prototype pages.
 - Accordion questions show `plus` while closed and `minus` while open.
 - `close` remains a separate icon for dialogs, search clearing, and future dismiss actions.
 - Logos, content illustrations, and resource artwork remain image assets rather than interface icons.

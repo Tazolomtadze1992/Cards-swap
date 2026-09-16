@@ -1,5 +1,6 @@
 # Typography v1 prototype review
 
+> Update: The live tuning panel and its dependency have been removed. The project now uses the approved defaults; tuning references below describe earlier review work.
 Applied to the existing active homepage, cards playground, Resources, Glossary, FAQ, Topics (both variants and age dialog), and Article routes. Services was already deleted in this checkout. Legacy unreferenced prototype styles and third-party Colors editor are outside the active product scale.
 
 Typography changes only: colors, typefaces, margins, padding, widths, card geometry, illustrations, and animation remain as they were. Mobile type switches at 760px; existing layout breakpoints remain unchanged. The current desktop-first revision sets Display to 64px, tries H1 at 56px, sets H2 to 40px, uppercases Label presentation, and promotes resource/topic card titles to H3. See typography-v1-changes.md for the selector inventory.

@@ -1,0 +1,314 @@
+[
+  {
+    "route": "resources",
+    "width": 1280,
+    "metrics": {
+      "grids": [
+        {
+          "class": "resources_grid__D3O2q",
+          "gap": "32px",
+          "width": 1216
+        },
+        {
+          "class": "resource-media_play__2XwPZ",
+          "gap": "normal",
+          "width": 64
+        },
+        {
+          "class": "resource-media_play__2XwPZ",
+          "gap": "normal",
+          "width": 64
+        },
+        {
+          "class": "resource-media_play__2XwPZ",
+          "gap": "normal",
+          "width": 64
+        },
+        {
+          "class": "resource-media_play__2XwPZ",
+          "gap": "normal",
+          "width": 64
+        }
+      ],
+      "h1": [
+        {
+          "height": 72,
+          "text": "აირჩიე თემა და დაიწყე",
+          "top": 218
+        }
+      ],
+      "scroll": 1280,
+      "width": 1280
+    }
+  },
+  {
+    "route": "learning",
+    "width": 1280,
+    "metrics": {
+      "grids": [
+        {
+          "class": "learning_grid__YW_Hn",
+          "gap": "32px",
+          "width": 1216
+        },
+        {
+          "class": "learning_ages__hodA_",
+          "gap": "30px",
+          "width": 0
+        },
+        {
+          "class": "learning_ageOption__oBKkc",
+          "gap": "normal",
+          "width": 0
+        },
+        {
+          "class": "learning_ageOption__oBKkc",
+          "gap": "normal",
+          "width": 0
+        },
+        {
+          "class": "learning_ageOption__oBKkc",
+          "gap": "normal",
+          "width": 0
+        }
+      ],
+      "h1": [
+        {
+          "height": 72,
+          "text": "აირჩიე თემა და დაიწყე",
+          "top": 208
+        }
+      ],
+      "scroll": 1280,
+      "width": 1280
+    }
+  },
+  {
+    "route": "glossary",
+    "width": 1280,
+    "metrics": {
+      "grids": [
+        {
+          "class": "glossary_layout__FnnAv",
+          "gap": "80px",
+          "width": 1280
+        },
+        {
+          "class": "alphabet-filter_alphabet__OK9Jm",
+          "gap": "16px",
+          "width": 464
+        }
+      ],
+      "h1": [
+        {
+          "height": 144,
+          "text": "მოძებნე სასურველი სიტყვა და გაიგე მნიშვნელობა",
+          "top": 286
+        }
+      ],
+      "scroll": 1280,
+      "width": 1280
+    }
+  },
+  {
+    "route": "faq",
+    "width": 1280,
+    "metrics": {
+      "grids": [
+        {
+          "class": "accordion_root__30Gix",
+          "gap": "16px",
+          "width": 1191
+        }
+      ],
+      "h1": [
+        {
+          "height": 72,
+          "text": "ხშირად დასმული კითხვები",
+          "top": 417.734375
+        }
+      ],
+      "scroll": 1280,
+      "width": 1280
+    }
+  },
+  {
+    "route": "articles",
+    "width": 1280,
+    "metrics": {
+      "grids": [
+        {
+          "class": "articles_recommendationGrid__ra_Hk",
+          "gap": "32px",
+          "width": 1216
+        },
+        {
+          "class": "resource-media_play__2XwPZ",
+          "gap": "normal",
+          "width": 64
+        },
+        {
+          "class": "resource-media_play__2XwPZ",
+          "gap": "normal",
+          "width": 64
+        }
+      ],
+      "h1": [
+        {
+          "height": 72,
+          "text": "სტატიის სათაური",
+          "top": 241
+        }
+      ],
+      "scroll": 1280,
+      "width": 1280
+    }
+  },
+  {
+    "route": "homepage",
+    "width": 1280,
+    "metrics": {
+      "grids": [
+        {
+          "class": "accordion_root__30Gix",
+          "gap": "16px",
+          "width": 909
+        }
+      ],
+      "h1": [
+        {
+          "height": 128,
+          "text": "გაიგე მეტი, ივარჯიშე, იპოვე დახმარება.",
+          "top": 275
+        }
+      ],
+      "scroll": 1280,
+      "width": 1280
+    }
+  },
+  {
+    "route": "resources",
+    "width": 390,
+    "metrics": {
+      "grids": [
+        {
+          "class": "resources_toolbar___wHb1",
+          "gap": "24px",
+          "width": 350
+        },
+        {
+          "class": "resources_controls__RyDio",
+          "gap": "16px",
+          "width": 261.6953125
+        },
+        {
+          "class": "resources_grid__D3O2q",
+          "gap": "20px",
+          "width": 350
+        }
+      ],
+      "scroll": 390,
+      "width": 390
+    }
+  },
+  {
+    "route": "learning",
+    "width": 390,
+    "metrics": {
+      "grids": [
+        {
+          "class": "learning_grid__YW_Hn",
+          "gap": "24px",
+          "width": 350
+        },
+        {
+          "class": "learning_ages__hodA_",
+          "gap": "10px",
+          "width": 0
+        },
+        {
+          "class": "learning_ageOption__oBKkc",
+          "gap": "normal",
+          "width": 0
+        }
+      ],
+      "scroll": 390,
+      "width": 390
+    }
+  },
+  {
+    "route": "glossary",
+    "width": 390,
+    "metrics": {
+      "grids": [
+        {
+          "class": "alphabet-filter_alphabet__OK9Jm",
+          "gap": "12px",
+          "width": 350
+        }
+      ],
+      "scroll": 390,
+      "width": 390
+    }
+  },
+  {
+    "route": "faq",
+    "width": 390,
+    "metrics": {
+      "grids": [
+        {
+          "class": "accordion_root__30Gix",
+          "gap": "16px",
+          "width": 350
+        }
+      ],
+      "scroll": 390,
+      "width": 390
+    }
+  },
+  {
+    "route": "articles",
+    "width": 390,
+    "metrics": {
+      "grids": [
+        {
+          "class": "articles_recommendationGrid__ra_Hk",
+          "gap": "20px",
+          "width": 350
+        },
+        {
+          "class": "resource-media_play__2XwPZ",
+          "gap": "normal",
+          "width": 64
+        },
+        {
+          "class": "resource-media_play__2XwPZ",
+          "gap": "normal",
+          "width": 64
+        }
+      ],
+      "scroll": 390,
+      "width": 390
+    }
+  },
+  {
+    "route": "homepage",
+    "width": 390,
+    "metrics": {
+      "grids": [
+        {
+          "class": "cards-prototype_deck__5Iili",
+          "gap": "14px",
+          "width": 350
+        },
+        {
+          "class": "accordion_root__30Gix",
+          "gap": "16px",
+          "width": 350
+        }
+      ],
+      "scroll": 390,
+      "width": 390
+    }
+  }
+]

@@ -1,5 +1,6 @@
 # Homepage prototype
 
+> Update: The live tuning panel and its dependency have been removed. The project now uses the approved defaults; tuning references below describe earlier review work.
 Source: Figma `YqyCMj54On5xNGIHkZ1t6k`, node `396:7780`.
 
 `/prototypes/homepage` adds the original hero and FAQ around the shared `CardDeck`. `/` and `/prototypes/cards` retain the standalone cards playground. A top navigation switches between the two views during local development. It is hidden in production so people using the shared live cards link see only the cards prototype and its DialKit color controls. The homepage remains available by its direct route. Both use the existing persisted Colors panel, dark theme, approved heading/resources colors, 600ms hover and 1.45 expanded scale.

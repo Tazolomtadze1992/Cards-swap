@@ -1,12 +1,14 @@
 "use client";
 
+import { ReadingContent, ContentSection } from "../ui/reading-content";
 import { Separator } from "../ui/separator";
 import { Button } from "../ui/button";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { Icon } from "../ui/icon";
 import { SiteHeader } from "./site-header";
-import { ResourceCard } from "./resource-card";
+import { RecommendedMaterials } from "./recommended-materials";
+import recommendationStyles from "./recommended-materials.module.css";
 import { resources } from "./resources-data";
 import { labelText } from "./label-text";
 import styles from "./articles.module.css";
@@ -21,34 +23,31 @@ export default function ArticlesPagePrototype({ recommendedCount }: ArticlesPage
 
   return <main className={styles.page}>
     <SiteHeader />
-    <article className={styles.article}>
+    <div className={styles.article}><ReadingContent>
       <div className={styles.titleRow}>
         <h1>სტატიის სათაური</h1>
         <Button asChild variant="subtle" size="compact"><a href="#recommended">{labelText("გამოტოვე სტატია")} <Icon name="chevronsRight" /></a></Button>
       </div>
       <Image className={styles.heroImage} src="/assets/articles/article-hero.png" width={1936} height={1446} priority alt="აბსტრაქტული ილუსტრაცია სტატიაში" />
-      <div className={styles.copy}>
+      <ContentSection as="div">
         <p>ვებგვერდი იყენებს Lorem Ipsum-ს, როგორც დროებით ტექსტს წყობის შესავსებად; Lorem Ipsum-ის მოძებნისას კი საძიებო სისტემები ბევრ დაუსრულებელ გვერდს გვიჩვენებენ. წლების მანძილზე ამ ტექსტის უამრავი ვერსია გამოჩნდა, ზოგი შემთხვევით დაშვებული შეცდომის გამო, ზოგი კი — განზრახ, ხუმრობით.</p>
         <p>ვებგვერდი იყენებს Lorem Ipsum-ს, როგორც დროებით ტექსტს წყობის შესავსებად; Lorem Ipsum-ის მოძებნისას კი საძიებო სისტემები ბევრ დაუსრულებელ გვერდს გვიჩვენებენ. წლების მანძილზე ამ ტექსტის უამრავი ვერსია გამოჩნდა.</p>
-      </div>
-      <section className={styles.textSection}>
+      </ContentSection>
+      <ContentSection>
         <h2>ჰედერი</h2>
         <p>ვებგვერდი იყენებს Lorem Ipsum-ს, როგორც დროებით ტექსტს წყობის შესავსებად; Lorem Ipsum-ის მოძებნისას კი საძიებო სისტემები ბევრ დაუსრულებელ გვერდს გვიჩვენებენ. წლების მანძილზე ამ ტექსტის უამრავი ვერსია გამოჩნდა, ზოგი შემთხვევით დაშვებული შეცდომის გამო.</p>
-      </section>
+      </ContentSection>
       <Image className={styles.sectionImage} src="/assets/articles/article-section.png" width={2940} height={1584} alt="აბსტრაქტული ილუსტრაცია სტატიაში" />
-      <section className={styles.textSection}>
+      <ContentSection>
         <h2>ჰედერი</h2>
         <p>ბევრ დაუსრულებელ გვერდს გვიჩვენებენ. წლების მანძილზე ამ ტექსტის უამრავი ვერსია გამოჩნდა, ზოგი შემთხვევით დაშვებული შეცდომის გამო, ზოგი კი — განზრახ, ხუმრობით. ვებგვერდი იყენებს Lorem Ipsum-ს, როგორც დროებით ტექსტს წყობის შესავსებად; Lorem Ipsum-ის მოძებნისას კი საძიებო სისტემები ბევრ დაუსრულებელ გვერდს გვიჩვენებენ.</p>
         <p>წლების მანძილზე ამ ტექსტის უამრავი ვერსია გამოჩნდა, ზოგი შემთხვევით დაშვებული შეცდომის გამო, ზოგი კი — განზრახ, ხუმრობით. ვებგვერდი იყენებს Lorem Ipsum-ს, როგორც დროებით ტექსტს წყობის შესავსებად.</p>
-      </section>
+      </ContentSection>
       <Separator />
-    </article>
-    <section className={styles.recommended} id="recommended" aria-labelledby="recommended-heading">
-      <h2 id="recommended-heading">რეკომენდირებული მასალა</h2>
-      <div className={styles.recommendationGrid} data-count={recommendations.length}>
-        {recommendations.map(item => <ResourceCard context="recommendation" item={item} key={item.id} onOpen={() => router.push("/prototypes/resources")} />)}
-      </div>
-      <a className={styles.next} href="/prototypes/homepage#homepage-cards">{labelText("სცენარზე გადასვლა")} <Icon name="chevronsRight" size="large" /></a>
+    </ReadingContent></div>
+    <section className={styles.recommended} id="recommended" aria-label="რეკომენდირებული მასალა">
+      <RecommendedMaterials items={recommendations} onOpen={() => router.push("/prototypes/resources")} />
+      <a className={recommendationStyles.next} href="/prototypes/learning/practice/scenario">{labelText("სცენარზე გადასვლა")} <Icon name="chevronsRight" size="large" /></a>
     </section>
   </main>;
 }

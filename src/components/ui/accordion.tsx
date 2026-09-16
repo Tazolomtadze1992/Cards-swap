@@ -10,8 +10,8 @@ import styles from "./accordion.module.css";
 // Preserve primitive composition; the prototype owns styling and the state icons.
 type StyledProps<T> = T extends unknown ? Omit<T, "className" | "style"> : never;
 
-function Accordion(props: StyledProps<React.ComponentProps<typeof AccordionPrimitive.Root>>) {
-  return <AccordionPrimitive.Root {...props} data-slot="accordion" className={styles.root} />;
+function Accordion({ appearance = "default", ...props }: StyledProps<React.ComponentProps<typeof AccordionPrimitive.Root>> & { appearance?: "default" | "light" }) {
+  return <AccordionPrimitive.Root {...props} data-slot="accordion" data-appearance={appearance} className={styles.root} />;
 }
 
 function AccordionItem(props: StyledProps<React.ComponentProps<typeof AccordionPrimitive.Item>>) {

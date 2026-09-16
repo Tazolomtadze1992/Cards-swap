@@ -12,10 +12,12 @@ const buttonVariants = cva(styles.button, {
   variants: {
     variant: {
       primary: styles.primary,
+      call: styles.call,
       inverse: styles.inverse,
       overlay: styles.overlay,
       cardAction: styles.cardAction,
       subtle: styles.subtle,
+      outline: styles.outline,
       reset: styles.reset,
     },
     size: {

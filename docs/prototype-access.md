@@ -1,6 +1,6 @@
 # Protected full prototype
 
-The public cards playground remains available at `/` and `/prototypes/cards`. The full homepage and its connected FAQ, glossary, and resources pages require HTTP Basic authentication in production.
+The root `/` redirects to `/prototypes/homepage`. The standalone `/prototypes/cards` route has been removed. The full homepage and its connected FAQ, glossary, and resources pages require HTTP Basic authentication in production.
 
 Set these private environment variables in the Vercel project settings for Production, Preview, and Development as needed:
 

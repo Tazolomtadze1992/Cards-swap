@@ -1,5 +1,6 @@
 "use client";
 
+import { FilterSheet } from "./learning-filters-sheet";
 import { Separator } from "../ui/separator";
 import { FilterReset, MultiSelectFilter, SelectFilter } from "../ui/filters";
 import { Button } from "../ui/button";
@@ -49,6 +50,10 @@ export default function ResourcesPagePrototype() {
     <div className={styles.intro}><h1>აირჩიე თემა და დაიწყე</h1></div>
     <section className={styles.catalogue} aria-labelledby="resources-count">
       <div className={styles.toolbar}>
+        <FilterSheet tablet age={age} themes={resourceTypes} selected={types.map(type => resourceTypes.indexOf(type))}
+          ageOptions={[{ value: "all", label: "ყველა ასაკი" }, ...ageGroups.map(value => ({ value, label: value }))]}
+          topicLabel="რესურსის ტიპი" allLabel="ყველა რესურსი" description="აირჩიე რესურსის ტიპი და ასაკობრივი ჯგუფი." resetAge="all"
+          onApply={(nextAge, indexes) => { setAge(nextAge as AgeGroup | "all"); setTypes(indexes.map(index => resourceTypes[index])); }} />
         <div className={styles.controls}>
           <MultiSelectFilter layout="catalogue" label="რესურსის ტიპით გაფილტვრა" placeholder={labelText("ყველა რესურსი")} selectedLabel={labelText("რესურსის ტიპი")}
             options={resourceTypes.map(type => ({ value: type, label: labelText(type) }))}

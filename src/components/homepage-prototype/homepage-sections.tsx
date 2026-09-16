@@ -1,4 +1,3 @@
-import { Separator } from "../ui/separator";
 import { FaqList } from "./faq-list";
 import { Button } from "../ui/button";
 import styles from "./homepage.module.css";
@@ -6,15 +5,8 @@ import { faqItems } from "./faq-data";
 import { labelText } from "./label-text";
 import { SiteHeader } from "./site-header";
 
-export function PrototypeSwitcher({ homepage }: { homepage: boolean }) {
-  return <><nav lang="en" className={styles.switcher} aria-label="Prototype views">
-    <a href="/prototypes/cards" aria-current={!homepage ? "page" : undefined}>Cards only</a>
-    <a href="/prototypes/homepage" aria-current={homepage ? "page" : undefined}>Full homepage</a>
-  </nav><Separator /></>;
-}
-
 export function HomepageHero() {
-  return <section className={styles.hero} aria-labelledby="hero-heading">
+  return <section className={styles.hero} data-header-surface="brand-surface" aria-labelledby="hero-heading">
     <SiteHeader appearance="brand-surface" />
     <div className={styles.heroContent}>
       <h1 id="hero-heading">გაიგე მეტი, ივარჯიშე, იპოვე დახმარება.</h1>
@@ -27,9 +19,13 @@ export function HomepageHero() {
 }
 
 export function HomepageFaq() {
-  return <section className={styles.faq} id="homepage-faq" aria-labelledby="faq-heading">
-    {/* eslint-disable-next-line @next/next/no-img-element */}
-    <img src="/assets/cards/faq.svg" className={styles.faqIllustration} width={220.156} height={167.643} alt="" />
+  return <section className={styles.faq} data-header-surface="brand-surface" id="homepage-faq" aria-labelledby="faq-heading">
+    <div className={styles.faqIllustration} aria-hidden="true">
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img src="/assets/cards/faq-person.svg" className={styles.faqPerson} width={164.902} height={164.902} alt="" />
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img src="/assets/cards/faq-question-mark.svg" className={styles.faqQuestionMark} width={56.914} height={82.053} alt="" />
+    </div>
     <h2 id="faq-heading">ხშირად დასმული კითხვები</h2>
     <FaqList items={faqItems.slice(0, 6)} name="homepage-faq" />
     <div className={styles.viewAll}><Button asChild variant="overlay" size="prominent"><a href="/prototypes/faq">{labelText("ყველას ნახვა")}</a></Button></div>

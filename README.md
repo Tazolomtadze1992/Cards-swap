@@ -1,15 +1,14 @@
-# Cards Swap prototype
+# Digital Child Safety Hub
 
-Interactive React prototype for the Digital Child Safety Hub card deck.
+Full interactive prototype for the Digital Child Safety Hub.
 
 The prototype includes:
 
 - five illustrated category cards based on the supplied Figma designs;
 - a 600ms lift-and-scale hover treatment;
 - click-to-expand, card switching, and return interactions;
-- responsive, keyboard, touch, and reduced-motion behavior;
-- DialKit color controls for the page and cards; and
-- a distraction-free review canvas containing only the cards and DialKit.
+- responsive, keyboard, touch, and reduced-motion behavior; and
+- the homepage and connected learning, resources, glossary, FAQ, and services pages.
 
 ## Run locally
 
@@ -20,22 +19,21 @@ pnpm install
 pnpm dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000). The dedicated review route is also available at `/prototypes/cards`.
+Open [http://localhost:3000](http://localhost:3000) to reach the full homepage. The standalone cards playground has been removed.
 
 ## Review and developer handoff
 
-Use the DialKit panel in the lower-right corner to test colors. Settings are saved in the current browser, and **Copy parameters** produces values that can be shared back with the team. Motion settings are fixed to the approved values so reviewers only see relevant controls.
+Colors, typography, and motion use the approved project defaults.
 
 The reusable `CardDeck` component uses plain React and CSS. A Laravel application can mount it through an existing React or Inertia entry point. See [docs/cards-handoff.md](docs/cards-handoff.md) for behavior, integration notes, current values, and remaining production decisions.
 
-The full homepage and its connected pages can be shared behind one password while the cards-only playground stays public. See [docs/prototype-access.md](docs/prototype-access.md) for the Vercel environment settings.
+The full homepage and its connected pages can be shared behind one password. See [docs/prototype-access.md](docs/prototype-access.md) for the Vercel environment settings.
 
 ## Main stack
 
 - Next.js 16
 - React 19 and TypeScript
 - CSS Modules
-- DialKit
 - Lucide React
 
 Run `pnpm build` to verify a production build.

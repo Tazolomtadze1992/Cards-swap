@@ -1,37 +1,39 @@
 @import "tailwindcss";
 
 :root {
-  /* Typography v1: semantic roles; mobile values change together at 760px. */
-  --type-display-size: 64px;
-  --type-display-line: 64px;
+  --space-recommendations: var(--space-13);
+  /* Typography: rem endpoints, fluid from 390px to 1440px at the default root size.
+     Body and labels remain steady; headings use a unitless 100% line height. */
+  --type-display-size: clamp(2.5rem, 1.94285714rem + 2.28571429vw, 4rem);
+  --type-display-line: 1;
   --type-display-weight: 700;
-  --type-h1-size: 56px;
-  --type-h1-line: 72px;
+  --type-h1-size: clamp(2rem, 1.44285714rem + 2.28571429vw, 3.5rem);
+  --type-h1-line: 1;
   --type-h1-weight: 700;
-  --type-h2-size: 40px;
-  --type-h2-line: 44px;
+  --type-h2-size: clamp(1.75rem, 1.47142857rem + 1.14285714vw, 2.5rem);
+  --type-h2-line: 1;
   --type-h2-weight: 700;
-  --type-h3-size: 24px;
-  --type-h3-line: 32px;
+  --type-h3-size: clamp(1.375rem, 1.32857143rem + 0.19047619vw, 1.5rem);
+  --type-h3-line: 1;
   --type-h3-weight: 600;
-  --type-h4-size: 20px;
-  --type-h4-line: 28px;
+  --type-h4-size: clamp(1.125rem, 1.07857143rem + 0.19047619vw, 1.25rem);
+  --type-h4-line: 1;
   --type-h4-weight: 600;
-  --type-body-size: 16px;
-  --type-body-line: 24px;
+  --type-body-size: 1rem;
+  --type-body-line: 1.5rem;
   --type-body-weight: 400;
   --type-body-tracking: 0px;
-  --type-body-sm-size: 14px;
-  --type-body-sm-line: 20px;
+  --type-body-sm-size: 0.875rem;
+  --type-body-sm-line: 1.25rem;
   --type-body-sm-weight: 400;
   --type-body-sm-tracking: 0px;
   --type-label-transform: uppercase;
-  --type-label-size: 14px;
-  --type-label-line: 20px;
+  --type-label-size: 0.875rem;
+  --type-label-line: 1.25rem;
   --type-label-weight: 500;
   --type-label-tracking: 0px;
-  --type-accordion-question-size: 18px;
-  --type-accordion-question-line: 28px;
+  --type-accordion-question-size: clamp(1rem, 0.95357143rem + 0.19047619vw, 1.125rem);
+  --type-accordion-question-line: clamp(1.5rem, 1.40714286rem + 0.38095238vw, 1.75rem);
   --type-accordion-question-weight: 500;
   --type-accordion-question-tracking: 0px;
   --type-accordion-question-transform: none;
@@ -43,7 +45,7 @@
   --ink: #2f1715;
   --navy: #152a3a;
   --brown: #68312a;
-  --green: #658e67;
+  --green: var(--color-brand-blue-primary);
   --blue: #1cb0f6;
   --blue-dark: #087eae;
   --pink: #ffd0f5;
@@ -62,6 +64,13 @@
   --color-neutral-warm-300: oklch(0.84 0.012 80.708);
   --color-neutral-warm-700: oklch(0.43 0.014 80.708);
   --color-neutral-warm-900: oklch(0.3 0.012 80.708);
+  --color-brand-blue-primary: oklch(0.547 0.15 262.678);
+  --color-brand-blue-hover: oklch(0.49 0.15 262.678);
+  --color-brand-blue-soft: oklch(0.92 0.03 262.678);
+  --color-brand-blue-ink: oklch(0.43 0.12 262.678);
+  --color-brand-blue-muted: oklch(0.518 0.14 262.678);
+  --color-brand-blue-muted-hover: oklch(0.488 0.13 262.678);
+  /* Green is reserved for semantic success feedback. */
   --color-green-primary: oklch(0.426 0.076 183.445);
   --color-green-secondary: oklch(0.5 0.089 183.445);
   --color-green-soft: oklch(0.92 0.025 183.445);
@@ -75,12 +84,14 @@
   --color-text-primary: var(--color-neutral-warm-900);
   --color-text-secondary: var(--color-neutral-warm-700);
   --color-text-inverse: var(--color-cream-primary);
-  --color-text-inverse-secondary: var(--color-cream-secondary);
-  --color-accent-subtle-bg: var(--color-green-soft);
-  --color-accent-border: var(--color-green-primary);
-  --color-accent-solid: var(--color-green-primary);
-  --color-accent-solid-hover: var(--color-green-secondary);
-  --color-accent-text: var(--color-green-primary);
+  --color-text-inverse-secondary: oklch(0.965 0.015 80.708);
+  /* Muted cream for darker blue surfaces (or large text on brand blue). */
+  --color-text-inverse-muted: oklch(0.94 0.015 80.708);
+  --color-accent-subtle-bg: var(--color-brand-blue-soft);
+  --color-accent-border: var(--color-brand-blue-primary);
+  --color-accent-solid: var(--color-brand-blue-primary);
+  --color-accent-solid-hover: var(--color-brand-blue-hover);
+  --color-accent-text: var(--color-brand-blue-ink);
   --color-brand: var(--color-accent-solid);
   --color-accent: var(--color-accent-solid);
   --color-accent-soft: var(--color-accent-subtle-bg);
@@ -88,14 +99,18 @@
   --color-action-primary-fg: var(--color-cream-primary);
   --color-focus: var(--color-accent-solid);
   --color-focus-inverse: var(--color-cream-primary);
+  --color-nav-on-brand-active: oklch(0.96 0.05 170);
   --color-control-subtle-bg: var(--color-neutral-warm-100);
   --color-control-hover-bg: oklch(0.91 0.025 80.708);
+  --color-control-on-brand-bg: var(--color-brand-blue-muted);
+  --color-control-on-brand-hover-bg: var(--color-brand-blue-muted-hover);
+  --color-drawer-handle: oklch(0.62 0.025 80.708);
   --color-control-inverse-hover-bg: oklch(0.969 0.015 80.708 / 0.19);
   --color-border-subtle: var(--color-neutral-warm-200);
   --color-separator-subtle: oklch(0.935 0.01 80.708);
   --color-border-default: var(--color-neutral-warm-300);
   --color-border-inverse: oklch(0.969 0.015 80.708 / 0.12);
-  /* Success reuses the established green palette. */
+  /* Success remains independent from the blue brand palette. */
   --color-success: var(--color-green-primary);
   --color-success-soft: var(--color-green-soft);
   --color-danger: oklch(0.557 0.192 25.247);
@@ -247,16 +262,6 @@ a {
   }
 }
 
-@media (max-width: 760px) {
-  :root {
-    --type-display-size: 40px;
-    --type-display-line: 48px;
-    --type-h1-size: 32px;
-    --type-h1-line: 40px;
-    --type-h2-size: 28px;
-    --type-h2-line: 36px;
-  }
-}
 
 /* Keep inline emphasis within the three agreed weights. */
 strong, b { font-weight: 700; }
@@ -268,9 +273,12 @@ h1, h2, h3, h4, h5, h6 { font-family: var(--font-display); }
 button, input, select, textarea { font-family: var(--font-body); }
 
 /* Keep the prototype's third-party typography tuner in the same UI family. */
-.dialkit-root, .dialkit-root * { font-family: var(--font-body) !important; }
 
 /* Chromium can reshape Georgian under CSS uppercase. Render our Mtavruli unchanged.
    Explicit English language scopes retain Latin CSS casing. */
 :lang(ka) { --type-label-transform: none; }
 :lang(en) { --type-label-transform: uppercase; }
+
+@media (max-width: 720px) {
+  :root { --space-recommendations: calc(var(--space-9) + var(--space-2)); }
+}

@@ -1,7 +1,6 @@
 "use client";
 
-import Link from "next/link";
-import { Button } from "../ui/button";
+import { LearningFiltersSheet } from "./learning-filters-sheet";
 import { Separator } from "../ui/separator";
 import { FilterTrigger, MultiSelectFilter } from "../ui/filters";
 import { LearningCard } from "./learning-card";
@@ -31,8 +30,8 @@ const topicThemeIndexes = [0, 0, 0, 0, 1, 2, 3, 3, 4, 5, 5, 6];
 
 export default function LearningPage({ initialAge = "" }: { initialAge?: string }) {
   const router = useRouter();
-  const isTeen = initialAge === "14-18";
   const [age, setAge] = useState(initialAge);
+  const isTeen = age === "14-18";
   const [choosingAge, setChoosingAge] = useState(!initialAge);
   const [variant, setVariant] = useState<1 | 2>(1);
   const [selectedThemes, setSelectedThemes] = useState<number[]>([]);
@@ -56,8 +55,8 @@ export default function LearningPage({ initialAge = "" }: { initialAge?: string 
 
   function continueToTopics() {
     if (age !== "10-13" && age !== "14-18") return;
-    if (age === "14-18" && !isTeen) { router.push("/prototypes/learning/14-18"); return; }
-    if (age === "10-13" && isTeen) { router.push("/prototypes/learning"); return; }
+    if (age === "14-18" && initialAge !== "14-18") { router.push("/prototypes/learning/14-18"); return; }
+    if (age === "10-13" && initialAge === "14-18") { router.push("/prototypes/learning"); return; }
     setChoosingAge(false);
     requestAnimationFrame(() => heading.current?.focus());
   }
@@ -66,8 +65,8 @@ export default function LearningPage({ initialAge = "" }: { initialAge?: string 
     <SiteHeader activeItem="learning" />
     <section className={styles.content}>
       <h1 ref={heading} tabIndex={-1}>აირჩიე თემა და დაიწყე</h1>
-      {!isTeen && <div className={styles.practiceLink}><Button asChild><Link href="/prototypes/learning/practice">{labelText("სცენარი და ქვიზი")}<Icon name="chevronsRight" /></Link></Button></div>}
       <div className={styles.filters}>
+        <LearningFiltersSheet age={age} themes={themes} selected={selectedThemes} onApply={(nextAge, nextThemes) => { setAge(nextAge); setSelectedThemes(nextThemes); }} />
         <div className={styles.controls}>
           <MultiSelectFilter label="თემით გაფილტვრა" placeholder={labelText("ყველა თემა")} selectedLabel={labelText("არჩეული თემა")}
             options={themes.map((theme, index) => ({ value: index, label: labelText(theme) }))}

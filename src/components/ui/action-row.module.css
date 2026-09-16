@@ -1,0 +1,11 @@
+.area { margin-top: var(--space-10); }
+.area[data-spacing="airy"] { margin-top: var(--space-13); }
+.actions { display: flex; align-items: center; gap: var(--space-4); margin-top: var(--space-7); flex-wrap: wrap; }
+.actions[data-align="split"] { justify-content: space-between; }
+.actions[data-align="split"] > :last-child { margin-left: auto; }
+.actions[data-align="center"] { justify-content: center; }
+@media (max-width: 720px) {
+  .area, .area[data-spacing="airy"] { margin-top: var(--space-recommendations); }
+  .actions { margin-top: var(--space-6); flex-direction: column; align-items: stretch; }
+  .actions[data-align="split"] > :last-child { margin-left: 0; }
+}

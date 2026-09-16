@@ -1,5 +1,6 @@
 # Card prototype — stage 03
 
+> Update: The live tuning panel and its dependency have been removed. The project now uses the approved defaults; tuning references below describe earlier review work.
 Review route: `/prototypes/cards`.
 
 ## Design and behavior

@@ -19,10 +19,12 @@
   cursor: pointer;
 }
 .primary { --button-bg: var(--color-action-primary-bg); --button-fg: var(--color-action-primary-fg); --button-hover: var(--color-accent-solid-hover); }
-.inverse { --button-bg: var(--color-surface); --button-fg: var(--color-accent-solid); --button-hover: var(--color-text-inverse-secondary); }
+.call { --button-bg: var(--color-green-primary); --button-fg: var(--color-cream-primary); --button-hover: var(--color-green-secondary); }
+.inverse { --button-bg: var(--color-surface); --button-fg: var(--color-accent-text); --button-hover: var(--color-control-subtle-bg); }
 .overlay { --button-bg: var(--color-overlay-soft); --button-fg: var(--color-text-inverse); --button-hover: var(--color-overlay-control); }
 .cardAction { --button-bg: var(--color-overlay-control); --button-fg: var(--color-text-inverse); --button-hover: var(--color-overlay-control-hover); }
 .subtle { --button-bg: var(--color-control-subtle-bg); --button-fg: var(--color-text-primary); --button-hover: var(--color-control-hover-bg); white-space: nowrap; }
+.outline { --button-bg: transparent; --button-fg: var(--color-text-primary); --button-hover: var(--color-control-hover-bg); border: 1px solid var(--color-border-default); white-space: nowrap; }
 .compact { min-height: var(--control-height-compact); padding: var(--space-3) var(--space-4); }
 .default { min-height: var(--control-height-default); padding: var(--space-3) var(--space-6); }
 .prominent { min-height: var(--control-height-prominent); padding: var(--space-4) var(--space-7); }

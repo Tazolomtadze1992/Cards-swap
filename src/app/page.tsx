@@ -1,5 +1,5 @@
-import CardsPrototype from "@/components/cards-prototype/cards-prototype";
+import { redirect } from "next/navigation";
 
 export default function Home() {
-  return <CardsPrototype />;
+  redirect("/prototypes/homepage");
 }

@@ -1,0 +1,21 @@
+.question { scroll-margin-top: var(--space-7); }
+.questionTitle { margin: 0 0 var(--space-6); font-family: var(--font-body); font-size: var(--type-h3-size); line-height: 1.25; font-weight: var(--type-h3-weight); overflow-wrap: anywhere; scroll-margin-top: var(--space-6); }
+.answers { display: grid; gap: var(--space-4); border: 0; padding: 0; margin: 0; min-width: 0; }
+.answer { display: flex; align-items: flex-start; gap: var(--space-4); padding: var(--space-6); border: 2px solid var(--color-border-default); border-radius: var(--radius-surface); background: var(--color-surface); cursor: pointer; }
+.answer input { flex: none; width: var(--space-5); height: var(--space-5); margin: 2px 0 0; accent-color: var(--color-accent-solid); }
+.answerCopy { min-width: 0; overflow-wrap: anywhere; }
+.answer[data-state="selected"] { border-color: var(--color-accent-border); background: var(--color-accent-subtle-bg); }
+.answer[data-state="correct"] { border-color: var(--color-success); background: var(--color-success-soft); }
+.answer[data-state="incorrect"] { border-color: var(--color-danger); background: var(--color-danger-soft); }
+.answer:has(input:disabled) { cursor: default; }
+.answer:has(input:focus-visible) { outline: 3px solid var(--color-focus); outline-offset: 4px; }
+.answer input:focus-visible { outline: none; }
+.answerStatus { display: flex; align-items: center; gap: var(--space-2); margin-top: var(--space-3); font-size: var(--type-body-sm-size); line-height: var(--type-body-sm-line); font-weight: var(--type-h4-weight); }
+.answer[data-state="correct"] .answerStatus { color: var(--color-success); }
+.answer[data-state="incorrect"] .answerStatus { color: var(--color-text-primary); }
+.srOnly { position: absolute; width: 1px; height: 1px; padding: 0; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+@media (hover: hover) { .answer[data-state="default"]:not(:has(input:disabled)):hover { background: var(--color-control-hover-bg); } }
+
+@media (max-width: 720px) {
+  .answer { padding: var(--space-4); gap: var(--space-3); }
+}

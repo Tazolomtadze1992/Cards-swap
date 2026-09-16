@@ -1,0 +1,8 @@
+.root { display: none; flex: none; }
+.reset { margin-top: var(--space-7); }
+
+@media (max-width: 640px) {
+  .root { display: block; }
+  .root > [data-slot="button"] { width: var(--control-height-default); height: var(--control-height-default); }
+  .root[data-active="true"] > [data-slot="button"] { color: var(--color-accent-text); background: var(--color-accent-subtle-bg); }
+}

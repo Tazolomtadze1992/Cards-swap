@@ -3,10 +3,10 @@
 import { useState, useRef, type CSSProperties } from "react";
 import { useRouter } from "next/navigation";
 import { ChevronsRight } from "lucide-react";
-import { useDialKit } from "dialkit";
 import styles from "./cards-prototype.module.css";
+import { MobileCardStack } from "./mobile-card-stack";
 import { labelText } from "../homepage-prototype/label-text";
-import { HomepageHero, HomepageFaq, PrototypeSwitcher } from "../homepage-prototype/homepage-sections";
+import { HomepageHero, HomepageFaq } from "../homepage-prototype/homepage-sections";
 
 export const cards = [
   { id: "support", illustrationWidth: 70.938, illustrationHeight: 73.801, label: "სერვისები და დახმარება", color: "#f8ecd7", ink: "#393939", x: 0, y: 5.77, width: 361.575, height: 380.813, angle: -14.6 },
@@ -33,7 +33,7 @@ type CardColors = {
 };
 
 const defaultColors: CardColors = {
-  page: { background: "#FAF4EA", heading: "#005C53" },
+  page: { background: "#FAF4EA", heading: "#3F6CC7" },
   services: { background: cards[0].color, text: cards[0].ink },
   video: { background: cards[1].color, text: cards[1].ink },
   resources: { background: cards[2].color, text: cards[2].ink },
@@ -55,6 +55,7 @@ export function CardDeck({ homepage = false, hoverDuration = 600, returnDuration
     onKeyDown={event => { if (event.key === "Escape") close(); }}
     onClick={event => { if (!(event.target as HTMLElement).closest("[data-card-slot], button")) close(); }}>
     {homepage ? <h2 className={styles.sectionHeading}>ერთი სივრცე ყველა საჭირო ინფორმაციისთვის</h2> : <h1>ერთი სივრცე ყველა საჭირო ინფორმაციისთვის</h1>}
+    <MobileCardStack cards={cards} palette={palette} onNavigate={onNavigate} />
     <ul className={styles.deck}>
       {cards.map((card, index) => {
         const selected = active === card.id;
@@ -64,6 +65,10 @@ export function CardDeck({ homepage = false, hoverDuration = 600, returnDuration
         const targetX = selected ? 557.821 : 407.821 + smallIndex * 100;
         const targetY = selected ? 135 : 135 + 317.76 * expandedScale / 2 + 83;
         return <li key={card.id} id={`card-${card.id}`} className={styles.slot} data-card-slot data-selected={selected} data-small={!!active && !selected} style={{
+          "--fan-offset-x": active ? `${selected ? 0 : -150 + smallIndex * 100}px` : `calc(${(centerX - 557.821) / 755.99} * (100cqw - 362px))`,
+          "--fan-offset-y": `${active ? selected ? -24 : 135 + 317.76 * expandedScale / 2 + 83 - 159 : centerY - 159}px`,
+          "--fixed-illustration-width": `${card.illustrationWidth}px`,
+          "--fixed-illustration-height": `${card.illustrationHeight}px`,
           "--x": `${card.x / 11.15642}%`, "--y": `${card.y / 11.15642}cqw`,
           "--w": `${card.width / 11.15642}%`, "--h": `${card.height / 11.15642}cqw`,
           "--illustration-width": `${card.illustrationWidth / 11.15642}cqw`, "--illustration-height": `${card.illustrationHeight / 11.15642}cqw`,
@@ -102,34 +107,20 @@ export function CardDeck({ homepage = false, hoverDuration = 600, returnDuration
 
 function CardsPrototypeView({ homepage = false, colors }: { homepage?: boolean; colors: CardColors }) {
   const router = useRouter();
-  const showPrototypeSwitcher = process.env.NODE_ENV !== "production";
   return <main className={styles.playground} style={{
     "--page-background": colors.page.background, "--page-heading": colors.page.heading,
   } as CSSProperties}>
-    {showPrototypeSwitcher && <PrototypeSwitcher homepage={homepage} />}
     {homepage && <HomepageHero />}
     <div id="homepage-cards"><CardDeck homepage={homepage} onNavigate={homepage ? id => {
       if (id === "faq") router.push("/prototypes/faq");
-      if (id === "resources") router.push("/prototypes/resources");
+      if (id === "resources" || id === "video") router.push("/prototypes/resources");
+      if (id === "support") router.push("/prototypes/services");
+      if (id === "quiz") router.push("/prototypes/learning/practice");
     } : undefined} palette={{ support: colors.services, video: colors.video, resources: colors.resources, faq: colors.faq, quiz: colors.quizzes }} /></div>
     {homepage && <HomepageFaq />}
   </main>;
 }
 
-function CardsPrototypeWithColorControls() {
-  const colors = useDialKit("Colors", {
-    page: { _collapsed: true, background: "#FAF4EA", heading: "#005C53" },
-    services: { _collapsed: true, background: cards[0].color, text: cards[0].ink },
-    video: { _collapsed: true, background: cards[1].color, text: cards[1].ink },
-    resources: { _collapsed: true, background: cards[2].color, text: cards[2].ink },
-    faq: { _collapsed: true, background: cards[3].color, text: cards[3].ink },
-    quizzes: { _collapsed: true, background: cards[4].color, text: cards[4].ink },
-  }, { id: "cards-colors-v3", persist: true });
-
-  return <CardsPrototypeView colors={colors} />;
-}
-
 export default function CardsPrototype({ homepage = false }: { homepage?: boolean }) {
-  if (homepage) return <CardsPrototypeView homepage colors={defaultColors} />;
-  return <CardsPrototypeWithColorControls />;
+  return <CardsPrototypeView homepage={homepage} colors={defaultColors} />;
 }

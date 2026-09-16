@@ -1,0 +1,18 @@
+.contactCard { --color-separator-subtle: var(--color-border-subtle); display: flex; flex-direction: column; gap: var(--space-7); padding: var(--space-7); border-radius: var(--radius-card); background: var(--color-control-subtle-bg); }
+.contactHeading h3 { margin: 0; font-family: var(--font-body); font-size: var(--type-h4-size); line-height: var(--type-h4-line); font-weight: var(--type-h4-weight); }
+.badges { display: flex; gap: var(--space-2); flex-wrap: wrap; }
+.contactDetails { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-9); }
+.contactDetails h4 { font-family: var(--font-body); margin: 0 0 var(--space-3); font-size: var(--type-body-size); line-height: var(--type-body-line); font-weight: var(--type-h4-weight); }
+.contactDetails p { margin: 0; color: var(--color-text-secondary); }
+.contactAgency { margin: var(--space-3) 0 0; font-size: var(--type-body-sm-size); line-height: var(--type-body-sm-line); color: var(--color-text-secondary); }
+.contactNote { margin: 0; color: var(--color-text-secondary); }
+.contactHeading { display: flex; align-items: flex-start; gap: var(--space-6); }
+.contactHeadingCopy { flex: 1; min-width: 0; overflow-wrap: anywhere; }
+.contactHeading .badges { flex: 0 0 32%; justify-content: flex-end; align-content: flex-start; }
+
+@media (max-width: 760px) {
+  .contactCard { padding: var(--space-6); gap: var(--space-6); }
+  .contactDetails { grid-template-columns: minmax(0, 1fr); gap: var(--space-6); }
+  .contactHeading { gap: var(--space-4); }
+  .contactHeading .badges { flex: 0 0 auto; width: min-content; }
+}

@@ -1,5 +1,6 @@
 # Palette A implementation inventory
 
+> Update: The live tuning panel and its dependency have been removed. The project now uses the approved defaults; tuning references below describe earlier review work.
 Palette A is applied to the shared base UI. Illustration colors and the mixed homepage, Resources, and Learning card palettes remain unchanged, except that the homepage blue card's pure-white ink now uses the approved cream.
 
 ## Hierarchy correction

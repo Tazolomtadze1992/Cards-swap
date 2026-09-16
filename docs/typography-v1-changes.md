@@ -1,5 +1,6 @@
 # Typography v1 change inventory
 
+> Update: The live tuning panel and its dependency have been removed. The project now uses the approved defaults; tuning references below describe earlier review work.
 All changes are typography-only. Existing typefaces, colors, geometry and motion are retained. Mobile typography switches at 760px. Current desktop values are Display 64/64, H1 56/72, and H2 40/44; Label remains 14/20/600 and is presented uppercase. Decorative Cards Hakuna is supplied only as a regular font; requested CSS weights resolve to its existing outlines because font synthesis remains disabled. True 600/700 rendering requires corresponding font assets.
 
 | File / selector | Before | After |

@@ -1,7 +1,3 @@
-.switcher { display: flex; justify-content: center; gap: 4px; padding: 8px 16px; background: var(--color-canvas); color: var(--color-text-primary); font-family: var(--font-body); text-transform: var(--type-label-transform, uppercase); font-size: var(--type-label-size); line-height: var(--type-label-line); font-weight: var(--type-label-weight); letter-spacing: var(--type-label-tracking); }
-.switcher a { padding: 8px 18px; border-radius: 999px; text-decoration: none; }
-.switcher a[aria-current="page"] { background: var(--color-brand); color: var(--color-text-inverse); }
-.switcher a:hover { box-shadow: inset 0 0 0 1px var(--color-border-default); }
 .hero { --color-focus-ring: var(--color-focus-inverse); position: relative; min-height: 839px; background: var(--color-brand); color: var(--color-text-inverse); overflow: hidden; }
 
 .start { margin-top: 80px; }
@@ -11,27 +7,32 @@
 
 .heroPerson { position: absolute; width: 273px; height: 240px; object-fit: contain; bottom: 0; right: max(3.49%, calc((100% - 1340px) / 2)); }
 .faq { --color-focus-ring: var(--color-focus-inverse); background: var(--color-brand); color: var(--color-text-inverse); padding: 150px 24px 240px; scroll-margin-top: 24px; }
-.faqIllustration { display: block; width: 220.156px; height: 167.643px; object-fit: contain; margin: 0 auto 88px; }
+.faqIllustration { position: relative; width: 192.994px; aspect-ratio: 192.994 / 224.942; margin: 0 auto 88px; }
+.faqPerson { position: absolute; left: 0; bottom: 0; width: 85.444%; height: 73.309%; }
+.faqQuestionMark { position: absolute; right: 0; top: 0; width: 29.49%; height: 36.477%; }
 .faq h2 { margin: 0 auto 88px; text-align: center; font-family: var(--font-display); font-size: var(--type-h2-size); line-height: var(--type-h2-line); font-weight: var(--type-h2-weight); }
-.faqPage { --color-focus-ring: var(--color-focus-inverse); min-height: 100svh; background: var(--color-brand); color: var(--color-text-inverse); overflow: clip; }
+.faqPage { min-height: 100svh; background: var(--color-surface); color: var(--color-text-primary); overflow: clip; }
 .faqPageContent { width: min(100%, 1239px); margin: var(--space-page-start) auto 0; padding: 0 24px 96px; }
 .faqPageIntro { display: flex; flex-direction: column; align-items: center; gap: 64px; margin-bottom: var(--space-page-intro-gap); }
-.faqPageIllustration { display: block; width: 136.236px; height: 103.739px; object-fit: contain; transform: rotate(2.17deg); }
-.faqPage h1 { margin: 0; color: var(--color-text-inverse); text-align: center; font-family: var(--font-display); font-size: var(--type-h1-size); line-height: var(--type-h1-line); font-weight: var(--type-h1-weight); }
+.faqPageIllustration { position: relative; width: 160px; aspect-ratio: 192.994 / 224.942; color: var(--color-brand-blue-primary); }
+.faqPagePerson, .faqPageQuestionMark { position: absolute; display: block; background: currentColor; -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat; -webkit-mask-size: contain; mask-size: contain; }
+.faqPagePerson { left: 0; bottom: 0; width: 85.444%; height: 73.309%; -webkit-mask-image: url('/assets/cards/faq-person.svg'); mask-image: url('/assets/cards/faq-person.svg'); }
+.faqPageQuestionMark { right: 0; top: 0; width: 29.49%; height: 36.477%; -webkit-mask-image: url('/assets/cards/faq-question-mark.svg'); mask-image: url('/assets/cards/faq-question-mark.svg'); }
+.faqPage h1 { margin: 0; color: var(--color-text-primary); text-align: center; font-family: var(--font-display); font-size: var(--type-h1-size); line-height: var(--type-h1-line); font-weight: var(--type-h1-weight); }
 @media (max-width: 1200px) {
   .heroContent { margin-top: var(--space-page-start); }
 }
 @media (max-width: 600px) {
   .hero { min-height: 790px; }
-  .heroContent { margin-top: 55px; }
+  .heroContent { margin-top: var(--space-12); }
 
   .heroPerson { width: 180px; height: 158px; right: 20px; }
   .faq { padding: 72px 20px 100px; }
-  .faqIllustration { width: 176px; height: 134px; margin-bottom: 48px; }
+  .faqIllustration { width: clamp(112px, 28vw, 144px); margin-bottom: var(--space-8); }
   .faq h2 { margin-bottom: 40px; }
   .faqPageContent { margin-top: 72px; padding: 0 20px 72px; }
   .faqPageIntro { gap: 40px; margin-bottom: 56px; }
-  .faqPageIllustration { width: 120px; height: 92px; }
+  .faqPageIllustration { width: 120px; }
 
 }
 

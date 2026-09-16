@@ -24,10 +24,12 @@
 .continue:disabled { opacity:.45; cursor:not-allowed; }
 .srOnly { position:absolute; width:1px; height:1px; padding:0; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; }
 @media(max-width:1050px) { .grid { grid-template-columns:repeat(2,minmax(0,1fr)); } .ageDialog { padding:48px 32px; } .ageDialog h2 { margin-bottom:56px; } .ageOption { min-height:160px; } }
-@media(max-width:640px) { .content { padding:64px 20px; } .content h1 { margin-bottom:48px; } .filters { flex-wrap:wrap; } .grid { grid-template-columns:1fr; gap:24px; } .ageDialog { width:calc(100% - 24px); padding:36px 20px; border-radius:32px; } .ageDialog h2 { margin-bottom:32px; } .ages { gap:10px; } .ageOption { min-height:110px; border-radius:20px; } .ageNotice { margin:20px 0; } .continue { min-height:68px; } .switcher > span { width:100%; text-align:center; } }
+@media(max-width:640px) { .content { padding:64px 20px; } .content h1 { margin-bottom:48px; } .filters { flex-wrap:nowrap; gap:var(--space-3); } .grid { grid-template-columns:1fr; gap:24px; } .ageDialog { width:calc(100% - 24px); padding:36px 20px; border-radius:32px; } .ageDialog h2 { margin-bottom:32px; } .ages { gap:10px; } .ageOption { min-height:110px; border-radius:20px; } .ageNotice { margin:20px 0; } .continue { min-height:68px; } .switcher > span { width:100%; text-align:center; } }
 .ageDialog { margin:auto; }
 
 .divider { margin: var(--space-7) 0; }
 @media (max-width: 640px) { .divider { margin: var(--space-6) 0; } }
 
-.practiceLink { display: flex; justify-content: center; margin-bottom: var(--space-7); }
+@media(max-width:640px) { .controls { display:none; } }
+
+@media(max-width:640px) { .count { margin-inline-start:auto; text-align:right; flex:0 1 auto; } }

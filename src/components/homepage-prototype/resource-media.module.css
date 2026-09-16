@@ -1,2 +1,2 @@
-.play { position: absolute; left: 50%; top: 50%; display: grid; width: var(--space-10); height: var(--space-10); place-items: center; transform: translate(-50%, -50%); border-radius: 50%; background: #ffffff4a; backdrop-filter: blur(2px); }
-.play :is(svg, img) { width: var(--space-4); height: var(--space-4); }
+.play { position: absolute; left: 50%; top: 50%; display: grid; width: var(--space-10); height: var(--space-10); place-items: center; transform: translate(-50%, -50%); border-radius: 50%; background: var(--color-overlay-control); color: var(--color-text-inverse); backdrop-filter: blur(2px); }
+.play svg { width: var(--space-6); height: var(--space-6); }

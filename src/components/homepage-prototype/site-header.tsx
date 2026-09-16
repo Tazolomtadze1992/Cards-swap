@@ -1,3 +1,6 @@
+"use client";
+
+import { useEffect, useId, useRef, useState, type ReactNode } from "react";
 import { Button } from "../ui/button";
 import Image from "next/image";
 import Link from "next/link";
@@ -10,32 +13,166 @@ const navigationItems = [
   { id: "resources", label: "რესურსები", href: "/prototypes/resources" },
   { id: "glossary", label: "ლექსიკონი", href: "/prototypes/glossary" },
   { id: "faq", label: "ხშირად დასმული კითხვები", href: "/prototypes/faq" },
-  { id: "support", label: "მხარდამჭერი სერვისები", href: "/prototypes/homepage#card-support" },
+  { id: "support", label: "მხარდამჭერი სერვისები", href: "/prototypes/services" },
 ] as const;
 
 type NavigationItem = (typeof navigationItems)[number]["id"];
 type SiteHeaderProps = {
   activeItem?: NavigationItem;
   appearance?: "light" | "brand-surface";
+  logoAccessory?: ReactNode;
 };
 
-export function SiteHeader({ activeItem, appearance = "light" }: SiteHeaderProps) {
-  return <header className={styles.header} data-appearance={appearance}>
-    <Link className={styles.logoLink} href="/prototypes/homepage" aria-label="მთავარ გვერდზე დაბრუნება">
+export function SiteHeader({ activeItem, appearance = "light", logoAccessory }: SiteHeaderProps) {
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [hidden, setHidden] = useState(false);
+  const [surface, setSurface] = useState(appearance);
+  const spacerRef = useRef<HTMLDivElement>(null);
+  const frameRef = useRef<HTMLDivElement>(null);
+  const navigationId = useId();
+  const headerRef = useRef<HTMLElement>(null);
+  const menuButtonRef = useRef<HTMLSpanElement>(null);
+  const navigationRef = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    const header = headerRef.current;
+    if (!header) return;
+    let previousY = Math.max(0, window.scrollY);
+    let downwardTravel = 0;
+    let frame = 0;
+    const update = () => {
+      frame = 0;
+      const y = Math.max(0, Math.min(window.scrollY, document.documentElement.scrollHeight - window.innerHeight));
+      const delta = y - previousY;
+      const keyboardFocus = !!header.querySelector(":focus-visible");
+      if (y < header.offsetHeight || menuOpen || keyboardFocus) {
+        setHidden(false);
+        downwardTravel = 0;
+      } else if (delta < -2) {
+        setHidden(false);
+        downwardTravel = 0;
+      } else if (delta > 0) {
+        downwardTravel += delta;
+        if (downwardTravel > 48) setHidden(true);
+      }
+      previousY = y;
+      // Section geometry stays reliable even while the header is translated away.
+      const sampleY = header.offsetHeight / 2;
+      const onBrand = Array.from(document.querySelectorAll('[data-header-surface="brand-surface"]'))
+        .some(section => {
+          const rect = section.getBoundingClientRect();
+          return rect.top <= sampleY && rect.bottom > sampleY;
+        });
+      if (!menuOpen) setSurface(onBrand ? "brand-surface" : "light");
+    };
+    const schedule = () => { if (!frame) frame = requestAnimationFrame(update); };
+    const observer = new ResizeObserver(() => {
+      if (spacerRef.current) spacerRef.current.style.height = `${header.offsetHeight}px`;
+      frameRef.current?.style.setProperty("--header-height", `${header.offsetHeight}px`);
+      schedule();
+    });
+    observer.observe(header);
+    window.addEventListener("scroll", schedule, { passive: true });
+    window.addEventListener("resize", schedule);
+    schedule();
+    return () => {
+      observer.disconnect();
+      window.removeEventListener("scroll", schedule);
+      window.removeEventListener("resize", schedule);
+      cancelAnimationFrame(frame);
+    };
+  }, [menuOpen]);
+
+  useEffect(() => {
+    const desktop = window.matchMedia("(min-width: 1251px)");
+    const onChange = () => { if (desktop.matches) setMenuOpen(false); };
+    desktop.addEventListener("change", onChange);
+    return () => desktop.removeEventListener("change", onChange);
+  }, []);
+
+  useEffect(() => {
+    if (!menuOpen) return;
+    const scrollY = window.scrollY;
+    const menuButton = menuButtonRef.current?.querySelector("button");
+    const body = document.body;
+    const previous = { position: body.style.position, top: body.style.top, width: body.style.width, overflow: body.style.overflow };
+    const htmlOverflow = document.documentElement.style.overflow;
+    body.style.position = "fixed";
+    body.style.top = `-${scrollY}px`;
+    body.style.width = "100%";
+    body.style.overflow = "hidden";
+    document.documentElement.style.overflow = "hidden";
+
+    // Keep background content out of the focus order and accessibility tree.
+    const background: { element: HTMLElement; inert: boolean }[] = [];
+    let branch: HTMLElement | null = frameRef.current;
+    while (branch?.parentElement) {
+      for (const sibling of branch.parentElement.children) {
+        if (sibling !== branch && sibling instanceof HTMLElement) {
+          background.push({ element: sibling, inert: sibling.inert });
+          sibling.setAttribute("inert", "");
+        }
+      }
+      branch = branch.parentElement;
+      if (branch === body) break;
+    }
+    navigationRef.current?.querySelector("a")?.focus({ preventScroll: true });
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        event.preventDefault();
+        setMenuOpen(false);
+      }
+      if (event.key === "Tab") {
+        const items = Array.from(headerRef.current?.querySelectorAll<HTMLElement>('a[href], button:not(:disabled)') ?? [])
+          .filter(element => element.getClientRects().length > 0);
+        const first = items[0];
+        const last = items[items.length - 1];
+        if (event.shiftKey && document.activeElement === first) {
+          event.preventDefault(); last?.focus();
+        } else if (!event.shiftKey && document.activeElement === last) {
+          event.preventDefault(); first?.focus();
+        }
+      }
+    };
+    document.addEventListener("keydown", onKeyDown);
+    return () => {
+      document.removeEventListener("keydown", onKeyDown);
+      background.forEach(({ element, inert }) => { element.toggleAttribute("inert", inert); });
+      Object.assign(body.style, previous);
+      document.documentElement.style.overflow = htmlOverflow;
+      window.scrollTo({ top: scrollY, behavior: "instant" });
+      menuButton?.focus({ preventScroll: true });
+    };
+  }, [menuOpen]);
+
+  const contact = <Button asChild size="contact" variant={surface === "brand-surface" ? "inverse" : "primary"}><Link href="/prototypes/homepage#homepage-faq" onClick={() => setMenuOpen(false)}>
+    <Icon name="phone" size="small" />
+    {labelText("კონტაქტი")}
+  </Link></Button>;
+
+  const logo = <Link className={styles.logoLink} href="/prototypes/homepage" aria-label="მთავარ გვერდზე დაბრუნება" onClick={() => setMenuOpen(false)}>
       <Image className={styles.brandLogo} src="/assets/homepage/logo.png" width={186} height={31} alt="" priority />
       <span className={styles.lightLogo} aria-hidden="true">
         <Image src="/assets/logo-mark.png" width={33} height={31} alt="" priority />
         <Image src="/assets/logo-wordmark.png" width={147} height={31} alt="" priority />
       </span>
-    </Link>
-    <nav className={styles.navigation} aria-label="მთავარი ნავიგაცია">
-      {navigationItems.map(item => <Link href={item.href} key={item.id} aria-current={activeItem === item.id ? "page" : undefined}>
-        {labelText(item.label)}
-      </Link>)}
+    </Link>;
+  return <div ref={spacerRef} className={styles.spacer}>
+    <div ref={frameRef} className={styles.frame} data-hidden={hidden && !menuOpen} data-appearance={surface} data-menu-open={menuOpen}
+      role={menuOpen ? "dialog" : undefined} aria-modal={menuOpen || undefined} aria-label={menuOpen ? "მთავარი მენიუ" : undefined}>
+    <header ref={headerRef} className={styles.header} data-appearance={surface} onFocusCapture={() => setHidden(false)}>
+    {logoAccessory ? <div className={styles.logoGroup}>{logo}{logoAccessory}</div> : logo}
+    <nav ref={navigationRef} id={navigationId} className={styles.navigation} data-open={menuOpen} aria-label="მთავარი ნავიგაცია">
+      <div className={styles.navigationLinks}>{navigationItems.map(item => <Link href={item.href} key={item.id} aria-current={activeItem === item.id ? "page" : undefined} onClick={() => setMenuOpen(false)}>
+        {menuOpen ? item.label : labelText(item.label)}
+      </Link>)}</div>
+      <span className={styles.menuContact}>{contact}</span>
     </nav>
-    <Button asChild size="contact" variant={appearance === "brand-surface" ? "inverse" : "primary"}><Link href="/prototypes/homepage#homepage-faq">
-      <Icon name="phone" size="small" />
-      {labelText("კონტაქტი")}
-    </Link></Button>
-  </header>;
+    <span className={styles.headerContact}>{contact}</span>
+    <span className={styles.menuButton} ref={menuButtonRef}><Button variant={surface === "brand-surface" ? "inverse" : "subtle"} size="icon" aria-label={menuOpen ? "მენიუს დახურვა" : "მენიუს გახსნა"} aria-expanded={menuOpen} aria-controls={navigationId} onClick={() => setMenuOpen(open => !open)}>
+      <Icon name={menuOpen ? "close" : "menu"} size="medium" />
+    </Button></span>
+  </header>
+    </div>
+  </div>;
 }
