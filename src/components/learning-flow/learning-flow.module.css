@@ -1,10 +1,6 @@
 .page { --flow-section-gap: var(--space-13); min-height: 100svh; padding-bottom: var(--space-10); background: var(--color-canvas); color: var(--color-text-primary); }
-.layoutPicker { display: flex; align-items: center; gap: var(--space-2); }
-.layoutPicker button { min-height: var(--control-height-compact); padding: var(--space-2) var(--space-3); border: 1px solid var(--color-border-default); border-radius: var(--radius-pill); background: var(--color-control-subtle-bg); color: var(--color-text-primary); cursor: pointer; font-size: var(--type-label-size); line-height: var(--type-label-line); font-weight: var(--type-label-weight); }
-.layoutPicker button[aria-pressed="true"] { border-color: var(--color-accent-border); background: var(--color-accent-subtle-bg); color: var(--color-accent-text); }
 .shell { scroll-margin-top: var(--space-7); max-width: calc(var(--layout-reading) + 2 * var(--gutter-desktop)); margin: var(--space-page-start) auto 0; padding: 0 var(--gutter-desktop) var(--space-7); }
 .shell[data-stage="answer"] { --flow-section-gap: var(--space-10); }
-.shell[data-layout="contained"] { padding: var(--space-7) var(--gutter-desktop); border: 2px solid var(--color-border-default); border-radius: var(--radius-expressive); background: var(--color-surface); }
 .topbar { display: flex; align-items: center; justify-content: space-between; gap: var(--space-4); }
 .progressGroup { width: min(100%, 480px); min-width: 0; }
 .progressCount { display: block; margin-bottom: var(--space-3); color: var(--color-text-secondary); font-size: var(--type-body-sm-size); line-height: var(--type-body-sm-line); font-variant-numeric: tabular-nums; }
@@ -34,7 +30,6 @@
   .shell { margin-top: var(--space-10); }
   .shell { padding: 0 var(--gutter-mobile) var(--space-6); }
   .index { padding: var(--space-10) var(--gutter-mobile); }
-  .shell[data-layout="contained"] { width: calc(100% - 2 * var(--gutter-mobile)); padding: var(--space-6) var(--gutter-mobile); border-radius: var(--radius-card); }
   .progressGroup { flex: 1; }
   .story { padding: var(--space-5); }
 }

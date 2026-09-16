@@ -16,7 +16,8 @@ import styles from "./learning-flow.module.css";
 // Existing article/catalogue fixtures for design review; CMS recommendations are not mapped yet.
 const previewMaterials = [resources[0], resources[3]];
 
-export function LearningEnding({ activity, answers, skipped, heading, onReview }: {
+export function LearningEnding({ activity, answers, skipped, heading, onReview, young = false }: {
+  young?: boolean;
   activity: LearningActivity; answers: Record<string, number>; skipped: boolean;
   heading: RefObject<HTMLHeadingElement | null>; onReview: () => void;
 }) {
@@ -25,7 +26,7 @@ export function LearningEnding({ activity, answers, skipped, heading, onReview }
   const [preview, setPreview] = useState<ResourceItem | null>(null);
   const dialog = useRef<HTMLDialogElement>(null);
   useEffect(() => { if (preview) dialog.current?.showModal(); }, [preview]);
-  const nextHref = activity.kind === "scenario" ? "/prototypes/learning/practice/quiz" : "/prototypes/learning";
+  const nextHref = activity.kind === "scenario" ? `/prototypes/learning/practice/quiz${young ? "?age=6-9" : ""}` : young ? "/prototypes/learning/6-9" : "/prototypes/learning";
   return <section className={styles.ending}>
     <div className={styles.resultContent}>
     {skipped && <h1 className={styles.endingTitle} ref={heading} tabIndex={-1}>რეკომენდირებული მასალა</h1>}

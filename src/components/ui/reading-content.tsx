@@ -1,5 +1,6 @@
 import type { ComponentPropsWithoutRef } from "react";
 import styles from "./reading-content.module.css";
+import { explainProse } from "./explained-text";
 
 type ReadingProps = ComponentPropsWithoutRef<"article"> & { width?: "reading" | "full" };
 
@@ -8,9 +9,9 @@ export function ReadingContent({ width = "reading", className, ...props }: Readi
   return <article {...props} data-width={width} className={[styles.content, className].filter(Boolean).join(" ")} />;
 }
 
-export function ContentSection({ as: Tag = "section", width = "reading", className, ...props }: ComponentPropsWithoutRef<"section"> & {
+export function ContentSection({ as: Tag = "section", width = "reading", className, children, ...props }: ComponentPropsWithoutRef<"section"> & {
   as?: "section" | "div";
   width?: "reading" | "full";
 }) {
-  return <Tag {...props} data-width={width} className={[styles.section, className].filter(Boolean).join(" ")} />;
+  return <Tag {...props} data-width={width} className={[styles.section, className].filter(Boolean).join(" ")}>{explainProse(children)}</Tag>;
 }

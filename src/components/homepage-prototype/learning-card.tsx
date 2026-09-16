@@ -10,11 +10,12 @@ type LearningCardProps = {
   appearance: "framed" | "filled";
   color: string;
   eager?: boolean;
+  age?: string;
 };
 
-export function LearningCard({ item, appearance, color, eager = false }: LearningCardProps) {
+export function LearningCard({ item, appearance, color, eager = false, age }: LearningCardProps) {
   return <Card asChild className={styles.card} data-appearance={appearance} style={{ "--card-color": color } as CSSProperties}>
-    <Link href="/prototypes/articles" aria-label={`${item.title} — სტატიის გახსნა`}>
+    <Link href={age === "6-9" ? "/prototypes/articles?age=6-9" : "/prototypes/articles"} aria-label={`${item.title} — სტატიის გახსნა`}>
       <CardContent className={styles.body}>
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img src={item.image} alt="" width={1000} height={646} loading={eager ? "eager" : "lazy"} />

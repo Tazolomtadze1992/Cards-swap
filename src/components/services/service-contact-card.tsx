@@ -24,11 +24,9 @@ export function ServiceContactCard({ contact, onCopyStatus }: {
   const titleId = useId();
   return <section className={styles.contactCard} aria-labelledby={titleId}>
     <div className={styles.contactHeading}>
-      <div className={styles.contactHeadingCopy}>
-        <h3 id={titleId}>{contact.title}</h3>
-        <p className={styles.contactAgency}>{contact.agency}</p>
-      </div>
+      <h3 id={titleId}>{contact.title}</h3>
       <div className={styles.badges}>{contact.badges.map(badge => <Badge key={badge}>{labelText(badge)}</Badge>)}</div>
+      <p className={styles.contactAgency}>{contact.agency}</p>
     </div>
     <Separator />
     <div className={styles.contactDetails}>

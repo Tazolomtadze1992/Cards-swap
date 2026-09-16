@@ -15,9 +15,9 @@ import styles from "./articles.module.css";
 
 const recommendedResources = [resources[0], resources[1], resources[3], resources[2], resources[6]];
 
-type ArticlesPageProps = { recommendedCount: 2 | 3 | 5 };
+type ArticlesPageProps = { recommendedCount: 2 | 3 | 5; age?: string };
 
-export default function ArticlesPagePrototype({ recommendedCount }: ArticlesPageProps) {
+export default function ArticlesPagePrototype({ recommendedCount, age }: ArticlesPageProps) {
   const router = useRouter();
   const recommendations = recommendedResources.slice(0, recommendedCount);
 
@@ -47,7 +47,7 @@ export default function ArticlesPagePrototype({ recommendedCount }: ArticlesPage
     </ReadingContent></div>
     <section className={styles.recommended} id="recommended" aria-label="რეკომენდირებული მასალა">
       <RecommendedMaterials items={recommendations} onOpen={() => router.push("/prototypes/resources")} />
-      <a className={recommendationStyles.next} href="/prototypes/learning/practice/scenario">{labelText("სცენარზე გადასვლა")} <Icon name="chevronsRight" size="large" /></a>
+      <a className={recommendationStyles.next} href={`/prototypes/learning/practice/scenario${age === "6-9" ? "?age=6-9" : ""}`}>{labelText("სცენარზე გადასვლა")} <Icon name="chevronsRight" size="large" /></a>
     </section>
   </main>;
 }

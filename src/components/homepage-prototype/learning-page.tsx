@@ -54,9 +54,10 @@ export default function LearningPage({ initialAge = "" }: { initialAge?: string 
   }, [choosingAge]);
 
   function continueToTopics() {
-    if (age !== "10-13" && age !== "14-18") return;
+    if (!["6-9", "10-13", "14-18"].includes(age)) return;
+    if (age === "6-9" && initialAge !== "6-9") { router.push("/prototypes/learning/6-9"); return; }
     if (age === "14-18" && initialAge !== "14-18") { router.push("/prototypes/learning/14-18"); return; }
-    if (age === "10-13" && initialAge === "14-18") { router.push("/prototypes/learning"); return; }
+    if (age === "10-13" && initialAge) { router.push("/prototypes/learning?age=10-13"); return; }
     setChoosingAge(false);
     requestAnimationFrame(() => heading.current?.focus());
   }
@@ -82,7 +83,7 @@ export default function LearningPage({ initialAge = "" }: { initialAge?: string 
         {isTeen ? filteredTeenTopics.map(item => <TeenLearningCard key={item.id} item={item} color={teenColors[teenLearningTopics.indexOf(item) % teenColors.length]} />) : filteredTopics.map((item) => {
           const index = learningTopics.indexOf(item);
           return <LearningCard key={item.id} item={item} appearance={variant === 1 ? "framed" : "filled"}
-            color={(variant === 1 ? frameColors : fillColors)[index % 6]} eager={index < 3} />;
+            color={(variant === 1 ? frameColors : fillColors)[index % 6]} eager={index < 3} age={age} />;
         })}
       </div>
       {!isTeen && <div className={styles.switcher} role="group" aria-label="დიზაინის ვარიანტი">
@@ -99,8 +100,7 @@ export default function LearningPage({ initialAge = "" }: { initialAge?: string 
           <span>{value}</span>
         </label>)}
       </fieldset>
-      <p className={styles.ageNotice} role="status">{age === "6-9" ? "ეს ასაკობრივი ჯგუფი მალე დაემატება." : ""}</p>
-      <button className={styles.continue} disabled={age !== "10-13" && age !== "14-18"} onClick={continueToTopics}>{labelText("გაგრძელება")} <Icon name="chevronsRight" /></button>
+      <button className={styles.continue} disabled={!age} onClick={continueToTopics}>{labelText("გაგრძელება")} <Icon name="chevronsRight" /></button>
     </dialog>
   </main>;
 }

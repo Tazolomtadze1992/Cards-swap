@@ -27,7 +27,7 @@ Colors, typography, and motion use the approved project defaults.
 
 The reusable `CardDeck` component uses plain React and CSS. A Laravel application can mount it through an existing React or Inertia entry point. See [docs/cards-handoff.md](docs/cards-handoff.md) for behavior, integration notes, current values, and remaining production decisions.
 
-The full homepage and its connected pages can be shared behind one password. See [docs/prototype-access.md](docs/prototype-access.md) for the Vercel environment settings.
+The homepage and connected pages are available without the prototype password gate.
 
 ## Main stack
 

@@ -9,7 +9,7 @@ import { Separator } from "../ui/separator";
 import { labelText } from "./label-text";
 import styles from "./learning-filters-sheet.module.css";
 
-export function FilterSheet({ age, themes, selected, onApply, ageOptions = [{ value: "10-13", label: "10-13" }, { value: "14-18", label: "14-18" }], topicLabel = "თემები", allLabel = "ყველა თემა", description = "აირჩიე თემები და ასაკობრივი ჯგუფი.", tablet = false, resetAge }: {
+export function FilterSheet({ age, themes, selected, onApply, ageOptions = [{ value: "6-9", label: "6-9" }, { value: "10-13", label: "10-13" }, { value: "14-18", label: "14-18" }], topicLabel = "თემები", allLabel = "ყველა თემა", description = "აირჩიე თემები და ასაკობრივი ჯგუფი.", tablet = false, resetAge }: {
   ageOptions?: { value: string; label: string }[]; topicLabel?: string; allLabel?: string; description?: string; tablet?: boolean; resetAge?: string;
   age: string; themes: readonly string[]; selected: number[];
   onApply: (age: string, themes: number[]) => void;
