@@ -1,5 +1,7 @@
 # Learning flow · first slice · 10–13
 
+> Historical implementation notes. For current behavior, use [learning-handoff.md](learning-handoff.md). The activity layout switcher is removed, 6–9 immediate feedback is implemented, and incorrect-answer states now use review colors instead of red.
+
 Review-only entry: `/prototypes/learning/practice`. It is not linked from the child-facing learning library. The production child journey should enter a specific Scenario or Quiz from the relevant learning package.
 
 The activity routes now offer two reviewer-selectable layouts: `ღია` (the original open reading surface) and `ჩარჩოში` (the same flow inside a bordered surface). The choice stays in component memory while moving through questions and reviews, so reviewers can switch without losing their selected answers. The variant control is for design review, not part of the intended child journey.

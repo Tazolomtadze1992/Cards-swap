@@ -19,10 +19,9 @@ export function AnswerChoices({ choices, value, onValueChange, correctIndex, lab
     {choices.map((answer, index) => {
       const correct = review && index === correctIndex;
       const incorrect = review && value === index && !correct;
-      const status = correct ? "სწორი პასუხი" : incorrect ? "შენი პასუხი — გადასახედი" : "";
       return <label className={styles.answer} key={index} data-state={correct ? "correct" : incorrect ? "incorrect" : value === index ? "selected" : "default"}>
         <input type="radio" name={name} value={index} checked={value === index} disabled={review} onChange={() => onValueChange(index)} />
-        <span className={styles.answerCopy}>{answer}{review && status && <span className={styles.answerStatus}><Icon name={correct ? "check" : "close"} />{status}{correct && value === index ? " · შენი პასუხი" : ""}</span>}</span>
+        <span className={styles.answerCopy}>{answer}{correct && <span className={styles.answerStatus}><Icon name="check" />სწორი პასუხი{value === index ? " · შენი პასუხი" : ""}</span>}</span>
       </label>;
     })}
   </fieldset>;

@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useEffect, useId, useRef, useState } from "react";
 import { Questionnaire } from "../ui/questionnaire";
 import { useQuestionnaire } from "../ui/use-questionnaire";
@@ -37,7 +38,7 @@ export default function LearningFlow({ activity, immediateFeedback = false }: { 
     else setStep(step + 1);
   }
 
-  return <LearningShell young={immediateFeedback} kind={activity.kind} current={step + 1} total={activity.items.length} stage={stage}>
+  return <LearningShell young={immediateFeedback} kind={activity.kind} current={step + 1} total={activity.items.length} stage={stage} onCloseReview={() => setStage("review-index")}>
     {stage === "recommendation" ? <LearningEnding young={immediateFeedback} activity={activity} answers={answers} skipped={skipped} heading={heading} onReview={() => setStage("review-index")} /> : stage === "review-index" ? <section className={styles.reviewOverview}>
       <h1 ref={heading} tabIndex={-1}>სწორი პასუხები</h1>
       <p>აირჩიე კითხვა და ნახე სწორი პასუხი.</p>
@@ -45,7 +46,7 @@ export default function LearningFlow({ activity, immediateFeedback = false }: { 
         {activity.items.map((entry, index) => {
           const correct = answers[entry.id] === entry.correctIndex;
           return <button type="button" key={entry.id} data-correct={skipped ? undefined : correct} aria-label={`კითხვა ${index + 1}${skipped ? "" : correct ? " — სწორია" : " — გადასახედი"}`} onClick={() => { setStep(index); setStage("review"); }}>
-            <span>{index + 1}</span>{!skipped && <Icon name={correct ? "check" : "close"} />}
+            <span>{index + 1}</span>{!skipped && <Image className={styles.reviewResultIcon} src={correct ? "/assets/learning/review-check.svg" : "/assets/learning/review-x-cream.svg"} width={30} height={correct ? 35 : 30} alt="" />}
           </button>;
         })}
       </div>
@@ -55,7 +56,6 @@ export default function LearningFlow({ activity, immediateFeedback = false }: { 
       onValueChange={selectAnswer} correctIndex={showFeedback ? item.correctIndex : undefined}
       headingRef={heading} describedBy={item.context ? contextId : undefined}
       beforeQuestion={<>
-      {stage === "review" && <div className={styles.reviewBack}><Button size="compact" variant="subtle" onClick={() => setStage("review-index")}>{labelText("ყველა პასუხი")}</Button></div>}
       {item.context && <div id={contextId} className={styles.story}>
         <p className={styles.eyebrow}>{labelText(step === 0 ? "რა მოხდა?" : "ამბავი გრძელდება")}</p>
         {item.context.map(paragraph => <p key={paragraph}><ExplainedText>{paragraph}</ExplainedText></p>)}
@@ -63,7 +63,7 @@ export default function LearningFlow({ activity, immediateFeedback = false }: { 
       </>}
     >
       {showFeedback && <div className={styles.feedback} role="status" data-correct={skipped || selected === item.correctIndex}>
-        <span className={styles.feedbackIcon}><Icon name={skipped || selected === item.correctIndex ? "check" : "close"} size="medium" /></span>
+        {(skipped || selected === item.correctIndex) && <span className={styles.feedbackIcon}><Icon name="check" size="medium" /></span>}
         <div><p className={styles.feedbackTitle}>{skipped ? "განმარტება" : selected === item.correctIndex ? "სწორია" : "მოდი, გადავხედოთ"}</p>{immediateFeedback && stage === "answer" && <p>სწორი პასუხი: {item.answers[item.correctIndex]}</p>}<p><ExplainedText>{item.explanation}</ExplainedText></p></div>
       </div>}
       <ActionRow spacing={stage === "answer" ? "standard" : "airy"}>

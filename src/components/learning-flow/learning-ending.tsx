@@ -33,7 +33,7 @@ export function LearningEnding({ activity, answers, skipped, heading, onReview, 
     {!skipped && <div className={styles.result}>
       <h1 ref={heading} tabIndex={-1}>{correct === total ? "ყველა პასუხი სწორია!" : "კარგია, რომ ივარჯიშე!"}</h1>
       <div className={styles.score}>
-        <svg viewBox="0 0 120 120" aria-hidden="true"><circle className={styles.scoreTrack} cx="60" cy="60" r="52" /><circle className={styles.scoreFill} cx="60" cy="60" r="52" pathLength="100" strokeDasharray={`${correct / total * 100} 100`} transform="rotate(-90 60 60)" /></svg>
+        <svg viewBox="0 0 120 120" aria-hidden="true"><circle className={styles.scoreTrack} cx="60" cy="60" r="52" />{correct > 0 && <circle className={styles.scoreFill} cx="60" cy="60" r="52" pathLength="100" strokeDasharray={`${correct / total * 100} 100`} transform="rotate(-90 60 60)" />}</svg>
         <p><strong>{correct} / {total}</strong><span>სწორი პასუხი</span></p>
       </div>
     </div>}

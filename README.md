@@ -23,6 +23,8 @@ Open [http://localhost:3000](http://localhost:3000) to reach the full homepage. 
 
 ## Review and developer handoff
 
+Start with [the developer handoff](docs/developer-handoff.md) for the route map, remaining content/integration work, current behavior and validation limits. The project is a frontend reference; final age-specific content, media and CMS connections remain outstanding.
+
 Colors, typography, and motion use the approved project defaults.
 
 The reusable `CardDeck` component uses plain React and CSS. A Laravel application can mount it through an existing React or Inertia entry point. See [docs/cards-handoff.md](docs/cards-handoff.md) for behavior, integration notes, current values, and remaining production decisions.

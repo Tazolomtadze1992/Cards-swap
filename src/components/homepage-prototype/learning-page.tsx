@@ -8,8 +8,10 @@ import { TeenLearningCard } from "./teen-learning-card";
 import { teenLearningTopics } from "./teen-learning-data";
 import { resources } from "./resources-data";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { Icon } from "../ui/icon";
+import { Button } from "../ui/button";
 import { SiteHeader } from "./site-header";
 import { learningTopics } from "./learning-data";
 import { labelText } from "./label-text";
@@ -92,6 +94,7 @@ export default function LearningPage({ initialAge = "" }: { initialAge?: string 
       </div>}
     </section>
     <dialog id="learning-age-dialog" ref={ageDialog} className={styles.ageDialog} aria-labelledby="age-title" onCancel={event => event.preventDefault()}>
+      <div className={styles.ageDialogClose}><Button asChild variant="subtle" size="icon"><Link href="/prototypes/homepage" aria-label="მთავარ გვერდზე დაბრუნება"><Icon name="close" /></Link></Button></div>
       <h2 id="age-title">აირჩიე შენი ასაკი</h2>
       <fieldset className={styles.ages}>
         <legend className={styles.srOnly}>ასაკობრივი ჯგუფი</legend>

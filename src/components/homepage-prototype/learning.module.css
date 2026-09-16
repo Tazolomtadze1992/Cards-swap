@@ -12,7 +12,8 @@
 .switcher > span { margin-right:12px; font-size: var(--type-body-sm-size); line-height: var(--type-body-sm-line); font-weight: var(--type-body-sm-weight); letter-spacing: var(--type-body-sm-tracking); }
 .switcher button { padding:12px 20px; min-height:44px; border:1px solid var(--color-border-default); border-radius:30px; background:transparent; color:var(--color-text-primary); cursor:pointer; text-transform:var(--type-label-transform, uppercase); font-size: var(--type-label-size); line-height: var(--type-label-line); font-weight: var(--type-label-weight); letter-spacing: var(--type-label-tracking); }
 .switcher button[aria-pressed="true"] { background:var(--color-accent-solid); color:var(--color-text-inverse); }
-.ageDialog { box-sizing:border-box; width:min(1168px,calc(100% - 48px)); max-height:calc(100svh - 48px); border:0; border-radius:56px; padding:72px 80px 80px; background:var(--color-surface); color:var(--color-text-primary); overflow:auto; }
+.ageDialog { position:relative; box-sizing:border-box; width:min(1168px,calc(100% - 48px)); max-height:calc(100svh - 48px); border:0; border-radius:56px; padding:72px 80px 80px; background:var(--color-surface); color:var(--color-text-primary); overflow:auto; }
+.ageDialogClose { position:absolute; top:var(--space-6); right:var(--space-6); }
 .ageDialog::backdrop { background:var(--color-overlay-scrim); backdrop-filter:blur(8px); }
 .ageDialog h2 { text-align:center; margin:0 0 100px; font-family: var(--font-display); font-size: var(--type-h2-size); line-height: var(--type-h2-line); font-weight: var(--type-h2-weight); }
 .ages { display:grid; grid-template-columns:repeat(3,1fr); gap:30px; border:0; padding:0; margin:0; }
@@ -22,8 +23,8 @@
 .continue { display:flex; align-items:center; justify-content:center; gap:12px; margin:auto; width:min(372px,100%); min-height:96px; border:0; border-radius:999px; background:var(--color-action-primary-bg); color:var(--color-action-primary-fg); cursor:pointer; text-transform:var(--type-label-transform, uppercase); font-size: var(--type-label-size); line-height: var(--type-label-line); font-weight: var(--type-label-weight); letter-spacing: var(--type-label-tracking); }
 .continue:disabled { opacity:.45; cursor:not-allowed; }
 .srOnly { position:absolute; width:1px; height:1px; padding:0; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; }
-@media(max-width:1050px) { .grid { grid-template-columns:repeat(2,minmax(0,1fr)); } .ageDialog { padding:48px 32px; } .ageDialog h2 { margin-bottom:56px; } .ageOption { min-height:160px; } }
-@media(max-width:640px) { .content { padding:64px 20px; } .content h1 { margin-bottom:48px; } .filters { flex-wrap:nowrap; gap:var(--space-3); } .grid { grid-template-columns:1fr; gap:24px; } .ageDialog { width:calc(100% - 24px); padding:36px 20px; border-radius:32px; } .ageDialog h2 { margin-bottom:32px; } .ages { gap:10px; } .ageOption { min-height:110px; border-radius:20px; } .ageNotice { margin:20px 0; } .continue { min-height:68px; } .switcher > span { width:100%; text-align:center; } }
+@media(max-width:1050px) { .grid { grid-template-columns:repeat(2,minmax(0,1fr)); } .ageDialog { padding:80px 32px 48px; } .ageDialog h2 { margin-bottom:56px; } .ageOption { min-height:160px; } }
+@media(max-width:640px) { .content { padding:64px 20px; } .content h1 { margin-bottom:48px; } .filters { flex-wrap:nowrap; gap:var(--space-3); } .grid { grid-template-columns:1fr; gap:24px; } .ageDialog { width:calc(100% - 24px); padding:80px 20px 36px; border-radius:32px; } .ageDialogClose { top:var(--space-4); right:var(--space-4); } .ageDialog h2 { margin-bottom:32px; } .ages { gap:10px; } .ageOption { min-height:110px; border-radius:20px; } .ageNotice { margin:20px 0; } .continue { min-height:68px; } .switcher > span { width:100%; text-align:center; } }
 .ageDialog { margin:auto; }
 
 .divider { margin: var(--space-7) 0; }
