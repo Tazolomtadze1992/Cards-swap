@@ -1,2 +1,14 @@
 .play { position: absolute; left: 50%; top: 50%; display: grid; width: var(--space-10); height: var(--space-10); place-items: center; transform: translate(-50%, -50%); border-radius: 50%; background: var(--color-overlay-control); color: var(--color-text-inverse); backdrop-filter: blur(2px); }
 .play svg { width: var(--space-6); height: var(--space-6); }
+
+/* Only interactive previews respond; the indicator in the preview dialog stays static. */
+@media (hover: hover) and (pointer: fine) {
+  button:hover > .play { background: var(--color-overlay-control-hover); }
+}
+button:focus-visible > .play { background: var(--color-overlay-control-hover); }
+@media (prefers-reduced-motion: no-preference) {
+  button > .play { transform-origin: center; transition: transform 150ms cubic-bezier(0.23, 1, 0.32, 1); }
+  button:active > .play { transform: translate(-50%, -50%) scale(.96); transition-duration: 100ms; }
+  :global(html[data-input-mode="keyboard"]) button > .play { transition: none; }
+  :global(html[data-input-mode="keyboard"]) button:active > .play { transform: translate(-50%, -50%); }
+}
