@@ -23,10 +23,11 @@ function FilterLabel({ text }: { text: string }) {
   const reduced = useReducedMotion();
   const still = Boolean(reduced || (typeof document !== "undefined" && keyboardInteraction()));
   // One engine owns both text continuity and intrinsic width; never queue a
-  // whole-label exit before showing the new value.
+  // whole-label exit before showing the new value. Keep the demo's easing
+  // while using a shorter duration for this frequently used control.
   return <span aria-hidden="true">
-    <TextMorph className={styles.triggerLabel} locale="ka" duration={280}
-      ease="cubic-bezier(0.19, 1, 0.22, 1)" disabled={still}>
+    <TextMorph className={styles.triggerLabel} locale="ka" duration={250}
+      ease="cubic-bezier(0.41, 1.03, 0.6, 1.03)" disabled={still}>
       {text}
     </TextMorph>
   </span>;

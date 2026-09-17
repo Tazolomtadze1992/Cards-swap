@@ -5,7 +5,8 @@
 .phoneNumber span { color: var(--color-text-secondary); font-size: var(--type-body-sm-size); }
 .phoneNumber strong { font-size: var(--type-h3-size); line-height: var(--type-h3-line); font-weight: var(--type-h3-weight); font-variant-numeric: tabular-nums; }
 
-.copyContent { display: grid; align-items: center; }
+.copyContent { display: inline-flex; align-items: center; justify-content: center; gap: var(--space-2); white-space: nowrap; }
+.copyIcons { display: grid; flex: none; align-items: center; }
 .copyState { grid-area: 1 / 1; display: inline-flex; align-items: center; justify-content: center; gap: var(--space-2); white-space: nowrap; opacity: 0; transform: translateY(3px); pointer-events: none; }
 .copyState[data-active="true"] { opacity: 1; transform: translateY(0); }
 .copyState svg { flex: none; width: var(--space-4); height: var(--space-4); }
