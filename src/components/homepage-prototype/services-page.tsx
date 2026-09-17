@@ -6,6 +6,7 @@ import { ServicesBarnahusDialog } from "./services-barnahus-dialog";
 import { ServicesPeopleDialog } from "./services-people-dialog";
 import { ServicesOverviewDialog } from "./services-overview-dialog";
 import { ServicesContactDialog } from "./services-contact-dialog";
+import { ServicesStartDialog } from "./services-start-dialog";
 import { Button } from "../ui/button";
 import { Icon } from "../ui/icon";
 import { SiteHeader } from "./site-header";
@@ -22,7 +23,7 @@ const topics = [
 ];
 
 export default function ServicesPagePrototype() {
-  const [openTopic, setOpenTopic] = useState<"contacts" | "overview" | "people" | "barnahus" | "referral" | null>(null);
+  const [openTopic, setOpenTopic] = useState<"start" | "contacts" | "overview" | "people" | "barnahus" | "referral" | null>(null);
   return <div className={styles.page}>
     <SiteHeader activeItem="support" />
     <main className={styles.content}>
@@ -30,9 +31,9 @@ export default function ServicesPagePrototype() {
       <div className={styles.layout}>
         <ul className={styles.topics} aria-label="დახმარების თემები">
           {topics.map((topic, index) => <li key={topic}>
-            {index !== 1 ? <button type="button" className={styles.topic} aria-haspopup="dialog" onClick={() => setOpenTopic(index === 0 ? "overview" : index === 2 ? "people" : index === 3 ? "referral" : index === 4 ? "barnahus" : "contacts")}>
+            <button type="button" className={styles.topic} aria-haspopup="dialog" onClick={() => setOpenTopic(index === 0 ? "overview" : index === 1 ? "start" : index === 2 ? "people" : index === 3 ? "referral" : index === 4 ? "barnahus" : "contacts")}>
               <span>{topic}</span><Icon name="chevronsRight" />
-            </button> : <div className={styles.topic}><span>{topic}</span><Icon name="chevronsRight" /></div>}
+            </button>
           </li>)}
         </ul>
         <aside className={styles.emergency} aria-label="გადაუდებელი დახმარება">
@@ -41,6 +42,7 @@ export default function ServicesPagePrototype() {
         </aside>
       </div>
     </main>
+    {openTopic === "start" && <ServicesStartDialog onClose={() => setOpenTopic(null)} onShowContacts={() => setOpenTopic("contacts")} />}
     {openTopic === "referral" && <ServicesReferralDialog onClose={() => setOpenTopic(null)} />}
     {openTopic === "barnahus" && <ServicesBarnahusDialog onClose={() => setOpenTopic(null)} />}
     {openTopic === "contacts" && <ServicesContactDialog onClose={() => setOpenTopic(null)} />}

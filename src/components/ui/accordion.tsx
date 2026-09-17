@@ -2,7 +2,6 @@
 
 import * as React from "react";
 import * as AccordionPrimitive from "@radix-ui/react-accordion";
-import { Icon } from "./icon";
 import styles from "./accordion.module.css";
 
 // Adapted from shadcn/ui's Radix Accordion (MIT):
@@ -25,8 +24,7 @@ function AccordionTrigger({ children, headingLevel = 3, ...props }: StyledProps<
       <AccordionPrimitive.Trigger {...props} data-slot="accordion-trigger" className={styles.trigger}>
         <span>{children}</span>
         <span className={styles.icon} aria-hidden="true">
-          <span className={styles.iconClosed}><Icon name="plus" size="medium" /></span>
-          <span className={styles.iconOpen}><Icon name="minus" size="medium" /></span>
+          <span className={styles.iconMark}><span className={styles.iconHorizontal} /><span className={styles.iconVertical} /></span>
         </span>
       </AccordionPrimitive.Trigger>
     </Heading>
@@ -34,8 +32,20 @@ function AccordionTrigger({ children, headingLevel = 3, ...props }: StyledProps<
 }
 
 function AccordionContent({ children, ...props }: StyledProps<React.ComponentProps<typeof AccordionPrimitive.Content>>) {
-  return <AccordionPrimitive.Content {...props} data-slot="accordion-content" className={styles.content}>
-    <div className={styles.answer}>{children}</div>
+  const content = React.useRef<HTMLDivElement>(null);
+  React.useLayoutEffect(() => {
+    const element = content.current;
+    if (!element) return;
+    // Force mounting permits reversible CSS transitions. Closed answers must
+    // still be absent from keyboard navigation and the accessibility tree.
+    const sync = () => { element.inert = element.dataset.state !== "open"; };
+    sync();
+    const observer = new MutationObserver(sync);
+    observer.observe(element, { attributes: true, attributeFilter: ["data-state"] });
+    return () => observer.disconnect();
+  }, []);
+  return <AccordionPrimitive.Content {...props} forceMount ref={content} data-slot="accordion-content" className={styles.content}>
+    <div className={styles.reveal}><div className={styles.clip}><div className={styles.answer}>{children}</div></div></div>
   </AccordionPrimitive.Content>;
 }
 

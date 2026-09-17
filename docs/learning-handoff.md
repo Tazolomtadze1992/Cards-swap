@@ -10,4 +10,4 @@ For `?age=6-9`, selecting an answer reveals the correct answer and explanation i
 
 Correct answers use the success tokens; answers needing review use `--color-review` and `--color-review-soft`, not danger red. Review overview tiles use the same neutral background, with `review-check.svg` and `review-x-cream.svg`. Keep the centered ring score, rounded arc ends, explicit zero-score handling, focus movement between steps and native radio semantics.
 
-The activity layout switcher is removed. The library's framed/filled card picker remains a separate unresolved review control. Final files, video playback, per-topic recommendations and age-specific learning sequences must be connected during integration. See the [central handoff](developer-handoff.md) for ownership and launch requirements.
+Both the activity layout switcher and library card picker are removed. The learning library uses the framed card design. Final files, video playback, per-topic recommendations and age-specific learning sequences must be connected during integration. See the [central handoff](developer-handoff.md) for ownership and launch requirements.

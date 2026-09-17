@@ -7,7 +7,6 @@ import {
   ArrowRightDoubleIcon,
   ArrowUp01Icon,
   Call02Icon,
-  Cancel01Icon,
   Copy01Icon,
   Delete02Icon,
   Download01Icon,
@@ -24,7 +23,6 @@ const icons = {
   chevronDown: ArrowDown01Icon,
   chevronUp: ArrowUp01Icon,
   chevronsRight: ArrowRightDoubleIcon,
-  close: Cancel01Icon,
   copy: Copy01Icon,
   download: Download01Icon,
   filter: FilterIcon,
@@ -39,12 +37,22 @@ const icons = {
 
 const sizes = { small: 16, compact: 16, default: 16, medium: 20, large: 32 } as const;
 
-export type IconName = keyof typeof icons;
+export type IconName = keyof typeof icons | "close";
 
 export const Icon = forwardRef<SVGSVGElement, {
   name: IconName;
   size?: keyof typeof sizes;
 }>(function Icon({ name, size = "default" }, ref) {
+  if (name === "close") {
+    // Match the header menu's open-state X: two 16px bars with 2.5px strokes.
+    const pixelSize = size === "default" ? 20 : sizes[size];
+    return <svg ref={ref} viewBox="0 0 20 20" width={pixelSize} height={pixelSize}
+      style={{ width: pixelSize, height: pixelSize }} fill="none" stroke="currentColor"
+      strokeWidth="2.5" strokeLinecap="round" className={styles.icon}
+      aria-hidden="true" focusable="false" data-slot="icon">
+      <path d="M4.343 4.343 15.657 15.657 M15.657 4.343 4.343 15.657" />
+    </svg>;
+  }
   return <HugeiconsIcon
     ref={ref}
     icon={icons[name]}

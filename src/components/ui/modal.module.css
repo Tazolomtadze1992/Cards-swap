@@ -1,6 +1,6 @@
-.dialog { width: min(calc(100% - 2 * var(--gutter-desktop)), var(--layout-content)); max-width: none; max-height: calc(100svh - 2 * var(--space-7)); margin: auto; padding: 0; border: 1px solid var(--color-border-default); border-radius: var(--radius-card); background: var(--color-canvas); color: var(--color-text-primary); box-shadow: var(--shadow-modal); overflow: hidden; }
+.dialog { width: min(calc(100% - 2 * var(--gutter-desktop)), var(--layout-content)); max-width: none; max-height: calc(100svh - 2 * var(--space-7)); margin: auto; padding: 0; border: 1px solid var(--color-border-default); border-radius: var(--radius-card); background: var(--color-canvas); color: var(--color-text-primary); box-shadow: var(--shadow-modal); overflow: visible; }
 .dialog[open] { display: flex; flex-direction: column; }
-.dialog::backdrop { background: var(--color-overlay-soft); }
+.dialog::backdrop { opacity:var(--dialog-backdrop-opacity, 1); background: var(--color-overlay-soft); }
 .dialogHeader { flex: none; padding: var(--space-7) var(--space-7) 0; }
 .dialogTitleRow { display: flex; align-items: center; justify-content: space-between; gap: var(--space-6); padding-bottom: var(--space-7); }
 .dialogTitleRow h2 { margin: 0; font-family: var(--font-display); font-size: var(--type-h2-size); line-height: var(--type-h2-line); font-weight: var(--type-h2-weight); }
@@ -10,7 +10,7 @@
 
 .sheetPortalRoot { display: contents; }
 .sheetOverlay { position: fixed; inset: 0; z-index: 100; background: var(--color-overlay-soft); }
-.sheet { position: fixed; z-index: 101; inset-inline: 0; bottom: 0; display: flex; flex-direction: column; width: min(100%, 960px); max-height: 92dvh; margin-inline: auto; overflow: hidden; border: 1px solid var(--color-border-default); border-bottom: 0; border-radius: var(--radius-card) var(--radius-card) 0 0; background: var(--color-canvas); color: var(--color-text-primary); box-shadow: var(--shadow-modal); outline: none; }
+.sheet { position: fixed; z-index: 101; inset-inline: 0; bottom: 0; display: flex; flex-direction: column; width: min(100%, 960px); max-height: 92dvh; margin-inline: auto; overflow: visible; border: 1px solid var(--color-border-default); border-bottom: 0; border-radius: var(--radius-card) var(--radius-card) 0 0; background: var(--color-canvas); color: var(--color-text-primary); box-shadow: var(--shadow-modal); outline: none; }
 .sheetHeader { flex: none; padding: var(--space-4) var(--space-7) 0; }
 .sheetHandle[data-vaul-handle] { margin: 0 auto var(--space-4); background: var(--color-drawer-handle); }
 .sheetTitleRow { display: flex; align-items: center; justify-content: space-between; gap: var(--space-4); padding-bottom: var(--space-6); }

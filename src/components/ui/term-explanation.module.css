@@ -25,9 +25,14 @@
   font-family: var(--font-body);
   font-size: 16px;
   line-height: 1.6;
+  transform-origin: var(--radix-popover-content-transform-origin);
 }
+.panel[data-state="closed"] { pointer-events: none; }
 .titleRow { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
 .panel p { margin: 8px 0 0; }
-.close { display: grid; place-items: center; flex: none; width: 44px; height: 44px; border: 0; border-radius: 50%; background: var(--color-control-subtle-bg); color: var(--color-text-primary); cursor: pointer; }
-.close:hover { background: var(--color-control-hover-bg); }
+.close { position: relative; display: grid; place-items: center; flex: none; width: 32px; height: 32px; border: 0; border-radius: 50%; background: var(--color-control-subtle-bg); color: var(--color-text-primary); cursor: pointer; }
+.close::before { content: ""; position: absolute; inset: -6px; border-radius: 50%; }
+.close svg { width: 18px; height: 18px; }
+@media (hover: hover) and (pointer: fine) { .close:hover { background: var(--color-control-hover-bg); } }
+.close:focus-visible { outline: 2px solid var(--color-focus-ring, var(--color-focus)); outline-offset: 3px; }
 @media (pointer: coarse) { .term { display: inline-flex; align-items: center; min-height: 44px; } }

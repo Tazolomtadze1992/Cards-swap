@@ -35,10 +35,8 @@ The app currently uses Next.js routing and React. For Laravel integration, agree
 | Before launch | Learning cards share the same article destination; teen links also use that sample | Add topic IDs/slugs and map each article, scenario, quiz and onward step |
 | Before launch | Recommended media are unrelated catalogue fixtures; videos and files open placeholder previews | Supply final media/files, age suitability and per-topic associations; connect playback and downloads |
 | Before launch | Resource catalogue is temporary; its age labels use 9–13 / 13–18 while learning uses 10–13 / 14–18 | Content owner agrees one age taxonomy and developer maps filtering consistently |
-| Before launch | Services topic “დახმარება მჭირდება - საიდან დავიწყო” is a static row with a chevron | Supply the intended help flow/content and implement its destination |
 | Before launch | Header Contact links to the homepage FAQ anchor | Confirm the intended contact destination and connect it |
 | Before launch | Service descriptions and contact details are embedded locally | Content owner validates details and defines how they will stay current |
-| Handoff decision | Learning library still exposes a framed/filled card design picker | Confirm the final card style, then remove the remaining review picker; the activity layout picker is already removed |
 | Integration | Answers exist only in component memory and reset on leaving/reloading | Decide whether anonymous transient progress is sufficient; there is no server persistence or analytics |
 | Integration | CMS and complete learning-package orchestration are absent | Define content schema and ownership; preserve answer IDs, correct indexes, explanations and ordered scenario steps |
 
@@ -64,3 +62,24 @@ Before launch, complete a fresh install, real iOS/Android touch checks, keyboard
 - [Homepage](homepage-handoff.md), [cards](cards-handoff.md), [articles](articles-handoff.md), [resources](resources-handoff.md), [glossary](glossary-handoff.md), [FAQ](faq-handoff.md)
 
 This document takes precedence where historical design notes describe removed controls or outdated colors. After these integration decisions, a focused motion pass can address abrupt transitions without reopening the approved layout.
+
+## First motion pass
+
+Desktop service dialogs and the age picker use 200ms entry / 150ms exit with a
+0.98 scale; the mobile navigation uses 220ms / 160ms and an 8px upward offset.
+Filter popovers/selects use 150ms / 100ms and a 0.97 scale from Radix's trigger
+origin. All share `cubic-bezier(0.25, 1, 0.5, 1)` in `surface-motion.tsx`.
+The Web Animations API animates only opacity and transform, preserves the current
+visual state when reversed, and keeps closing surfaces mounted until completion.
+Keyboard-triggered transitions complete immediately; reduced motion uses fades
+of at most 120ms. Existing Vaul sheets retain their own gesture behavior.
+
+Removed resource-thumbnail hover zoom. Mobile card-stack keyboard cycling and
+reduced-motion rearrangement are instantaneous; pointer swipes retain the existing
+spring. The header's explicit reduced-motion fade survives the global fallback.
+Approved desktop homepage card choreography remains unchanged.
+
+Verified with TypeScript, ESLint, focused timing/reduced-motion checks, and browser
+checks for age selection, filter selection, menu reopening, repeated keyboard card
+cycling, Escape dismissal, focus restoration, and scroll-lock cleanup. Real-device
+swipe feel and frame-rate profiling remain a separate motion QA step.

@@ -5,6 +5,7 @@ import { animate, motion, useMotionValue, useReducedMotion, useTransform, type P
 import { ChevronsRight } from "lucide-react";
 import { Button } from "../ui/button";
 import { labelText } from "../homepage-prototype/label-text";
+import { keyboardInteraction } from "../motion/surface-motion";
 import styles from "./mobile-card-stack.module.css";
 
 type StackCard = { id: string; label: string; color: string; ink: string };
@@ -25,6 +26,7 @@ const stackPose = (rank: number) => ({ x: rank * 5, y: rank * 3, rotate: rank * 
 
 export function MobileCardStack({ cards, palette, onNavigate }: Props) {
   const [order, setOrder] = useState(() => cards.map(card => card.id));
+  const [instant, setInstant] = useState(false);
   const [departing, setDeparting] = useState<string | null>(null);
   const nextRef = useRef<(() => void) | null>(null);
   const rootRef = useRef<HTMLDivElement>(null);
@@ -71,9 +73,9 @@ export function MobileCardStack({ cards, palette, onNavigate }: Props) {
           aria-hidden={rank !== 0} inert={rank !== 0}
           style={{ zIndex: cards.length - rank }}
           initial={false} animate={stackPose(visualRank)}
-          transition={reduced ? { duration: 0.1 } : settle}>
+          transition={reduced || instant ? { duration: 0 } : settle}>
           <SwipeCard card={card} color={palette?.[card.id]} front={rank === 0} blocked={departing !== null}
-            onStart={() => setDeparting(card.id)} onCycle={() => {
+            onStart={() => { setInstant(keyboardInteraction() || !!reduced); setDeparting(card.id); }} onCycle={() => {
               setOrder(current => [...current.slice(1), current[0]]);
               setDeparting(null);
             }} nextRef={nextRef} onNavigate={onNavigate} />
@@ -104,7 +106,7 @@ function SwipeCard({ card, color, front, blocked, onStart, onCycle, nextRef, onN
     swiping.current = true;
     onStart();
     const clearance = (ref.current?.offsetWidth ?? 300) + 24;
-    if (!reduced && direction * x.get() < clearance) {
+    if (!reduced && !keyboardInteraction() && direction * x.get() < clearance) {
       let clearStack!: () => void;
       const cleared = new Promise<void>(resolve => { clearStack = resolve; });
       // Aim beyond the clearance point so the card never parks at an outer
@@ -120,7 +122,7 @@ function SwipeCard({ card, color, front, blocked, onStart, onCycle, nextRef, onN
     onCycle();
     // Turn immediately into the return instead of carrying outward momentum
     // into a second pause behind the deck.
-    animation.current = animate(x, 0, reduced ? { duration: 0.1 } : { ...settle, velocity: 0 });
+    animation.current = animate(x, 0, reduced || keyboardInteraction() ? { duration: 0 } : { ...settle, velocity: 0 });
     await animation.current;
     swiping.current = false;
   }
@@ -135,7 +137,7 @@ function SwipeCard({ card, color, front, blocked, onStart, onCycle, nextRef, onN
     if (Math.abs(info.offset.x) > threshold || flick) {
       void cycle(Math.sign(flick ? info.velocity.x : info.offset.x) || -1, info.velocity.x);
     } else {
-      animation.current = animate(x, 0, reduced ? { duration: 0.1 } : { ...settle, velocity: info.velocity.x });
+      animation.current = animate(x, 0, reduced || keyboardInteraction() ? { duration: 0 } : { ...settle, velocity: info.velocity.x });
     }
   }
   return <motion.article ref={ref} className={styles.card}

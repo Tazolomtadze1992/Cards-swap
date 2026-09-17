@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useId, useRef, useState, type ReactNode } from "react";
+import { menuMotion, useSurfacePresence } from "../motion/surface-motion";
 import { Button } from "../ui/button";
 import Image from "next/image";
 import Link from "next/link";
@@ -25,6 +26,7 @@ type SiteHeaderProps = {
 
 export function SiteHeader({ activeItem, appearance = "light", logoAccessory }: SiteHeaderProps) {
   const [menuOpen, setMenuOpen] = useState(false);
+  const menu = useSurfacePresence(menuOpen, menuMotion, "(max-width: 1250px)");
   const [hidden, setHidden] = useState(false);
   const [surface, setSurface] = useState(appearance);
   const spacerRef = useRef<HTMLDivElement>(null);
@@ -91,7 +93,7 @@ export function SiteHeader({ activeItem, appearance = "light", logoAccessory }: 
   }, []);
 
   useEffect(() => {
-    if (!menuOpen) return;
+    if (!menu.present) return;
     const scrollY = window.scrollY;
     const menuButton = menuButtonRef.current?.querySelector("button");
     const body = document.body;
@@ -143,7 +145,7 @@ export function SiteHeader({ activeItem, appearance = "light", logoAccessory }: 
       window.scrollTo({ top: scrollY, behavior: "instant" });
       menuButton?.focus({ preventScroll: true });
     };
-  }, [menuOpen]);
+  }, [menu.present]);
 
   const contact = <Button asChild size="contact" variant={surface === "brand-surface" ? "inverse" : "primary"}><Link href="/prototypes/homepage#homepage-faq" onClick={() => setMenuOpen(false)}>
     <Icon name="phone" size="small" />
@@ -158,19 +160,19 @@ export function SiteHeader({ activeItem, appearance = "light", logoAccessory }: 
       </span>
     </Link>;
   return <div ref={spacerRef} className={styles.spacer}>
-    <div ref={frameRef} className={styles.frame} data-hidden={hidden && !menuOpen} data-appearance={surface} data-menu-open={menuOpen}
-      role={menuOpen ? "dialog" : undefined} aria-modal={menuOpen || undefined} aria-label={menuOpen ? "მთავარი მენიუ" : undefined}>
+    <div ref={frameRef} className={styles.frame} data-hidden={hidden && !menu.present} data-appearance={surface} data-menu-open={menu.present}
+      role={menu.present ? "dialog" : undefined} aria-modal={menu.present || undefined} aria-label={menu.present ? "მთავარი მენიუ" : undefined}>
     <header ref={headerRef} className={styles.header} data-appearance={surface} onFocusCapture={() => setHidden(false)}>
     {logoAccessory ? <div className={styles.logoGroup}>{logo}{logoAccessory}</div> : logo}
-    <nav ref={navigationRef} id={navigationId} className={styles.navigation} data-open={menuOpen} aria-label="მთავარი ნავიგაცია">
+    <nav ref={node => { navigationRef.current = node; menu.attach(node); }} id={navigationId} className={styles.navigation} data-open={menu.present} aria-label="მთავარი ნავიგაცია">
       <div className={styles.navigationLinks}>{navigationItems.map(item => <Link href={item.href} key={item.id} aria-current={activeItem === item.id ? "page" : undefined} onClick={() => setMenuOpen(false)}>
-        {menuOpen ? item.label : labelText(item.label)}
+        {menu.present ? item.label : labelText(item.label)}
       </Link>)}</div>
       <span className={styles.menuContact}>{contact}</span>
     </nav>
     <span className={styles.headerContact}>{contact}</span>
     <span className={styles.menuButton} ref={menuButtonRef}><Button variant={surface === "brand-surface" ? "inverse" : "subtle"} size="icon" aria-label={menuOpen ? "მენიუს დახურვა" : "მენიუს გახსნა"} aria-expanded={menuOpen} aria-controls={navigationId} onClick={() => setMenuOpen(open => !open)}>
-      <Icon name={menuOpen ? "close" : "menu"} size="medium" />
+      <span className={styles.menuGlyph} data-open={menuOpen} aria-hidden="true"><span /><span /><span /></span>
     </Button></span>
   </header>
     </div>

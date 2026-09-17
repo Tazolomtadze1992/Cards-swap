@@ -1,5 +1,6 @@
 .shell { position: relative; }
 .trigger, .panel {
+  transform-origin: var(--radix-popover-content-transform-origin, var(--radix-select-content-transform-origin));
   font-family: var(--font-body);
   text-transform: var(--type-label-transform, uppercase);
   font-size: var(--type-label-size);
@@ -16,6 +17,7 @@
   border-radius: var(--radius-pill);
   padding: var(--space-3) var(--space-4);
   cursor: pointer;
+  transition: background-color 160ms ease, color 160ms ease;
 }
 .trigger { justify-content: space-between; color: var(--color-text-primary); background: var(--color-control-subtle-bg); }
 @media (hover: hover) {
@@ -23,8 +25,10 @@
 }
 .trigger:not([data-active="true"])[aria-expanded="true"],
 .trigger:not([data-active="true"])[data-state="open"] { background: var(--color-control-hover-bg); }
-.trigger[data-layout="catalogue"] { min-width: 190px; }
-.trigger[data-active="true"] { gap: var(--space-4); background: var(--color-accent-subtle-bg); color: var(--color-accent-text); }
+.trigger[data-active="true"] { background: var(--color-accent-subtle-bg); color: var(--color-accent-text); }
+.triggerContent { min-width: 0; }
+.triggerLabel { position: relative; display: inline-block; vertical-align: middle; white-space: nowrap; text-align: left; font-variant-numeric: tabular-nums; }
+.triggerValueContext { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
 .trigger svg { flex: none; transition: transform 180ms ease; }
 .trigger[aria-expanded="true"] > svg, .trigger[data-state="open"] > svg { transform: rotate(180deg); }
 .panel {
@@ -59,7 +63,12 @@
   .panel[data-layout="catalogue"] { width: var(--radix-popover-trigger-width, var(--radix-select-trigger-width)); }
 }
 
-@media (prefers-reduced-motion: reduce) { .trigger svg { transition: none; } }
+@media (prefers-reduced-motion: reduce) { .trigger, .triggerLabel, .trigger svg { transition: none; } }
 
 /* Select uses its highlighted option surface; outlines would clip in its viewport. */
 .option:focus-visible { outline: none; background: var(--color-control-subtle-bg); }
+
+.panel[data-state="closed"] { pointer-events: none; }
+:global(html[data-input-mode="keyboard"]) .trigger,
+:global(html[data-input-mode="keyboard"]) .trigger svg,
+:global(html[data-input-mode="keyboard"]) .triggerLabel { transition: none; }

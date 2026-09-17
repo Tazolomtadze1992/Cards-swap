@@ -24,8 +24,6 @@ button.topic { width: 100%; border: 0; color: inherit; text-align: left; cursor:
 button.topic:focus-visible { outline: 3px solid var(--color-focus-ring); outline-offset: var(--space-1); }
 @media (hover: hover) { button.topic:hover { background: var(--color-control-hover-bg); } }
 .dialogIntro { max-width: var(--layout-reading); margin: 0 0 var(--space-10); }
-.copyStatus { margin: var(--space-4) 0 0; color: var(--color-text-secondary); }
-.copyStatus:empty { margin: 0; }
 @media (max-width: 760px) {
   .dialogIntro { margin-bottom: var(--space-7); }
 }
@@ -38,3 +36,10 @@ button.topic:focus-visible { outline: 3px solid var(--color-focus-ring); outline
 .peopleAnswer { display: grid; gap: var(--space-6); max-width: var(--layout-reading); }
 .peopleAnswer h5 { margin: 0 0 var(--space-3); font-family: var(--font-body); font-size: var(--type-body-size); line-height: var(--type-body-line); font-weight: var(--type-h4-weight); color: var(--color-text-primary); }
 .peopleAnswer p { margin: 0; }
+
+.startCallout { padding: var(--space-7); border-radius: var(--radius-card); background: var(--color-control-subtle-bg); }
+.startCallout > a, .startCallout > button { align-self: flex-start; }
+@media (max-width: 720px) {
+  .startCallout { padding: var(--space-6); }
+  .startCallout > a, .startCallout > button { align-self: stretch; }
+}

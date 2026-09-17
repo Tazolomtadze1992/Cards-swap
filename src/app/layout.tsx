@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
 import "./globals.css";
+import { MotionInput } from "@/components/motion/surface-motion";
 
 export const metadata: Metadata = {
   title: "ბავშვთა ციფრული უსაფრთხოების ჰაბი",
@@ -11,7 +12,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="ka" data-scroll-behavior="smooth">
-      <body>{children}</body>
+      <body><MotionInput />{children}</body>
     </html>
   );
 }

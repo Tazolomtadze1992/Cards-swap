@@ -17,10 +17,7 @@ export type ServiceContact = {
   numbers: readonly ContactNumber[];
 };
 
-export function ServiceContactCard({ contact, onCopyStatus }: {
-  contact: ServiceContact;
-  onCopyStatus: (message: string) => void;
-}) {
+export function ServiceContactCard({ contact }: { contact: ServiceContact }) {
   const titleId = useId();
   return <section className={styles.contactCard} aria-labelledby={titleId}>
     <div className={styles.contactHeading}>
@@ -34,6 +31,6 @@ export function ServiceContactCard({ contact, onCopyStatus }: {
       <div><h4>როგორ დაგეხმარება?</h4><p>{contact.help}</p></div>
     </div>
     {contact.note && <p className={styles.contactNote}>{contact.note}</p>}
-    {contact.numbers.map(phone => <ContactNumberRow key={phone.tel} phone={phone} onCopyStatus={onCopyStatus} />)}
+    {contact.numbers.map(phone => <ContactNumberRow key={phone.tel} phone={phone} />)}
   </section>;
 }

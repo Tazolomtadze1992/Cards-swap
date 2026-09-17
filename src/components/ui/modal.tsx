@@ -1,6 +1,7 @@
 "use client";
 
-import { useEffect, useId, useRef, useState, useSyncExternalStore, type ReactNode } from "react";
+import { useLayoutEffect, useId, useRef, useState, useSyncExternalStore, type ReactNode } from "react";
+import { animateNativeDialog, dialogMotion } from "../motion/surface-motion";
 import { Drawer } from "vaul";
 import { Button } from "./button";
 import { Icon } from "./icon";
@@ -32,7 +33,10 @@ function DesktopDialog({ title, children, onClose, closeLabel = "დახურ
   const dialog = useRef<HTMLDialogElement>(null);
   const heading = useRef<HTMLHeadingElement>(null);
   const titleId = useId();
-  useEffect(() => {
+  const [closing, setClosing] = useState(false);
+  const onCloseRef = useRef(onClose);
+  useLayoutEffect(() => { onCloseRef.current = onClose; });
+  useLayoutEffect(() => {
     const element = dialog.current;
     const trigger = document.activeElement as HTMLElement | null;
     const overflow = document.body.style.overflow;
@@ -45,17 +49,25 @@ function DesktopDialog({ title, children, onClose, closeLabel = "დახურ
       trigger?.focus();
     };
   }, []);
+  useLayoutEffect(() => {
+    const element = dialog.current;
+    if (!element) return;
+    const animation = animateNativeDialog(element, !closing, dialogMotion, !closing);
+    let active = true;
+    animation.finished.then(() => { if (active && closing) onCloseRef.current(); }, () => {});
+    return () => { active = false; animation.cancel(); };
+  }, [closing]);
   return <dialog ref={dialog} className={styles.dialog} aria-labelledby={titleId}
-    onCancel={event => { event.preventDefault(); onClose(); }}
+    onCancel={event => { event.preventDefault(); setClosing(true); }}
     onClick={event => {
       if (event.target !== event.currentTarget) return;
       const bounds = event.currentTarget.getBoundingClientRect();
-      if (event.clientX < bounds.left || event.clientX > bounds.right || event.clientY < bounds.top || event.clientY > bounds.bottom) onClose();
+      if (event.clientX < bounds.left || event.clientX > bounds.right || event.clientY < bounds.top || event.clientY > bounds.bottom) setClosing(true);
     }}>
     <header className={styles.dialogHeader}>
       <div className={styles.dialogTitleRow}>
         <h2 id={titleId} ref={heading} tabIndex={-1}>{title}</h2>
-        <Button variant="subtle" size="icon" aria-label={closeLabel} onClick={onClose}><Icon name="close" /></Button>
+        <Button variant="subtle" size="icon" aria-label={closeLabel} onClick={() => setClosing(true)}><Icon name="close" /></Button>
       </div>
       <Separator />
     </header>

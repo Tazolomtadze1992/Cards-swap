@@ -9,7 +9,8 @@ import { teenLearningTopics } from "./teen-learning-data";
 import { resources } from "./resources-data";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
+import { animateNativeDialog, dialogMotion } from "../motion/surface-motion";
 import { Icon } from "../ui/icon";
 import { Button } from "../ui/button";
 import { SiteHeader } from "./site-header";
@@ -18,7 +19,6 @@ import { labelText } from "./label-text";
 import styles from "./learning.module.css";
 
 const frameColors = ["#00cd9c", "#cc80ff", "#00b68e", "#19aeeb", "#5acc00", "#f888ff"];
-const fillColors = ["#c9e7dd", "#e8c4ff", "#00cd9c", "#5ea8ff", "#9ccaed", "#aea3e3"];
 const themes = [
   "ჩემი სხეული, გრძნობები და საზღვრები",
   "უსაფრთხო და საფრთხის შემცველი სიტუაციები",
@@ -35,19 +35,34 @@ export default function LearningPage({ initialAge = "" }: { initialAge?: string 
   const [age, setAge] = useState(initialAge);
   const isTeen = age === "14-18";
   const [choosingAge, setChoosingAge] = useState(!initialAge);
-  const [variant, setVariant] = useState<1 | 2>(1);
   const [selectedThemes, setSelectedThemes] = useState<number[]>([]);
+  const closingAge = useRef(false);
+  const ageAnimation = useRef<ReturnType<typeof animateNativeDialog> | null>(null);
   const ageDialog = useRef<HTMLDialogElement>(null);
   const heading = useRef<HTMLHeadingElement>(null);
   const filteredTopics = learningTopics.filter((_, index) => !selectedThemes.length || selectedThemes.includes(topicThemeIndexes[index]));
   const filteredTeenTopics = teenLearningTopics.filter(item => !selectedThemes.length || selectedThemes.includes(item.theme));
   const teenColors = [...new Set(resources.filter(item => !item.video).map(item => item.color))].filter(color => color !== "#2d944d");
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const dialog = ageDialog.current;
-    if (choosingAge) dialog?.showModal();
-    else dialog?.close();
+    if (!dialog) return;
+    if (choosingAge) {
+      closingAge.current = false;
+      dialog.showModal();
+      ageAnimation.current = animateNativeDialog(dialog, true, dialogMotion, true);
+    } else dialog.close();
+    return () => { ageAnimation.current?.cancel(); };
   }, [choosingAge]);
+
+  async function closeAge(after: () => void) {
+    if (closingAge.current || !ageDialog.current) return;
+    closingAge.current = true;
+    ageAnimation.current?.cancel();
+    const animation = animateNativeDialog(ageDialog.current, false, dialogMotion);
+    ageAnimation.current = animation;
+    try { await animation.finished; after(); } catch { /* Navigation unmounted the dialog. */ }
+  }
   useEffect(() => {
     if (!choosingAge) return;
     const previous = document.body.style.overflow;
@@ -57,11 +72,13 @@ export default function LearningPage({ initialAge = "" }: { initialAge?: string 
 
   function continueToTopics() {
     if (!["6-9", "10-13", "14-18"].includes(age)) return;
+    void closeAge(() => {
     if (age === "6-9" && initialAge !== "6-9") { router.push("/prototypes/learning/6-9"); return; }
     if (age === "14-18" && initialAge !== "14-18") { router.push("/prototypes/learning/14-18"); return; }
     if (age === "10-13" && initialAge) { router.push("/prototypes/learning?age=10-13"); return; }
     setChoosingAge(false);
     requestAnimationFrame(() => heading.current?.focus());
+    });
   }
 
   return <main className={styles.page}>
@@ -84,17 +101,13 @@ export default function LearningPage({ initialAge = "" }: { initialAge?: string 
       <div className={styles.grid}>
         {isTeen ? filteredTeenTopics.map(item => <TeenLearningCard key={item.id} item={item} color={teenColors[teenLearningTopics.indexOf(item) % teenColors.length]} />) : filteredTopics.map((item) => {
           const index = learningTopics.indexOf(item);
-          return <LearningCard key={item.id} item={item} appearance={variant === 1 ? "framed" : "filled"}
-            color={(variant === 1 ? frameColors : fillColors)[index % 6]} eager={index < 3} age={age} />;
+          return <LearningCard key={item.id} item={item}
+            color={frameColors[index % frameColors.length]} eager={index < 3} age={age} />;
         })}
       </div>
-      {!isTeen && <div className={styles.switcher} role="group" aria-label="დიზაინის ვარიანტი">
-        <span>დიზაინის ვარიანტი</span>
-        {([1, 2] as const).map(value => <button key={value} aria-pressed={variant === value} onClick={() => setVariant(value)}>{labelText(`ვარიანტი ${value}`)}</button>)}
-      </div>}
     </section>
     <dialog id="learning-age-dialog" ref={ageDialog} className={styles.ageDialog} aria-labelledby="age-title" onCancel={event => event.preventDefault()}>
-      <div className={styles.ageDialogClose}><Button asChild variant="subtle" size="icon"><Link href="/prototypes/homepage" aria-label="მთავარ გვერდზე დაბრუნება"><Icon name="close" /></Link></Button></div>
+      <div className={styles.ageDialogClose}><Button asChild variant="subtle" size="icon"><Link href="/prototypes/homepage" aria-label="მთავარ გვერდზე დაბრუნება" onClick={event => { if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return; event.preventDefault(); void closeAge(() => router.push("/prototypes/homepage")); }}><Icon name="close" /></Link></Button></div>
       <h2 id="age-title">აირჩიე შენი ასაკი</h2>
       <fieldset className={styles.ages}>
         <legend className={styles.srOnly}>ასაკობრივი ჯგუფი</legend>
