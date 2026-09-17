@@ -116,7 +116,7 @@ export default function LearningPage({ initialAge = "" }: { initialAge?: string 
           <span>{value}</span>
         </label>)}
       </fieldset>
-      <button className={styles.continue} disabled={!age} onClick={continueToTopics}>{labelText("გაგრძელება")} <Icon name="chevronsRight" /></button>
+      <Button size="large" disabled={!age} onClick={continueToTopics}>{labelText("გაგრძელება")} <Icon name="chevronsRight" /></Button>
     </dialog>
   </main>;
 }

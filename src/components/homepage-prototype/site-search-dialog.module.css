@@ -24,10 +24,10 @@
 .results { min-height: 0; overflow-y: auto; overscroll-behavior: contain; padding: 0 var(--space-4) var(--space-5); }
 .resultList { margin: 0; padding: 0; list-style: none; }
 .resultList li + li { margin-top: 2px; }
-.resultList a { display: flex; width: 100%; min-width: 0; height: var(--control-height-compact); align-items: center; gap: var(--space-4); padding: 0 var(--space-4); border-radius: var(--radius-surface); color: var(--color-text-primary); text-decoration: none; }
+.resultList a { display: flex; width: 100%; min-width: 0; height: var(--control-height-compact); align-items: center; gap: var(--space-4); padding-inline-start: var(--space-4); border-radius: var(--radius-surface); color: var(--color-text-primary); text-decoration: none; }
 .rowIcon { display: grid; flex: 0 0 20px; place-items: center; color: var(--color-text-secondary); }
 .resultTitle { flex: 1; min-width: 0; overflow: hidden; font-family: var(--font-body); font-size: var(--type-body-size); line-height: var(--type-body-line); font-weight: var(--type-body-weight); letter-spacing: var(--type-body-tracking); text-overflow: ellipsis; white-space: nowrap; }
-.resultList a > svg { flex: none; color: var(--color-text-secondary); }
+.rowChevron { display: grid; flex: 0 0 var(--control-height-compact); height: 100%; place-items: center; color: var(--color-text-secondary); }
 .empty { margin: var(--space-5) var(--space-4); color: var(--color-text-secondary); font-size: var(--type-body-size); }
 .resultList a:focus-visible { outline: 3px solid var(--color-focus-ring); outline-offset: 2px; }
 @media (hover: hover) { .resultList a:hover { background: var(--color-control-subtle-bg); } }

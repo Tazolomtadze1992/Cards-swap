@@ -8,7 +8,6 @@ import { useRouter } from "next/navigation";
 import { Icon } from "../ui/icon";
 import { SiteHeader } from "./site-header";
 import { RecommendedMaterials } from "./recommended-materials";
-import recommendationStyles from "./recommended-materials.module.css";
 import { resources } from "./resources-data";
 import { labelText } from "./label-text";
 import styles from "./articles.module.css";
@@ -47,7 +46,7 @@ export default function ArticlesPagePrototype({ recommendedCount, age }: Article
     </ReadingContent></div>
     <section className={styles.recommended} id="recommended" aria-label="რეკომენდირებული მასალა">
       <RecommendedMaterials items={recommendations} onOpen={() => router.push("/prototypes/resources")} />
-      <a className={recommendationStyles.next} href={`/prototypes/learning/practice/scenario${age === "6-9" ? "?age=6-9" : ""}`}>{labelText("სცენარზე გადასვლა")} <Icon name="chevronsRight" size="large" /></a>
+      <Button asChild size="large"><a href={`/prototypes/learning/practice/scenario${age === "6-9" ? "?age=6-9" : ""}`}>{labelText("სცენარზე გადასვლა")} <Icon name="chevronsRight" /></a></Button>
     </section>
   </main>;
 }

@@ -1,10 +1,9 @@
 import { faqItems } from "./faq-data";
 import { glossaryItems } from "./glossary-data";
-import { learningTopics } from "./learning-data";
 import { resources } from "./resources-data";
 import { serviceTopics } from "./services-topics";
 
-export type SearchCategory = "learning" | "resources" | "glossary" | "faq" | "services";
+export type SearchCategory = "resources" | "glossary" | "faq" | "services";
 export type SearchResult = {
   id: string;
   category: SearchCategory;
@@ -14,11 +13,6 @@ export type SearchResult = {
 };
 
 export const searchResults: SearchResult[] = [
-  ...learningTopics.map(item => ({
-    id: `learning-${item.id}`, category: "learning" as const,
-    title: item.title, description: item.intro,
-    href: `/prototypes/learning?age=10-13#topic-${item.id}`,
-  })),
   ...resources.map(item => ({
     id: `resource-${item.id}`, category: "resources" as const,
     title: item.title, description: `${item.type} · ${item.age} · ${item.description}`,

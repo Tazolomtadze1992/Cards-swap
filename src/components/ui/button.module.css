@@ -21,7 +21,7 @@
 @media (prefers-reduced-motion: no-preference) {
   .button[data-slot="button"] { transition: transform 150ms cubic-bezier(0.23, 1, 0.32, 1); }
   .button[data-slot="button"]:not(:disabled):not([aria-disabled="true"]):active {
-    transform: scale(0.96);
+    transform: scale(var(--button-active-scale, 0.96));
     transition-duration: 100ms;
   }
   :global(html[data-input-mode="keyboard"]) .button[data-slot="button"] { transition: none; }
@@ -37,6 +37,7 @@
 .compact { min-height: var(--control-height-compact); padding: var(--space-3) var(--space-4); }
 .default { min-height: var(--control-height-default); padding: var(--space-3) var(--space-6); }
 .prominent { min-height: var(--control-height-prominent); padding: var(--space-4) var(--space-7); }
+.large { --button-hover: var(--color-action-primary-bg); --button-active-scale: .98; display: flex; width: min(372px, 100%); min-height: 96px; gap: 12px; margin-inline: auto; }
 .contact { min-height: var(--control-height-compact); padding: var(--space-3) var(--space-6); }
 /* Preserve the audited resource action's 14/22px optical padding. */
 .resource { min-height: var(--control-height-prominent); padding: calc(var(--space-3) + 2px) calc(var(--space-6) - 2px); }
@@ -45,6 +46,7 @@
 .button > :is(svg, img) { flex: none; width: var(--space-4); height: var(--space-4); pointer-events: none; }
 .contact > :is(svg, img) { width: var(--space-4); height: var(--space-4); }
 .button:focus-visible { outline: 3px solid var(--color-focus-ring, var(--color-focus)); outline-offset: 4px; }
+.large:focus-visible { outline-offset: 5px; }
 @media (hover: hover) {
   .button:not(:disabled):not([aria-disabled="true"]):hover { background: var(--button-hover); }
 }
@@ -52,6 +54,7 @@
 @media (max-width: 600px) {
   .contact { padding: 10px 14px; }
 }
+@media (max-width: 640px) { .large { min-height: 68px; } }
 
 /* Filter reset action: preserve its quiet surface and compact icon. */
 .reset { --button-bg: var(--color-danger-soft); --button-fg: var(--color-danger); --button-hover: var(--color-danger-soft); width: fit-content; transition: opacity 160ms ease; }

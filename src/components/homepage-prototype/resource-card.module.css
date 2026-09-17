@@ -13,20 +13,20 @@
 .action { margin-top: auto; width: 100%; }
 @media (max-width: 720px) {
   .card, .card[data-context="recommendation"] { min-height: 0; padding: var(--space-6); }
-  .card[data-context="catalogue"] .videoPreview { height: clamp(180px, 40vw, 220px); }
-  .card[data-context="catalogue"] .documentIcon { width: 80px; }
+  .card .videoPreview { height: clamp(180px, 40vw, 220px); }
+  .card .documentIcon { width: 80px; }
   /* Combined with the card’s 24px gap, this gives 48px before the CTA. */
   .action { margin-top: var(--space-6); }
 }
 @media (min-width: 701px) and (max-width: 820px) {
-  .card[data-context="catalogue"] {
+  .card, .card[data-context="recommendation"] {
     min-height: 0;
     gap: var(--space-4);
     padding: var(--space-4);
   }
-  .card[data-context="catalogue"] .documentIcon { width: 64px; }
-  .card[data-context="catalogue"] .videoPreview { height: clamp(144px, 20vw, 168px); }
-  .card[data-context="catalogue"] .action {
+  .card .documentIcon { width: 64px; }
+  .card .videoPreview { height: clamp(144px, 20vw, 168px); }
+  .card .action {
     margin-top: auto;
     padding-top: var(--space-7);
   }

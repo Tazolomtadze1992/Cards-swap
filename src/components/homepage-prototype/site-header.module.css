@@ -94,9 +94,12 @@
 }
 
 .navigation {
+  position: absolute;
+  left: 50%;
   display: flex;
   align-items: center;
   gap: 24px;
+  transform: translateX(-50%);
   text-transform: var(--type-label-transform, uppercase);
   font-size: var(--type-label-size);
   line-height: var(--type-label-line);
@@ -185,6 +188,7 @@
     position: absolute;
     inset-inline: 0;
     top: 100%;
+    transform: none;
     max-height: calc(100dvh - 112px);
     overflow: hidden;
     overscroll-behavior: contain;

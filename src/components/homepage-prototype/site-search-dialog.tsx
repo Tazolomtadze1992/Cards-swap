@@ -17,7 +17,7 @@ const destinations: { title: string; href: string; icon: IconName }[] = [
   { title: "მხარდამჭერი სერვისები", href: "/prototypes/services", icon: "services" },
 ];
 const categoryIcons: Record<SearchCategory, IconName> = {
-  learning: "learning", resources: "resources", glossary: "glossary", faq: "faq", services: "services",
+  resources: "resources", glossary: "glossary", faq: "faq", services: "services",
 };
 
 export function SiteSearchDialog({ onClose }: { onClose: () => void }) {
@@ -101,7 +101,7 @@ export function SiteSearchDialog({ onClose }: { onClose: () => void }) {
             onClick={onClose} onKeyDown={event => moveThroughRows(event, index)}>
             <span className={styles.rowIcon}><Icon name={searching ? categoryIcons[results[index].category] : destinations[index].icon} size="medium" /></span>
             <span className={styles.resultTitle}>{row.title}</span>
-            <Icon name="arrowRight" size="medium" />
+            <span className={styles.rowChevron} aria-hidden="true"><Icon name="arrowRight" size="medium" /></span>
           </Link>
         </li>)}
       </ul> : <p className={styles.empty}>ვერაფერი მოიძებნა. სცადე სხვა სიტყვა.</p>}
