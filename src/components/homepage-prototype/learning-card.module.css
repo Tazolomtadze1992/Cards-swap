@@ -1,4 +1,6 @@
 .card { padding: var(--space-4) 0 0; border: 0; border-radius: var(--radius-expressive); background: var(--card-color); text-align: left; text-decoration: none; color: #393939; cursor: pointer; overflow: hidden; }
+.card { scroll-margin-top: 140px; }
+.card:target { outline: 3px solid var(--color-focus-ring); outline-offset: 4px; }
 .body { display: flex; flex: 1; flex-direction: column; width: 100%; border: var(--space-2) solid var(--card-color); border-radius: var(--radius-expressive); overflow: hidden; background: var(--color-surface); }
 .thumbnail { position: relative; flex: none; width: 100%; aspect-ratio: 1.554; overflow: hidden; border-radius: var(--radius-sm); }
 /* Crop inside the source PNGs' transparent, pre-rounded edges without stretching. */

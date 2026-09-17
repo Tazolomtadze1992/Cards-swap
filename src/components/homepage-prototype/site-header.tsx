@@ -7,6 +7,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Icon } from "../ui/icon";
 import { labelText } from "./label-text";
+import { SiteSearchDialog } from "./site-search-dialog";
 import styles from "./site-header.module.css";
 
 const navigationItems = [
@@ -26,7 +27,8 @@ type SiteHeaderProps = {
 
 export function SiteHeader({ activeItem, appearance = "light", logoAccessory }: SiteHeaderProps) {
   const [menuOpen, setMenuOpen] = useState(false);
-  const menu = useSurfacePresence(menuOpen, menuMotion, "(max-width: 1250px)");
+  const [searchOpen, setSearchOpen] = useState(false);
+  const menu = useSurfacePresence(menuOpen, menuMotion, "(max-width: 1400px)");
   const [hidden, setHidden] = useState(false);
   const [surface, setSurface] = useState(appearance);
   const spacerRef = useRef<HTMLDivElement>(null);
@@ -47,7 +49,7 @@ export function SiteHeader({ activeItem, appearance = "light", logoAccessory }: 
       const y = Math.max(0, Math.min(window.scrollY, document.documentElement.scrollHeight - window.innerHeight));
       const delta = y - previousY;
       const keyboardFocus = !!header.querySelector(":focus-visible");
-      if (y < header.offsetHeight || menuOpen || keyboardFocus) {
+      if (y < header.offsetHeight || menuOpen || searchOpen || keyboardFocus) {
         setHidden(false);
         downwardTravel = 0;
       } else if (delta < -2) {
@@ -83,7 +85,19 @@ export function SiteHeader({ activeItem, appearance = "light", logoAccessory }: 
       window.removeEventListener("resize", schedule);
       cancelAnimationFrame(frame);
     };
-  }, [menuOpen]);
+  }, [menuOpen, searchOpen]);
+
+  useEffect(() => {
+    const openSearch = (event: KeyboardEvent) => {
+      if (!(event.metaKey || event.ctrlKey) || event.altKey || event.shiftKey || event.key.toLowerCase() !== "k") return;
+      event.preventDefault();
+      setMenuOpen(false);
+      setHidden(false);
+      setSearchOpen(true);
+    };
+    document.addEventListener("keydown", openSearch);
+    return () => document.removeEventListener("keydown", openSearch);
+  }, []);
 
   useEffect(() => {
     const desktop = window.matchMedia("(min-width: 1251px)");
@@ -160,7 +174,7 @@ export function SiteHeader({ activeItem, appearance = "light", logoAccessory }: 
       </span>
     </Link>;
   return <div ref={spacerRef} className={styles.spacer}>
-    <div ref={frameRef} className={styles.frame} data-hidden={hidden && !menu.present} data-appearance={surface} data-menu-open={menu.present}
+    <div ref={frameRef} className={styles.frame} data-hidden={hidden && !menu.present && !searchOpen} data-appearance={surface} data-menu-open={menu.present}
       role={menu.present ? "dialog" : undefined} aria-modal={menu.present || undefined} aria-label={menu.present ? "მთავარი მენიუ" : undefined}>
     <header ref={headerRef} className={styles.header} data-appearance={surface} onFocusCapture={() => setHidden(false)}>
     {logoAccessory ? <div className={styles.logoGroup}>{logo}{logoAccessory}</div> : logo}
@@ -170,11 +184,15 @@ export function SiteHeader({ activeItem, appearance = "light", logoAccessory }: 
       </Link>)}</div>
       <span className={styles.menuContact}>{contact}</span>
     </nav>
-    <span className={styles.headerContact}>{contact}</span>
+    <span className={styles.headerActions}>
+      <span className={styles.headerSearch}><Button variant="subtle" size="icon" aria-label="ძიების გახსნა" aria-keyshortcuts="Control+K Meta+K" onClick={() => { setMenuOpen(false); setHidden(false); setSearchOpen(true); }}><Icon name="search" /></Button></span>
+      <span className={styles.headerContact}>{contact}</span>
+    </span>
     <span className={styles.menuButton} ref={menuButtonRef}><Button variant={surface === "brand-surface" ? "inverse" : "subtle"} size="icon" aria-label={menuOpen ? "მენიუს დახურვა" : "მენიუს გახსნა"} aria-expanded={menuOpen} aria-controls={navigationId} onClick={() => setMenuOpen(open => !open)}>
       <span className={styles.menuGlyph} data-open={menuOpen} aria-hidden="true"><span /><span /><span /></span>
     </Button></span>
   </header>
     </div>
+    {searchOpen && <SiteSearchDialog onClose={() => setSearchOpen(false)} />}
   </div>;
 }

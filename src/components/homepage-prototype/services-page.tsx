@@ -11,28 +11,20 @@ import { Button } from "../ui/button";
 import { Icon } from "../ui/icon";
 import { SiteHeader } from "./site-header";
 import { labelText } from "./label-text";
+import { serviceTopics } from "./services-topics";
 import styles from "./services.module.css";
 
-const topics = [
-  "რა არის ბავშვთა დაცვის სისტემა?",
-  "დახმარება მჭირდება - საიდან დავიწყო",
-  "ვინ და როგორ გეხმარება?",
-  "შეტყობინება, რეფერირება და დახმარების გეგმა",
-  "ბარნაჰუსის მომსახურება",
-  "სად დარეკო ან მიწერო?",
-];
-
 export default function ServicesPagePrototype() {
-  const [openTopic, setOpenTopic] = useState<"start" | "contacts" | "overview" | "people" | "barnahus" | "referral" | null>(null);
+  const [openTopic, setOpenTopic] = useState<(typeof serviceTopics)[number]["id"] | null>(null);
   return <div className={styles.page}>
     <SiteHeader activeItem="support" />
     <main className={styles.content}>
       <header className={styles.intro}><h1>გჭირდება დახმარება?</h1></header>
       <div className={styles.layout}>
         <ul className={styles.topics} aria-label="დახმარების თემები">
-          {topics.map((topic, index) => <li key={topic}>
-            <button type="button" className={styles.topic} aria-haspopup="dialog" onClick={() => setOpenTopic(index === 0 ? "overview" : index === 1 ? "start" : index === 2 ? "people" : index === 3 ? "referral" : index === 4 ? "barnahus" : "contacts")}>
-              <span>{topic}</span><Icon name="chevronsRight" />
+          {serviceTopics.map(topic => <li key={topic.id}>
+            <button type="button" id={`service-${topic.id}`} className={styles.topic} aria-haspopup="dialog" onClick={() => setOpenTopic(topic.id)}>
+              <span>{topic.title}</span><Icon name="chevronsRight" />
             </button>
           </li>)}
         </ul>

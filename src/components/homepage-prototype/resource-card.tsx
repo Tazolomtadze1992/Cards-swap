@@ -19,7 +19,7 @@ type ResourceCardProps = {
 
 function ResourceCardFrame({ item, context = "catalogue", children }: Pick<ResourceCardProps, "item" | "context"> & { children: ReactNode }) {
   return <Card asChild className={styles.card} data-context={context} data-resource-kind={item.video ? "video" : "resource"} style={{ "--card-color": item.color } as CSSProperties}>
-    <article>{children}</article>
+    <article id={context === "catalogue" ? `resource-${item.id}` : undefined}>{children}</article>
   </Card>;
 }
 

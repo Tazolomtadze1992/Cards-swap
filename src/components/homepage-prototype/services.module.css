@@ -21,6 +21,8 @@
 }
 
 button.topic { width: 100%; border: 0; color: inherit; text-align: left; cursor: pointer; }
+button.topic { scroll-margin-top: 140px; }
+button.topic:target { outline: 3px solid var(--color-focus-ring); outline-offset: var(--space-1); }
 button.topic:focus-visible { outline: 3px solid var(--color-focus-ring); outline-offset: var(--space-1); }
 @media (hover: hover) { button.topic:hover { background: var(--color-control-hover-bg); } }
 .dialogIntro { max-width: var(--layout-reading); margin: 0 0 var(--space-10); }

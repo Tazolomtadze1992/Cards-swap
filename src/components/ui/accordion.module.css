@@ -1,5 +1,7 @@
 .root { display: grid; gap: var(--space-4); }
 .item { border-radius: var(--radius-row); background: var(--accordion-bg, var(--color-overlay-soft)); padding: 0 var(--space-7); color: inherit; }
+.item { scroll-margin-top: 140px; }
+.item:target { outline: 3px solid var(--color-focus-ring); outline-offset: var(--space-1); }
 .heading { display: flex; margin: 0; }
 .trigger {
   display: flex;

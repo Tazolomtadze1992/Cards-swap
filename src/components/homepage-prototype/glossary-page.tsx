@@ -52,7 +52,7 @@ export default function GlossaryPagePrototype() {
           <p className={styles.srOnly} role="status" aria-live="polite">ნაპოვნია {filtered.length} სიტყვა</p>
           {groups.map(group => <section key={group.letter} className={styles.group} aria-labelledby={`letter-${group.letter}`}>
             <h2 id={`letter-${group.letter}`}>{group.letter}</h2>
-            <dl>{group.items.map(item => <div className={styles.entry} key={item.term}><dt>{item.term}</dt><dd>{item.definition}<div className={styles.entryDivider}><Separator tone="subtle" /></div></dd></div>)}</dl>
+            <dl>{group.items.map(item => <div className={styles.entry} id={`term-${glossaryItems.indexOf(item)}`} key={item.term}><dt>{item.term}</dt><dd>{item.definition}<div className={styles.entryDivider}><Separator tone="subtle" /></div></dd></div>)}</dl>
           </section>)}
           {!filtered.length && <div className={styles.empty}><h2>სიტყვა ვერ მოიძებნა</h2><p>სცადე სხვა სიტყვა ან შეცვალე არჩეული ასოები.</p><FilterReset onClick={reset}>{labelText("ფილტრების გასუფთავება")}</FilterReset></div>}
         </div>

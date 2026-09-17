@@ -5,7 +5,7 @@ import styles from "./faq-list.module.css";
 export function FaqList({ items, name, fullPage = false, appearance = "default" }: { items: FaqItem[]; name: string; fullPage?: boolean; appearance?: "default" | "light" }) {
   return <div className={fullPage ? styles.fullList : styles.list}>
     <Accordion appearance={appearance} type="single" collapsible data-faq-list={name}>
-      {items.map(item => <AccordionItem key={item.question} value={item.question}>
+      {items.map((item, index) => <AccordionItem key={item.question} value={item.question} id={fullPage ? `faq-${index}` : undefined}>
         <AccordionTrigger headingLevel={fullPage ? 2 : 3}>
           <span>{item.question}</span>
         </AccordionTrigger>

@@ -12,7 +12,7 @@ type LearningCardProps = {
 
 export function LearningCard({ item, color, eager = false, age }: LearningCardProps) {
   return <Card asChild className={styles.card} style={{ "--card-color": color } as CSSProperties}>
-    <Link href={age === "6-9" ? "/prototypes/articles?age=6-9" : "/prototypes/articles"} aria-label={`${item.title} — სტატიის გახსნა`}>
+    <Link id={`topic-${item.id}`} href={age === "6-9" ? "/prototypes/articles?age=6-9" : "/prototypes/articles"} aria-label={`${item.title} — სტატიის გახსნა`}>
       <CardContent className={styles.body}>
         <div className={styles.thumbnail}>
           {/* eslint-disable-next-line @next/next/no-img-element */}

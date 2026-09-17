@@ -114,10 +114,15 @@
   white-space: nowrap;
 }
 
+.headerActions { display: flex; flex: none; align-items: center; gap: var(--space-3); margin-inline-start: auto; }
+
 .headerContact {
   display: block;
   flex: none;
 }
+
+.headerSearch { display: block; flex: none; }
+.header[data-appearance="brand-surface"] .headerSearch [data-slot="button"] { --button-bg: var(--color-control-on-brand-bg); --button-fg: var(--color-text-inverse); --button-hover: var(--color-control-on-brand-hover-bg); }
 
 .menuButton,
 .menuContact {
@@ -146,7 +151,7 @@
   color: var(--color-nav-on-brand-active);
 }
 
-@media (max-width: 1250px) {
+@media (max-width: 1400px) {
   .frame[data-menu-open="true"] {
     height: 100dvh;
     overflow: hidden;
@@ -172,7 +177,7 @@
   }
 
   .headerContact {
-    margin-inline-start: auto;
+    margin-inline-start: 0;
   }
 
   .navigation {
@@ -262,7 +267,7 @@
   }
 
   .menuButton {
-    margin-inline-start: auto;
+    margin-inline-start: 0;
   }
 
   .menuContact {
