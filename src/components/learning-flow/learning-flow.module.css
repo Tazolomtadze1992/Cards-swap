@@ -2,6 +2,7 @@
 .shell { scroll-margin-top: var(--space-7); max-width: calc(var(--layout-reading) + 2 * var(--gutter-desktop)); margin: var(--space-page-start) auto 0; padding: 0 var(--gutter-desktop) var(--space-7); }
 .shell[data-stage="answer"] { --flow-section-gap: var(--space-10); }
 .topbar { display: flex; align-items: center; justify-content: space-between; gap: var(--space-4); }
+.topbarActions { display: flex; align-items: center; gap: var(--space-3); }
 .progressGroup { width: min(100%, 480px); min-width: 0; }
 .progressCount { display: block; margin-bottom: var(--space-3); color: var(--color-text-secondary); font-size: var(--type-body-sm-size); line-height: var(--type-body-sm-line); font-variant-numeric: tabular-nums; }
 .progress { display: block; width: 100%; height: var(--space-2); border: 0; border-radius: var(--radius-pill); overflow: hidden; background: var(--color-border-subtle); color: var(--color-accent-solid); appearance: none; }

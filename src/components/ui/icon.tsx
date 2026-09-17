@@ -16,6 +16,8 @@ import {
   PlayIcon,
   Search01Icon,
   Tick01Icon,
+  VolumeHighIcon,
+  VolumeOffIcon,
 } from "@hugeicons/core-free-icons";
 
 const icons = {
@@ -33,6 +35,8 @@ const icons = {
   plus: Add01Icon,
   search: Search01Icon,
   trash: Delete02Icon,
+  volume: VolumeHighIcon,
+  volumeOff: VolumeOffIcon,
 } as const;
 
 const sizes = { small: 16, compact: 16, default: 16, medium: 20, large: 32 } as const;

@@ -1,7 +1,8 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect, useId, useRef, useState } from "react";
+import { useEffect, useId, useRef, useState, useSyncExternalStore } from "react";
+import { play, setEnabled } from "cuelume";
 import { Questionnaire } from "../ui/questionnaire";
 import { useQuestionnaire } from "../ui/use-questionnaire";
 import { Button } from "../ui/button";
@@ -14,15 +15,40 @@ import { LearningShell } from "./learning-shell";
 import styles from "./learning-flow.module.css";
 import { ExplainedText } from "../ui/explained-text";
 
+const soundPreferenceKey = "learning-feedback-sound";
+const soundPreferenceEvent = "learning-feedback-sound-change";
+let soundPreferenceFallback = true;
+
+function readSoundPreference() {
+  try {
+    const saved = window.localStorage.getItem(soundPreferenceKey);
+    return saved === null ? soundPreferenceFallback : saved !== "off";
+  } catch {
+    return soundPreferenceFallback;
+  }
+}
+
+function subscribeSoundPreference(onChange: () => void) {
+  window.addEventListener(soundPreferenceEvent, onChange);
+  window.addEventListener("storage", onChange);
+  return () => {
+    window.removeEventListener(soundPreferenceEvent, onChange);
+    window.removeEventListener("storage", onChange);
+  };
+}
+
 export default function LearningFlow({ activity, immediateFeedback = false }: { activity: LearningActivity; immediateFeedback?: boolean }) {
   const { step, answers, selected, isLast, setStep, selectAnswer } = useQuestionnaire(activity.items);
   const contextId = useId();
   const [stage, setStage] = useState<"answer" | "recommendation" | "review-index" | "review">("answer");
   const [skipped, setSkipped] = useState(false);
+  const [confirmed, setConfirmed] = useState<Record<string, boolean>>({});
+  const soundEnabled = useSyncExternalStore(subscribeSoundPreference, readSoundPreference, () => true);
   const heading = useRef<HTMLHeadingElement>(null);
   const previousView = useRef(`${stage}:${step}`);
   const item = activity.items[step];
-  const showFeedback = stage === "review" || (immediateFeedback && stage === "answer" && selected !== undefined);
+  const answerConfirmed = confirmed[item.id] === true;
+  const showFeedback = stage === "review" || (immediateFeedback && stage === "answer" && answerConfirmed);
 
   useEffect(() => {
     const view = `${stage}:${step}`;
@@ -32,13 +58,40 @@ export default function LearningFlow({ activity, immediateFeedback = false }: { 
     heading.current?.closest("main")?.scrollIntoView({ block: "start", behavior: "instant" });
   }, [step, stage]);
 
+  useEffect(() => {
+    if (!immediateFeedback) return;
+    setEnabled(soundEnabled);
+    return () => setEnabled(true);
+  }, [immediateFeedback, soundEnabled]);
+
+  function toggleSound() {
+    soundPreferenceFallback = !soundEnabled;
+    try {
+      window.localStorage.setItem(soundPreferenceKey, soundPreferenceFallback ? "on" : "off");
+    } catch {
+      // The control still works when storage is blocked.
+    }
+    window.dispatchEvent(new Event(soundPreferenceEvent));
+  }
+
   function next() {
-    if (stage === "answer" && selected === undefined) return;
+    if (stage === "answer" && (selected === undefined || (immediateFeedback && !answerConfirmed))) return;
     if (isLast) setStage("recommendation");
     else setStep(step + 1);
   }
 
-  return <LearningShell young={immediateFeedback} kind={activity.kind} current={step + 1} total={activity.items.length} stage={stage} onCloseReview={() => setStage("review-index")}>
+  function confirmOrNext() {
+    if (stage === "answer" && immediateFeedback && !answerConfirmed) {
+      if (selected !== undefined) {
+        setConfirmed(previous => ({ ...previous, [item.id]: true }));
+        if (soundEnabled) play(selected === item.correctIndex ? "success" : "error", { volume: 0.35 });
+      }
+      return;
+    }
+    next();
+  }
+
+  return <LearningShell young={immediateFeedback} kind={activity.kind} current={step + 1} total={activity.items.length} stage={stage} soundEnabled={soundEnabled} onToggleSound={toggleSound} onCloseReview={() => setStage("review-index")}>
     {stage === "recommendation" ? <LearningEnding young={immediateFeedback} activity={activity} answers={answers} skipped={skipped} heading={heading} onReview={() => setStage("review-index")} /> : stage === "review-index" ? <section className={styles.reviewOverview}>
       <h1 ref={heading} tabIndex={-1}>სწორი პასუხები</h1>
       <p>აირჩიე კითხვა და ნახე სწორი პასუხი.</p>
@@ -68,7 +121,7 @@ export default function LearningFlow({ activity, immediateFeedback = false }: { 
       </div>}
       <ActionRow spacing={stage === "answer" ? "standard" : "airy"}>
           {stage === "answer" ? <Button variant="subtle" onClick={() => { setSkipped(true); setStage("recommendation"); }}>{labelText(activity.kind === "quiz" ? "ქვიზის გამოტოვება" : "სცენარის გამოტოვება")}</Button> : <Button variant="subtle" disabled={step === 0} onClick={() => setStep(step - 1)}>{labelText("წინა პასუხი")}</Button>}
-          {stage === "review" && isLast ? <Button onClick={() => setStage("recommendation")}>{labelText("უკან დაბრუნება")}<Icon name="chevronsRight" /></Button> : <Button disabled={stage === "answer" && selected === undefined} onClick={next}>{labelText(stage === "review" ? "შემდეგი პასუხი" : isLast ? "დასრულება" : "გაგრძელება")}<Icon name="chevronsRight" /></Button>}
+          {stage === "review" && isLast ? <Button onClick={() => setStage("recommendation")}>{labelText("უკან დაბრუნება")}<Icon name="chevronsRight" /></Button> : <Button disabled={stage === "answer" && selected === undefined} onClick={confirmOrNext}>{labelText(stage === "review" ? "შემდეგი პასუხი" : stage === "answer" && immediateFeedback && !answerConfirmed ? "პასუხის დადასტურება" : isLast ? "დასრულება" : "გაგრძელება")}<Icon name="chevronsRight" /></Button>}
       </ActionRow>
     </Questionnaire>}
   </LearningShell>;
