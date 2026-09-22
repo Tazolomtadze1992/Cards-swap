@@ -7,7 +7,7 @@
   transform: translateY(0);
   transition: transform 200ms cubic-bezier(0.25, 1, 0.5, 1);
 }
-.frame[data-appearance="brand-surface"] { background: var(--color-brand); }
+.frame[data-appearance="brand-surface"] { background-color: var(--color-brand); background-image: var(--header-surface-image, none); background-size: var(--header-surface-size, auto); background-position: var(--header-surface-position, 0 0); }
 .frame[data-hidden="true"] { transform: translateY(-100%); pointer-events: none; }
 .frame:has(:focus-visible) { transform: translateY(0); pointer-events: auto; }
 @media (max-width: 600px) { .spacer { height: 92px; } }

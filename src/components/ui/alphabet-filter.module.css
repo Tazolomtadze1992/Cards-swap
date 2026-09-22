@@ -2,8 +2,8 @@
   --letter-bg: var(--color-control-subtle-bg);
   --letter-fg: var(--color-text-primary);
   --letter-hover: var(--color-control-hover-bg);
-  --letter-selected-bg: var(--color-accent-subtle-bg);
-  --letter-selected-fg: var(--color-accent-text);
+  --letter-selected-bg: #CE82FF;
+  --letter-selected-fg: var(--color-cream-primary);
   --letter-focus: var(--color-focus);
   display: grid;
   grid-template-columns: repeat(8, 44px);

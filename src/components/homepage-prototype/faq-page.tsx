@@ -8,10 +8,7 @@ export default function FaqPagePrototype() {
     <SiteHeader activeItem="faq" />
     <div className={styles.faqPageContent}>
       <div className={styles.faqPageIntro}>
-        <div className={styles.faqPageIllustration} aria-hidden="true">
-          <span className={styles.faqPagePerson} />
-          <span className={styles.faqPageQuestionMark} />
-        </div>
+        <div className={styles.faqPageIllustration} aria-hidden="true" />
         <h1>ხშირად დასმული კითხვები</h1>
       </div>
       <FaqList items={faqItems} name="faq-page" fullPage appearance="light" />

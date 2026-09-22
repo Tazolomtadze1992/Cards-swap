@@ -12,3 +12,9 @@ The FAQ reuses the card deck's `public/assets/cards/faq.svg` illustration at the
 FAQ answers are temporary Georgian review copy approved for this prototype, not final editorial content. Native details/summary provides keyboard-operable, single-open accordions. The homepage navigation opens `/prototypes/resources`, `/prototypes/glossary`, and `/prototypes/faq`. The Resources and FAQ cards preserve the deck choreography: the first click expands the card, and a second click anywhere on the large card opens its page. Contact currently points to the support-related FAQ; wire the final contact destination when supplied. Other card action destinations still belong to the Laravel host via `onNavigate`.
 
 Validation: production build; desktop 1440px and mobile 390px rendering without horizontal overflow; all images loaded; FAQ open/switch; resource-card expand/Escape; both mode links; no browser runtime errors.
+
+## September 2026 homepage refresh
+
+Visual source: Figma `YqyCMj54On5xNGIHkZ1t6k`, node `1132:59613`. The hero fills at least the current viewport, with the two exported character groups anchored to its bottom edge. It grows when needed to preserve content on short screens. Hero gradient: `#1f3561` to `#3f6cc7`; FAQ uses the reverse gradient. The fixed header samples the section gradient to maintain continuity.
+
+Card geometry, interactions, and existing content spacing are retained. Card fills, label inks, and all five illustrations now match this frame. Both the homepage FAQ and dedicated FAQ page use the exact `1154:62865` illustration export. The homepage displays its original cream color; the FAQ page retains its blue color using the same SVG as a mask. New artwork lives in `public/assets/homepage`; card artwork remains in `public/assets/cards`.

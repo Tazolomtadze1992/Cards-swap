@@ -57,10 +57,10 @@
 @media (max-width: 640px) { .large { min-height: 68px; } }
 
 /* Filter reset action: preserve its quiet surface and compact icon. */
-.reset { --button-bg: var(--color-danger-soft); --button-fg: var(--color-danger); --button-hover: var(--color-danger-soft); width: fit-content; transition: opacity 160ms ease; }
+.reset { --button-bg: var(--color-accent-subtle-bg); --button-fg: var(--color-accent-text); --button-hover: var(--color-accent-subtle-hover-bg); width: fit-content; transition: opacity 160ms ease; }
 .reset > :is(svg, img) { width: var(--space-4); height: var(--space-4); }
 .reset:disabled, .reset[aria-disabled="true"] { opacity: .36; cursor: default; }
 @media (prefers-reduced-motion: no-preference) {
-  .reset[data-slot="button"] { transition: transform 150ms cubic-bezier(0.23, 1, 0.32, 1), opacity 160ms ease; }
+  .reset[data-slot="button"] { transition: transform 150ms cubic-bezier(0.23, 1, 0.32, 1), background-color 160ms ease-out, opacity 160ms ease; }
 }
 :global(html[data-input-mode="keyboard"]) .reset { transition: none; }

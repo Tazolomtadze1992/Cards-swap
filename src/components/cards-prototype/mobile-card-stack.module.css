@@ -6,7 +6,7 @@
   .slot { position: relative; grid-area: 1 / 1; min-width: 0; transform-origin: 50% 85%; }
   .card { display: flex; flex-direction: column; min-height: 420px; height: 100%; padding: 24px; border-radius: 16px; touch-action: pan-y; user-select: none; cursor: grab; }
   .card:active { cursor: grabbing; }
-  .card img { width: 120px; height: 112px; object-fit: contain; object-position: left center; pointer-events: none; margin-bottom: 24px; }
+  .card img { width: 80px; height: 75px; object-fit: contain; object-position: left center; pointer-events: none; margin-bottom: 24px; }
   .card h3 { margin: 0; font-family: var(--font-display); font-size: var(--type-h3-size); line-height: var(--type-h3-line); font-weight: var(--type-h3-weight); }
   .card p { margin: 16px 0 24px; font-family: var(--font-body); font-size: var(--type-body-size); line-height: var(--type-body-line); }
   .action { margin-top: auto; }

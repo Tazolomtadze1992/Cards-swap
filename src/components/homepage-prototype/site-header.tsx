@@ -62,12 +62,20 @@ export function SiteHeader({ activeItem, appearance = "light", logoAccessory }: 
       previousY = y;
       // Section geometry stays reliable even while the header is translated away.
       const sampleY = header.offsetHeight / 2;
-      const onBrand = Array.from(document.querySelectorAll('[data-header-surface="brand-surface"]'))
-        .some(section => {
+      const brandSection = Array.from(document.querySelectorAll('[data-header-surface="brand-surface"]'))
+        .find(section => {
           const rect = section.getBoundingClientRect();
           return rect.top <= sampleY && rect.bottom > sampleY;
         });
-      if (!menuOpen) setSurface(onBrand ? "brand-surface" : "light");
+      if (!menuOpen) {
+        setSurface(brandSection ? "brand-surface" : "light");
+        // Continue the section gradient behind the fixed header while scrolling.
+        const rect = brandSection?.getBoundingClientRect();
+        const frameStyle = frameRef.current?.style;
+        frameStyle?.setProperty("--header-surface-image", brandSection ? getComputedStyle(brandSection).backgroundImage : "none");
+        frameStyle?.setProperty("--header-surface-size", rect ? `100% ${rect.height}px` : "auto");
+        frameStyle?.setProperty("--header-surface-position", rect ? `0 ${rect.top}px` : "0 0");
+      }
     };
     const schedule = () => { if (!frame) frame = requestAnimationFrame(update); };
     const observer = new ResizeObserver(() => {

@@ -68,7 +68,7 @@ export default function ResourcesPagePrototype() {
       <div className={styles.divider}><Separator /></div>
       {filtered.length ? <div className={styles.grid}>
         {filtered.map(item => <ResourceCard item={item} key={item.id} onOpen={openResource} />)}
-      </div> : <div className={styles.empty}><h2>რესურსი ვერ მოიძებნა</h2><p>სცადე სხვა ტიპი ან ასაკობრივი ჯგუფი.</p><Button size="compact" onClick={clear}>{labelText("ფილტრების გასუფთავება")}</Button></div>}
+      </div> : <div className={styles.empty}><h2>რესურსი ვერ მოიძებნა</h2><p>სცადე სხვა ტიპი ან ასაკობრივი ჯგუფი.</p><FilterReset onClick={clear}>{labelText("ფილტრების გასუფთავება")}</FilterReset></div>}
     </section>
     {preview && <div className={styles.overlay} role="presentation" onPointerDown={event => { if (event.target === event.currentTarget) closePreview(); }}>
       <section className={styles.preview} role="dialog" aria-modal="true" aria-labelledby="resource-preview-title">
