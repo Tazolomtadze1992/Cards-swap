@@ -7,7 +7,14 @@
   transform: translateY(0);
   transition: transform 200ms cubic-bezier(0.25, 1, 0.5, 1);
 }
-.frame[data-appearance="brand-surface"] { background-color: var(--color-brand); background-image: var(--header-surface-image, none); background-size: var(--header-surface-size, auto); background-position: var(--header-surface-position, 0 0); }
+/* Blend into the hero at the top; shield navigation from content once scrolling. */
+.frame[data-appearance="brand-surface"] { background: transparent; }
+.frame[data-appearance="brand-surface"][data-scrolled="true"] {
+  background: oklch(0.336 0.083 262.738);
+}
+.frame[data-appearance="brand-surface"][data-menu-open="true"] {
+  background: linear-gradient(180deg, oklch(0.336 0.083 262.738) 0%, var(--color-brand-blue-primary) 100%);
+}
 .frame[data-hidden="true"] { transform: translateY(-100%); pointer-events: none; }
 .frame:has(:focus-visible) { transform: translateY(0); pointer-events: auto; }
 @media (max-width: 600px) { .spacer { height: 92px; } }
@@ -38,60 +45,30 @@
   color: var(--color-text-inverse);
 }
 
-.header[data-appearance="brand-surface"] .menuButton [data-slot="button"] {
-  --button-bg: var(--color-control-on-brand-bg);
-  --button-fg: var(--color-text-inverse);
-  --button-hover: var(--color-control-on-brand-hover-bg);
+.header[data-appearance="brand-surface"] :is(.menuButton, .headerSearch) [data-slot="button"] {
+  --button-bg: var(--color-surface);
+  --button-fg: var(--color-accent-text);
+  --button-hover: var(--color-control-subtle-bg);
 }
 
 .logoLink {
-  display: block;
-  width: 186px;
-  height: 31px;
-  flex: none;
-}
-
-.logoGroup {
-  position: relative;
-  width: 186px;
-  height: 31px;
-  flex: none;
-}
-
-.logoGroup > :last-child {
-  position: absolute;
-  top: calc(100% + var(--space-3));
-  left: 0;
-}
-
-.brandLogo {
-  display: none;
-  width: 186px;
-  height: 31px;
-  object-fit: contain;
-}
-
-.lightLogo {
   display: flex;
-  width: 180px;
-  height: 31px;
+  width: 55px;
+  height: 44px;
+  flex: none;
   align-items: center;
-  gap: 0;
 }
 
-.lightLogo img {
-  display: block;
-  height: 31px;
+.logoOnLight,
+.logoOnBrand {
+  width: 55px;
+  height: 44px;
   object-fit: contain;
 }
 
-.header[data-appearance="brand-surface"] .brandLogo {
-  display: block;
-}
-
-.header[data-appearance="brand-surface"] .lightLogo {
-  display: none;
-}
+.logoOnBrand { display: none; }
+.header[data-appearance="brand-surface"] .logoOnLight { display: none; }
+.header[data-appearance="brand-surface"] .logoOnBrand { display: block; }
 
 .navigation {
   position: absolute;
@@ -125,7 +102,6 @@
 }
 
 .headerSearch { display: block; flex: none; }
-.header[data-appearance="brand-surface"] .headerSearch [data-slot="button"] { --button-bg: var(--color-control-on-brand-bg); --button-fg: var(--color-text-inverse); --button-hover: var(--color-control-on-brand-hover-bg); }
 
 .menuButton,
 .menuContact {
@@ -212,7 +188,7 @@
   }
 
   .header[data-appearance="brand-surface"] .navigation {
-    background: var(--color-brand);
+    background: transparent;
 
   }
 
@@ -244,20 +220,10 @@
   }
 
   .logoLink,
-  .logoGroup,
-  .brandLogo {
-    width: 150px;
-    height: 25px;
-  }
-
-  .lightLogo {
-    width: 145px;
-    height: 25px;
-  }
-
-  .lightLogo img {
-    height: 25px;
-    width: auto;
+  .logoOnLight,
+  .logoOnBrand {
+    width: 55px;
+    height: 44px;
   }
 
   .navigation {

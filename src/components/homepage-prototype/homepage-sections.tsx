@@ -8,7 +8,7 @@ import { SiteFooter } from "./site-footer";
 
 export function HomepageHero() {
   return <section className={styles.hero} data-header-surface="brand-surface" aria-labelledby="hero-heading">
-    <SiteHeader appearance="brand-surface" />
+    <SiteHeader appearance="brand-surface" activeItem="home" />
     <div className={styles.heroContent}>
       <h1 id="hero-heading">გაიგე მეტი, ივარჯიშე, იპოვე დახმარება.</h1>
       <p>გაიგე, როგორ დაიცვა თავი, ივარჯიშე რეალურ სიტუაციებში და საჭიროებისას იპოვე სანდო დახმარება.</p>
@@ -32,6 +32,6 @@ export function HomepageFaq() {
     <h2 id="faq-heading">ხშირად დასმული კითხვები</h2>
     <FaqList items={faqItems.slice(0, 6)} name="homepage-faq" />
     <div className={styles.viewAll}><Button asChild variant="inverse" size="prominent"><a href="/prototypes/faq">{labelText("ყველას ნახვა")}</a></Button></div>
-    <SiteFooter appearance="embedded" />
+    <SiteFooter />
   </section>;
 }

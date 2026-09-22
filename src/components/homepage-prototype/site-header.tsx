@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useId, useRef, useState, type ReactNode } from "react";
+import { useEffect, useId, useRef, useState } from "react";
 import { menuMotion, useSurfacePresence } from "../motion/surface-motion";
 import { Button } from "../ui/button";
 import Image from "next/image";
@@ -11,6 +11,7 @@ import { SiteSearchDialog } from "./site-search-dialog";
 import styles from "./site-header.module.css";
 
 const navigationItems = [
+  { id: "home", label: "მთავარი", href: "/prototypes/homepage" },
   { id: "learning", label: "სწავლა და პრაქტიკა", href: "/prototypes/learning" },
   { id: "resources", label: "რესურსები", href: "/prototypes/resources" },
   { id: "glossary", label: "ლექსიკონი", href: "/prototypes/glossary" },
@@ -22,15 +23,15 @@ type NavigationItem = (typeof navigationItems)[number]["id"];
 type SiteHeaderProps = {
   activeItem?: NavigationItem;
   appearance?: "light" | "brand-surface";
-  logoAccessory?: ReactNode;
 };
 
-export function SiteHeader({ activeItem, appearance = "light", logoAccessory }: SiteHeaderProps) {
+export function SiteHeader({ activeItem, appearance = "light" }: SiteHeaderProps) {
   const [menuOpen, setMenuOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
   const menu = useSurfacePresence(menuOpen, menuMotion, "(max-width: 1400px)");
   const [hidden, setHidden] = useState(false);
   const [surface, setSurface] = useState(appearance);
+  const [scrolled, setScrolled] = useState(false);
   const spacerRef = useRef<HTMLDivElement>(null);
   const frameRef = useRef<HTMLDivElement>(null);
   const navigationId = useId();
@@ -48,6 +49,8 @@ export function SiteHeader({ activeItem, appearance = "light", logoAccessory }: 
       frame = 0;
       const y = Math.max(0, Math.min(window.scrollY, document.documentElement.scrollHeight - window.innerHeight));
       const delta = y - previousY;
+      // Scroll locking the open menu resets window.scrollY; preserve the page state.
+      if (!menu.present) setScrolled(y > 0);
       const keyboardFocus = !!header.querySelector(":focus-visible");
       if (y < header.offsetHeight || menuOpen || searchOpen || keyboardFocus) {
         setHidden(false);
@@ -67,14 +70,8 @@ export function SiteHeader({ activeItem, appearance = "light", logoAccessory }: 
           const rect = section.getBoundingClientRect();
           return rect.top <= sampleY && rect.bottom > sampleY;
         });
-      if (!menuOpen) {
+      if (!menu.present) {
         setSurface(brandSection ? "brand-surface" : "light");
-        // Continue the section gradient behind the fixed header while scrolling.
-        const rect = brandSection?.getBoundingClientRect();
-        const frameStyle = frameRef.current?.style;
-        frameStyle?.setProperty("--header-surface-image", brandSection ? getComputedStyle(brandSection).backgroundImage : "none");
-        frameStyle?.setProperty("--header-surface-size", rect ? `100% ${rect.height}px` : "auto");
-        frameStyle?.setProperty("--header-surface-position", rect ? `0 ${rect.top}px` : "0 0");
       }
     };
     const schedule = () => { if (!frame) frame = requestAnimationFrame(update); };
@@ -93,7 +90,7 @@ export function SiteHeader({ activeItem, appearance = "light", logoAccessory }: 
       window.removeEventListener("resize", schedule);
       cancelAnimationFrame(frame);
     };
-  }, [menuOpen, searchOpen]);
+  }, [menuOpen, menu.present, searchOpen]);
 
   useEffect(() => {
     const openSearch = (event: KeyboardEvent) => {
@@ -175,17 +172,14 @@ export function SiteHeader({ activeItem, appearance = "light", logoAccessory }: 
   </Link></Button>;
 
   const logo = <Link className={styles.logoLink} href="/prototypes/homepage" aria-label="მთავარ გვერდზე დაბრუნება" onClick={() => setMenuOpen(false)}>
-      <Image className={styles.brandLogo} src="/assets/homepage/logo.png" width={186} height={31} alt="" priority />
-      <span className={styles.lightLogo} aria-hidden="true">
-        <Image src="/assets/logo-mark.png" width={33} height={31} alt="" priority />
-        <Image src="/assets/logo-wordmark.png" width={147} height={31} alt="" priority />
-      </span>
+      <Image className={styles.logoOnLight} src="/assets/homepage/council-of-europe-logo-on-cream.png" width={296} height={238} alt="" priority />
+      <Image className={styles.logoOnBrand} src="/assets/homepage/council-of-europe-logo.png" width={296} height={238} alt="" priority />
     </Link>;
   return <div ref={spacerRef} className={styles.spacer}>
-    <div ref={frameRef} className={styles.frame} data-hidden={hidden && !menu.present && !searchOpen} data-appearance={surface} data-menu-open={menu.present}
+    <div ref={frameRef} className={styles.frame} data-hidden={hidden && !menu.present && !searchOpen} data-appearance={surface} data-scrolled={scrolled} data-menu-open={menu.present}
       role={menu.present ? "dialog" : undefined} aria-modal={menu.present || undefined} aria-label={menu.present ? "მთავარი მენიუ" : undefined}>
     <header ref={headerRef} className={styles.header} data-appearance={surface} onFocusCapture={() => setHidden(false)}>
-    {logoAccessory ? <div className={styles.logoGroup}>{logo}{logoAccessory}</div> : logo}
+    {logo}
     <nav ref={node => { navigationRef.current = node; menu.attach(node); }} id={navigationId} className={styles.navigation} data-open={menu.present} aria-label="მთავარი ნავიგაცია">
       <div className={styles.navigationLinks}>{navigationItems.map(item => <Link href={item.href} key={item.id} aria-current={activeItem === item.id ? "page" : undefined} onClick={() => setMenuOpen(false)}>
         {menu.present ? item.label : labelText(item.label)}
