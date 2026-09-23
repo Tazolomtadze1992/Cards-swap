@@ -29,6 +29,7 @@
 }
 .primary { --button-bg: var(--color-action-primary-bg); --button-fg: var(--color-action-primary-fg); --button-hover: var(--color-accent-solid-hover); }
 .call { --button-bg: var(--color-green-primary); --button-fg: var(--color-cream-primary); --button-hover: var(--color-green-secondary); }
+.danger { --button-bg: var(--color-danger); --button-fg: var(--color-cream-primary); --button-hover: var(--color-danger-hover); }
 .inverse { --button-bg: var(--color-surface); --button-fg: var(--color-accent-text); --button-hover: var(--color-control-subtle-bg); }
 .overlay { --button-bg: var(--color-overlay-soft); --button-fg: var(--color-text-inverse); --button-hover: var(--color-overlay-control); }
 .cardAction { --button-bg: var(--color-overlay-control); --button-fg: var(--color-text-inverse); --button-hover: var(--color-overlay-control-hover); }

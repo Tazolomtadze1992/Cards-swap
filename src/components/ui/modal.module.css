@@ -18,6 +18,18 @@
 .sheetTitleRow > button { flex: none; }
 .sheetBody { --font-reading-heading: var(--font-body); --reading-heading-size: var(--type-h3-size); --reading-heading-line: var(--type-h3-line); --reading-heading-weight: var(--type-h3-weight); min-height: 0; overflow-y: auto; overscroll-behavior: contain; padding: var(--space-7) var(--space-7) max(var(--space-8), env(safe-area-inset-bottom)); font-size: var(--type-body-size); line-height: var(--type-body-line); }
 
+.dialog[data-presentation="confirmation"] { width: min(calc(100% - 2 * var(--gutter-desktop)), var(--layout-dialog)); }
+.sheet[data-presentation="confirmation"] { width: min(100%, var(--layout-dialog)); }
+.dialog[data-presentation="confirmation"] .dialogHeader,
+.sheet[data-presentation="confirmation"] .sheetHeader { padding: var(--space-4) var(--space-7) 0; }
+.confirmationHeading { display: flex; flex-direction: column; align-items: center; gap: var(--space-6); text-align: center; }
+.confirmationHeading > button { align-self: flex-end; }
+.confirmationHeading h2 { margin: 0; font-family: var(--font-display); font-size: var(--type-h2-size); line-height: var(--type-h2-line); font-weight: var(--type-h2-weight); }
+.confirmationHeading h2:focus { outline: none; }
+.confirmationIcon { display: grid; place-items: center; width: var(--space-10); height: var(--space-10); border-radius: 50%; background: var(--color-danger-soft); color: var(--color-danger); }
+.dialog[data-presentation="confirmation"] .dialogBody,
+.sheet[data-presentation="confirmation"] .sheetBody { padding-top: var(--space-6); text-align: center; }
+
 @media (max-width: 760px) {
   .dialog { width: calc(100% - 2 * var(--space-4)); max-height: calc(100svh - 2 * var(--space-4)); }
   .dialogHeader { padding: var(--space-6) var(--space-6) 0; }
@@ -25,6 +37,8 @@
   .dialogBody { padding: var(--space-7) var(--space-6); }
   .sheetHeader { padding-inline: var(--space-6); }
   .sheetBody { padding-inline: var(--space-6); }
+  .dialog[data-presentation="confirmation"] .dialogHeader,
+  .sheet[data-presentation="confirmation"] .sheetHeader { padding-inline: var(--space-6); }
 }
 
 @media (prefers-reduced-motion: reduce) {

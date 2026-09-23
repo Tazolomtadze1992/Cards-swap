@@ -108,7 +108,7 @@ export default function LearningPage({ initialAge = "" }: { initialAge?: string 
     </section>
     <dialog id="learning-age-dialog" ref={ageDialog} className={styles.ageDialog} aria-labelledby="age-title" onCancel={event => event.preventDefault()}>
       <div className={styles.ageDialogClose}><Button asChild variant="subtle" size="icon"><Link href="/prototypes/homepage" aria-label="მთავარ გვერდზე დაბრუნება" onClick={event => { if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return; event.preventDefault(); void closeAge(() => router.push("/prototypes/homepage")); }}><Icon name="close" /></Link></Button></div>
-      <h2 id="age-title">აირჩიე შენი ასაკი</h2>
+      <h2 id="age-title">მონიშნე რამდენი წლის ხარ</h2>
       <fieldset className={styles.ages}>
         <legend className={styles.srOnly}>ასაკობრივი ჯგუფი</legend>
         {["6-9", "10-13", "14-18"].map(value => <label key={value} className={styles.ageOption}>

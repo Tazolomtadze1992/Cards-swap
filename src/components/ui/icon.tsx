@@ -3,6 +3,7 @@ import { forwardRef } from "react";
 import styles from "./icon.module.css";
 import {
   Add01Icon,
+  AlertCircleIcon,
   ArrowDown01Icon,
   ArrowRight01Icon,
   ArrowRightDoubleIcon,
@@ -27,6 +28,7 @@ import {
 } from "@hugeicons/core-free-icons";
 
 const icons = {
+  alert: AlertCircleIcon,
   check: Tick01Icon,
   arrowRight: ArrowRight01Icon,
   learning: BookOpen01Icon,

@@ -41,7 +41,11 @@ button.topic:focus-visible { outline: 3px solid var(--color-focus-ring); outline
 
 .startCallout { padding: var(--space-7); border-radius: var(--radius-card); background: var(--color-control-subtle-bg); }
 .startCallout > a, .startCallout > button { align-self: flex-start; }
+.callConfirmationPrompt { max-width: 26rem; margin: 0 auto; color: var(--color-text-secondary); }
+.callConfirmationActions { display: flex; justify-content: center; gap: var(--space-3); margin-top: var(--space-8); }
+.callConfirmationActions > * { min-width: 120px; }
 @media (max-width: 720px) {
   .startCallout { padding: var(--space-6); }
   .startCallout > a, .startCallout > button { align-self: stretch; }
+  .callConfirmationActions > * { flex: 1; min-width: 0; }
 }

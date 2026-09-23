@@ -13,6 +13,7 @@ const buttonVariants = cva(styles.button, {
     variant: {
       primary: styles.primary,
       call: styles.call,
+      danger: styles.danger,
       inverse: styles.inverse,
       overlay: styles.overlay,
       cardAction: styles.cardAction,

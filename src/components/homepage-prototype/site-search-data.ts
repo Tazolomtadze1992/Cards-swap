@@ -25,7 +25,7 @@ export const searchResults: SearchResult[] = [
   })),
   ...faqItems.map((item, index) => ({
     id: `faq-${index}`, category: "faq" as const,
-    title: item.question, description: item.answer,
+    title: item.question, description: item.answer.replace(/\s+/g, " "),
     href: `/prototypes/faq#faq-${index}`,
   })),
   ...serviceTopics.map(item => ({

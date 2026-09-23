@@ -7,7 +7,7 @@ import { labelText } from "./label-text";
 import styles from "./services.module.css";
 
 // N5, section 2 and its visual map. These are possible routes, not mandatory steps.
-export function ServicesStartDialog({ onClose, onShowContacts }: { onClose: () => void; onShowContacts: () => void }) {
+export function ServicesStartDialog({ onClose, onShowContacts, onRequestCall112 }: { onClose: () => void; onShowContacts: () => void; onRequestCall112: () => void }) {
   return <Modal title="დახმარება მჭირდება - საიდან დავიწყო?" onClose={onClose}>
     <ReadingContent width="full">
       <ContentSection as="div">
@@ -17,7 +17,7 @@ export function ServicesStartDialog({ onClose, onShowContacts }: { onClose: () =
       <ContentSection className={styles.startCallout} width="full">
         <h3>საფრთხე ახლავეა?</h3>
         <p>თუ შენ ან შენი ახლობელი ვინმემ შეიძლება ახლავე დააზიანოს, გადადი უსაფრთხო ადგილას, თუ ამას შეძლებ, და დარეკე 112-ზე. თუ საფრთხე ახლავე არ არის, მაინც შეგიძლია დახმარება ითხოვო შენთვის უსაფრთხო გზით.</p>
-        <Button asChild variant="call"><a href="tel:112"><Icon name="phone" />{labelText("ზარი 112-ზე")}</a></Button>
+        <Button variant="call" onClick={onRequestCall112}><Icon name="phone" />{labelText("ზარი 112-ზე")}</Button>
       </ContentSection>
 
       <ContentSection width="full">

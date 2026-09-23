@@ -12,6 +12,7 @@ import { labelText } from "../homepage-prototype/label-text";
 import type { LearningActivity } from "./learning-content";
 import { LearningEnding } from "./learning-ending";
 import { LearningShell } from "./learning-shell";
+import { LearningExitDialog } from "./learning-exit-dialog";
 import styles from "./learning-flow.module.css";
 import { ExplainedText } from "../ui/explained-text";
 
@@ -43,6 +44,7 @@ export default function LearningFlow({ activity, immediateFeedback = false }: { 
   const [stage, setStage] = useState<"answer" | "recommendation" | "review-index" | "review">("answer");
   const [skipped, setSkipped] = useState(false);
   const [confirmed, setConfirmed] = useState<Record<string, boolean>>({});
+  const [exitOpen, setExitOpen] = useState(false);
   const soundEnabled = useSyncExternalStore(subscribeSoundPreference, readSoundPreference, () => true);
   const heading = useRef<HTMLHeadingElement>(null);
   const previousView = useRef(`${stage}:${step}`);
@@ -91,7 +93,7 @@ export default function LearningFlow({ activity, immediateFeedback = false }: { 
     next();
   }
 
-  return <LearningShell young={immediateFeedback} kind={activity.kind} current={step + 1} total={activity.items.length} stage={stage} soundEnabled={soundEnabled} onToggleSound={toggleSound} onCloseReview={() => setStage("review-index")}>
+  return <><LearningShell young={immediateFeedback} kind={activity.kind} current={step + 1} total={activity.items.length} stage={stage} soundEnabled={soundEnabled} onToggleSound={toggleSound} onCloseReview={() => setStage("review-index")} onRequestExit={() => setExitOpen(true)}>
     {stage === "recommendation" ? <LearningEnding young={immediateFeedback} activity={activity} answers={answers} skipped={skipped} heading={heading} onReview={() => setStage("review-index")} /> : stage === "review-index" ? <section className={styles.reviewOverview}>
       <h1 ref={heading} tabIndex={-1}>სწორი პასუხები</h1>
       <p>აირჩიე კითხვა და ნახე სწორი პასუხი.</p>
@@ -124,5 +126,7 @@ export default function LearningFlow({ activity, immediateFeedback = false }: { 
           {stage === "review" && isLast ? <Button onClick={() => setStage("recommendation")}>{labelText("უკან დაბრუნება")}<Icon name="chevronsRight" /></Button> : <Button disabled={stage === "answer" && selected === undefined} onClick={confirmOrNext}>{labelText(stage === "review" ? "შემდეგი პასუხი" : stage === "answer" && immediateFeedback && !answerConfirmed ? "პასუხის დადასტურება" : isLast ? "დასრულება" : "გაგრძელება")}<Icon name="chevronsRight" /></Button>}
       </ActionRow>
     </Questionnaire>}
-  </LearningShell>;
+  </LearningShell>
+    {exitOpen && <LearningExitDialog href={immediateFeedback ? "/prototypes/learning/6-9" : "/prototypes/learning"} onClose={() => setExitOpen(false)} />}
+  </>;
 }

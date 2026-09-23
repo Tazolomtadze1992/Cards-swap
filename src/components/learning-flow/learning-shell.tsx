@@ -6,13 +6,14 @@ import { Separator } from "../ui/separator";
 import { Icon } from "../ui/icon";
 import styles from "./learning-flow.module.css";
 
-export function LearningShell({ children, kind, current, total, stage, young = false, soundEnabled = true, onToggleSound, onCloseReview }: {
+export function LearningShell({ children, kind, current, total, stage, young = false, soundEnabled = true, onToggleSound, onCloseReview, onRequestExit }: {
   young?: boolean;
   soundEnabled?: boolean;
   onToggleSound?: () => void;
   children: ReactNode; kind: "quiz" | "scenario";
   current: number; total: number; stage: "answer" | "recommendation" | "review-index" | "review";
   onCloseReview: () => void;
+  onRequestExit: () => void;
 }) {
   const progressLabel = stage === "recommendation" ? "რეკომენდაცია" : `${stage === "review" ? "პასუხების მიმოხილვა" : kind === "quiz" ? "კითხვა" : "ნაბიჯი"} ${current} / ${total}`;
   return <div className={styles.page}>
@@ -25,7 +26,7 @@ export function LearningShell({ children, kind, current, total, stage, young = f
         </div>
         <div className={styles.topbarActions}>
           {young && stage === "answer" && <Button variant="subtle" size="icon" aria-label={soundEnabled ? "უკუკავშირის ხმის გამორთვა" : "უკუკავშირის ხმის ჩართვა"} title={soundEnabled ? "ხმის გამორთვა" : "ხმის ჩართვა"} aria-pressed={soundEnabled} onClick={onToggleSound}><Icon name={soundEnabled ? "volume" : "volumeOff"} /></Button>}
-          {stage === "review" ? <Button variant="subtle" size="icon" aria-label="ყველა პასუხზე დაბრუნება" onClick={onCloseReview}><Icon name="close" /></Button> : <Button asChild variant="subtle" size="icon"><Link href={young ? "/prototypes/learning/6-9" : "/prototypes/learning"} aria-label="სწავლის გვერდზე დაბრუნება"><Icon name="close" /></Link></Button>}
+          {stage === "review" ? <Button variant="subtle" size="icon" aria-label="ყველა პასუხზე დაბრუნება" onClick={onCloseReview}><Icon name="close" /></Button> : kind === "quiz" && stage === "review-index" ? <Button asChild variant="subtle" size="icon"><Link href={young ? "/prototypes/learning/6-9" : "/prototypes/learning"} aria-label="სწავლის გვერდზე დაბრუნება"><Icon name="close" /></Link></Button> : <Button variant="subtle" size="icon" aria-label="სწავლის გვერდზე დაბრუნება" onClick={onRequestExit}><Icon name="close" /></Button>}
         </div>
       </div>
       <div className={styles.topDivider}><Separator /></div></>}

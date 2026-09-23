@@ -120,6 +120,7 @@
   --color-review: oklch(0.5 0.075 285);
   --color-review-soft: oklch(0.92 0.025 285);
   --color-danger: oklch(0.557 0.192 25.247);
+  --color-danger-hover: oklch(0.51 0.192 25.247);
   --color-danger-soft: oklch(0.896 0.054 18.216 / 0.5);
   --color-overlay-hover: oklch(0 0 0 / 0.1);
   --color-overlay-soft: oklch(0 0 0 / 0.2);
