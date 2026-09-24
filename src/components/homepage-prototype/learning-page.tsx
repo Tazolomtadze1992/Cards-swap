@@ -129,8 +129,8 @@ export default function LearningPage({ initialAge = "" }: { initialAge?: string 
       </div>
       <div className={styles.divider}><Separator /></div>
       <div className={styles.grid}>
-        {isTeen ? filteredTeenTopics.map((item, index) => <TeenLearningCard key={item.id} item={item} themeTitle={teenThemes[item.theme]} color={teenColors[index % teenColors.length]} />) : filteredTopics.map(({ item, themeIndex }, index) => {
-          return <LearningCard key={item.id} item={item} themeTitle={activeThemes[themeIndex]}
+        {isTeen ? filteredTeenTopics.map((item, index) => <TeenLearningCard key={item.id} item={item} color={teenColors[index % teenColors.length]} />) : filteredTopics.map(({ item }, index) => {
+          return <LearningCard key={item.id} item={item}
             color={middleSchoolColors[index % middleSchoolColors.length]} eager={index < 3} age={age} />;
         })}
       </div>
