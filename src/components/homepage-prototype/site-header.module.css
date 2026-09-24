@@ -30,16 +30,15 @@
 .councilLogo { display: block; flex: none; width: 55px; height: 44px; object-fit: contain; }
 .campaignLogo { display: flex; flex: none; align-items: center; gap: 4px; }
 .campaignLogo img { display: block; width: auto; height: 32px; object-fit: contain; }
-.partner { display: flex; align-items: center; gap: 8px; max-width: 250px; min-width: 0; }
+.partner { display: flex; flex: none; align-items: center; gap: 8px; }
 .partner img { display: block; flex: none; width: 34px; height: 34px; object-fit: contain; }
-.partner span { font-family: var(--font-body); font-size: 10px; line-height: 1.25; font-weight: var(--type-body-weight); text-wrap: balance; }
+.partner span { font-family: var(--font-body); font-size: 10px; line-height: 1.25; font-weight: var(--type-body-weight); white-space: nowrap; }
+@media (max-width: 1400px) { .partner span { display: none; } }
 @media (max-width: 700px) {
   .partnersInner { justify-content: space-between; gap: 8px; padding: 8px 20px; }
   .councilLogo { width: 40px; height: 32px; }
   .campaignLogo img { height: 23px; }
-  .partner { flex: none; }
   .partner img { width: 26px; height: 26px; }
-  .partner span { display: none; }
 }
 
 .header {
