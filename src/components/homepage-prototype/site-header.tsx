@@ -4,6 +4,7 @@ import { useEffect, useId, useRef, useState } from "react";
 import { menuMotion, useSurfacePresence } from "../motion/surface-motion";
 import { Button } from "../ui/button";
 import Link from "next/link";
+import Image from "next/image";
 import { Icon } from "../ui/icon";
 import { labelText } from "./label-text";
 import { SiteSearchDialog } from "./site-search-dialog";
@@ -37,6 +38,7 @@ export function SiteHeader({ activeItem, appearance = "light" }: SiteHeaderProps
   const frameRef = useRef<HTMLDivElement>(null);
   const navigationId = useId();
   const headerRef = useRef<HTMLElement>(null);
+  const partnersRef = useRef<HTMLDivElement>(null);
   const menuButtonRef = useRef<HTMLSpanElement>(null);
   const navigationRef = useRef<HTMLElement>(null);
 
@@ -53,7 +55,8 @@ export function SiteHeader({ activeItem, appearance = "light" }: SiteHeaderProps
       // Scroll locking the open menu resets window.scrollY; preserve the page state.
       if (!menu.present) setScrolled(y > 0);
       const keyboardFocus = !!header.querySelector(":focus-visible");
-      if (y < header.offsetHeight || menuOpen || searchOpen || keyboardFocus) {
+      const fullHeaderHeight = header.offsetHeight + (partnersRef.current?.offsetHeight ?? 0);
+      if (y < fullHeaderHeight || menuOpen || searchOpen || keyboardFocus) {
         setHidden(false);
         downwardTravel = 0;
       } else if (delta < -2) {
@@ -65,7 +68,7 @@ export function SiteHeader({ activeItem, appearance = "light" }: SiteHeaderProps
       }
       previousY = y;
       // Section geometry stays reliable even while the header is translated away.
-      const sampleY = header.offsetHeight / 2;
+      const sampleY = fullHeaderHeight / 2;
       const brandSection = Array.from(document.querySelectorAll('[data-header-surface="brand-surface"]'))
         .find(section => {
           const rect = section.getBoundingClientRect();
@@ -77,11 +80,13 @@ export function SiteHeader({ activeItem, appearance = "light" }: SiteHeaderProps
     };
     const schedule = () => { if (!frame) frame = requestAnimationFrame(update); };
     const observer = new ResizeObserver(() => {
-      if (spacerRef.current) spacerRef.current.style.height = `${header.offsetHeight}px`;
-      frameRef.current?.style.setProperty("--header-height", `${header.offsetHeight}px`);
+      const height = header.offsetHeight + (partnersRef.current?.offsetHeight ?? 0);
+      if (spacerRef.current) spacerRef.current.style.height = `${height}px`;
+      frameRef.current?.style.setProperty("--header-height", `${height}px`);
       schedule();
     });
     observer.observe(header);
+    if (partnersRef.current) observer.observe(partnersRef.current);
     window.addEventListener("scroll", schedule, { passive: true });
     window.addEventListener("resize", schedule);
     schedule();
@@ -171,11 +176,32 @@ export function SiteHeader({ activeItem, appearance = "light" }: SiteHeaderProps
     <Icon name="phone" size="small" />
     {labelText("კონტაქტი")}
   </Button>;
+  const logo = <Link className={styles.logoLink} href="/prototypes/homepage" aria-label="მთავარ გვერდზე დაბრუნება" onClick={() => setMenuOpen(false)}>
+    <Image className={styles.logoOnLight} src="/assets/homepage/council-of-europe-logo-on-cream.png" width={296} height={238} alt="" priority />
+    <Image className={styles.logoOnBrand} src="/assets/homepage/council-of-europe-logo.png" width={296} height={238} alt="" priority />
+  </Link>;
 
   return <div ref={spacerRef} className={styles.spacer}>
     <div ref={frameRef} className={styles.frame} data-hidden={hidden && !menu.present && !searchOpen} data-appearance={surface} data-scrolled={scrolled} data-menu-open={menu.present}
       role={menu.present ? "dialog" : undefined} aria-modal={menu.present || undefined} aria-label={menu.present ? "მთავარი მენიუ" : undefined}>
+    <div ref={partnersRef} className={styles.partnersStrip} aria-label="პარტნიორი ორგანიზაციები">
+      <div className={styles.partnersInner}>
+        <div className={styles.campaignLogo} aria-label="შეაჩერე ძალადობა — იყავი მეგობრული">
+          <Image src="/assets/logo-mark.png" width={66} height={62} alt="" />
+          <Image src="/assets/logo-wordmark.png" width={293} height={62} alt="" />
+        </div>
+        <div className={styles.partner}>
+          <Image src="/assets/footer/education-ministry.png" width={252} height={220} alt="" />
+          <span>განათლების, მეცნიერებისა და ახალგაზრდობის სამინისტრო</span>
+        </div>
+        <div className={styles.partner}>
+          <Image src="/assets/footer/resource-officers.png" width={509} height={508} alt="" />
+          <span>საგანმანათლებლო დაწესებულების მანდატურის სამსახური</span>
+        </div>
+      </div>
+    </div>
     <header ref={headerRef} className={styles.header} data-appearance={surface} onFocusCapture={() => setHidden(false)}>
+    {logo}
     <nav ref={node => { navigationRef.current = node; menu.attach(node); }} id={navigationId} className={styles.navigation} data-open={menu.present} aria-label="მთავარი ნავიგაცია">
       <div className={styles.navigationLinks}>{navigationItems.map(item => <Link href={item.href} key={item.id} aria-current={activeItem === item.id ? "page" : undefined} onClick={() => setMenuOpen(false)}>
         {menu.present ? item.label : labelText(item.label)}

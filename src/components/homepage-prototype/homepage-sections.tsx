@@ -32,6 +32,6 @@ export function HomepageFaq() {
     <h2 id="faq-heading">ხშირად დასმული კითხვები</h2>
     <FaqList items={homepageFaqItems} name="homepage-faq" />
     <div className={styles.viewAll}><Button asChild variant="inverse" size="prominent"><a href="/prototypes/faq">{labelText("ყველას ნახვა")}</a></Button></div>
-    <SiteFooter appearance="inverse" showDisclaimer />
+    <SiteFooter />
   </section>;
 }
