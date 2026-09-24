@@ -9,8 +9,9 @@ import { Separator } from "../ui/separator";
 import { labelText } from "./label-text";
 import styles from "./learning-filters-sheet.module.css";
 
-export function FilterSheet({ age, themes, selected, onApply, ageOptions = [{ value: "6-9", label: "6-9" }, { value: "10-13", label: "10-13" }, { value: "14-18", label: "14-18" }], topicLabel = "თემები", allLabel = "ყველა თემა", description = "აირჩიე თემები და ასაკობრივი ჯგუფი.", tablet = false, resetAge }: {
+export function FilterSheet({ age, themes, themesByAge, selected, onApply, ageOptions = [{ value: "6-9", label: "6-9" }, { value: "10-13", label: "10-13" }, { value: "14-18", label: "14-18" }], topicLabel = "თემები", allLabel = "ყველა თემა", description = "აირჩიე თემები და ასაკობრივი ჯგუფი.", tablet = false, resetAge }: {
   ageOptions?: { value: string; label: string }[]; topicLabel?: string; allLabel?: string; description?: string; tablet?: boolean; resetAge?: string;
+  themesByAge?: Readonly<Record<string, readonly string[]>>;
   age: string; themes: readonly string[]; selected: number[];
   onApply: (age: string, themes: number[]) => void;
 }) {
@@ -18,6 +19,7 @@ export function FilterSheet({ age, themes, selected, onApply, ageOptions = [{ va
   const [draftAge, setDraftAge] = useState(age);
   const [draftThemes, setDraftThemes] = useState(selected);
   const [container, setContainer] = useState<HTMLDivElement | null>(null);
+  const visibleThemes = themesByAge?.[draftAge] ?? themes;
   useEffect(() => {
     const desktop = window.matchMedia(tablet ? "(min-width: 1051px)" : "(min-width: 641px)");
     const close = () => { if (desktop.matches) setOpen(false); };
@@ -47,13 +49,13 @@ export function FilterSheet({ age, themes, selected, onApply, ageOptions = [{ va
             <fieldset className={styles.group}>
               <legend>ასაკობრივი ჯგუფი</legend>
               <div className={styles.ages}>{ageOptions.map(({ value, label }) => <label className={styles.age} key={value}>
-                <input type="radio" name="filter-age" checked={draftAge === value} onChange={() => setDraftAge(value)} />{label}
+                <input type="radio" name="filter-age" checked={draftAge === value} onChange={() => { if (draftAge !== value) { setDraftAge(value); if (themesByAge) setDraftThemes([]); } }} />{label}
               </label>)}</div>
             </fieldset>
             <fieldset className={styles.group}>
               <legend>{topicLabel}</legend>
               <label className={styles.option}><input type="checkbox" checked={!draftThemes.length} onChange={() => setDraftThemes([])} />{allLabel}</label>
-              {themes.map((theme, index) => <label className={styles.option} key={theme}>
+              {visibleThemes.map((theme, index) => <label className={styles.option} key={theme}>
                 <input type="checkbox" checked={draftThemes.includes(index)} onChange={event => setDraftThemes(event.target.checked ? [...draftThemes, index] : draftThemes.filter(value => value !== index))} />{theme}
               </label>)}
             </fieldset>

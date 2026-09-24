@@ -45,6 +45,6 @@ export const teenLearningTopics = [
     id: "teen-recovery-and-support",
     title: "მხარდაჭერა და უკეთ გახდომა",
     intro: "როგორ იღებს ბავშვი დახმარებას, დაცვასა და ემოციურ მხარდაჭერას.",
-    theme: 5,
+    theme: 7,
   },
 ];

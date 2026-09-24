@@ -22,14 +22,15 @@ import styles from "./learning.module.css";
 const frameColors = ["#00cd9c", "#cc80ff", "#00b68e", "#19aeeb", "#5acc00", "#f888ff"];
 const teenColors = ["#c9e7dd", "#d3a5a8", "#ada3e4", "#d2b9e2", "#a5d089"];
 const middleSchoolColors = ["#FFC800", "#58CC02", "#1CB0F6", "#00CD9C", "#CE82FF"];
-const themes = [
-  "ჩემი სხეული, გრძნობები და საზღვრები",
+const teenThemes = [
+  "შენი სხეული, გრძნობები და პირადი საზღვრები",
   "უსაფრთხო და საფრთხის შემცველი სიტუაციები",
-  "უსაფრთხოება ონლაინ და პირისპირ",
-  "შესაძლო ძალადობის ნიშნები, მითები და პასუხისმგებლობა",
+  "უსაფრთხოება ონლაინ და რეალურ ცხოვრებაში",
+  "ძალადობის ნიშნები და მითები",
   "დახმარების თხოვნა და ამბის თქმა",
-  "შეტყობინება, გადამისამართება და დახმარების გზები",
+  "დახმარების თხოვნა და მხარდაჭერის სერვისები",
   "რა შეიძლება მოხდეს შემდეგ",
+  "მხარდაჭერა და უკეთ გახდომა",
 ] as const;
 const middleSchoolThemes = [
   "შენი სხეული, გრძნობები და საზღვრები",
@@ -49,6 +50,7 @@ const youngestThemes = [
   "ვინ როგორ დაგეხმარება?",
   "როგორ დაგიცავს სასამართლო?",
 ] as const;
+const themesByAge = { "6-9": youngestThemes, "10-13": middleSchoolThemes, "14-18": teenThemes };
 const topicThemeIndexes = [0, 0, 0, 0, 1, 2, 3, 3, 4, 5, 5, 6];
 const middleSchoolTopicThemeIndexes = [0, 0, 0, 0, 1, 2, 3, 3, 4, 4, 5, 5, 5, 6];
 const youngestTopicThemeIndexes = [0, 0, 0, 1, 1, 2, 3, 4, 4, 4, 5, 6, 6];
@@ -67,7 +69,7 @@ export default function LearningPage({ initialAge = "" }: { initialAge?: string 
   const heading = useRef<HTMLHeadingElement>(null);
   const activeTopics = isMiddleSchool ? learningTopics10to13 : isYoungest ? learningTopics6to9 : learningTopics;
   const activeTopicThemeIndexes = isMiddleSchool ? middleSchoolTopicThemeIndexes : isYoungest ? youngestTopicThemeIndexes : topicThemeIndexes;
-  const activeThemes = isMiddleSchool ? middleSchoolThemes : isYoungest ? youngestThemes : themes;
+  const activeThemes = isMiddleSchool ? middleSchoolThemes : isYoungest ? youngestThemes : teenThemes;
   const filteredTopics = activeTopics.filter((_, index) => !selectedThemes.length || selectedThemes.includes(activeTopicThemeIndexes[index]));
   const filteredTeenTopics = teenLearningTopics.filter(item => !selectedThemes.length || selectedThemes.includes(item.theme));
 
@@ -116,7 +118,7 @@ export default function LearningPage({ initialAge = "" }: { initialAge?: string 
         <p>იმისთვის, რომ დაგიცვათ, ჩვენ არ ვინახავთ შენს მონაცემებს. ამიტომ როგორც კი სწავლის პროცესს შეწყვეტ, შენი მონაცემები წაიშლება</p>
       </div>
       <div className={styles.filters}>
-        <LearningFiltersSheet age={age} themes={activeThemes} selected={selectedThemes} onApply={(nextAge, nextThemes) => { setAge(nextAge); setSelectedThemes(nextThemes); }} />
+        <LearningFiltersSheet age={age} themes={activeThemes} themesByAge={themesByAge} selected={selectedThemes} onApply={(nextAge, nextThemes) => { setAge(nextAge); setSelectedThemes(nextThemes); }} />
         <div className={styles.controls}>
           <MultiSelectFilter label="თემით გაფილტვრა" placeholder={labelText("ყველა თემა")} selectedLabel={labelText("არჩეული თემა")}
             options={activeThemes.map((theme, index) => ({ value: index, label: labelText(theme) }))}
@@ -142,7 +144,7 @@ export default function LearningPage({ initialAge = "" }: { initialAge?: string 
       <fieldset className={styles.ages}>
         <legend className={styles.srOnly}>ასაკობრივი ჯგუფი</legend>
         {["6-9", "10-13", "14-18"].map(value => <label key={value} className={styles.ageOption}>
-          <input type="radio" name="age" value={value} checked={age === value} onChange={() => setAge(value)} />
+          <input type="radio" name="age" value={value} checked={age === value} onChange={() => { if (age !== value) { setAge(value); setSelectedThemes([]); } }} />
           <span>{value}</span>
         </label>)}
       </fieldset>
