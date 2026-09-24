@@ -182,12 +182,14 @@ export function SiteHeader({ activeItem, appearance = "light" }: SiteHeaderProps
     {labelText("კონტაქტი")}
   </Button>;
   return <div>
-    <div ref={partnersRef} className={styles.partnersStrip} aria-label="პარტნიორი ორგანიზაციები">
+    <div ref={partnersRef} className={styles.partnersStrip} data-appearance={appearance} aria-label="პარტნიორი ორგანიზაციები">
       <div className={styles.partnersInner}>
-        <Image className={styles.councilLogo} src="/assets/homepage/council-of-europe-logo-on-cream.png" width={296} height={238} alt="ევროპის საბჭო" priority />
+        <Image className={styles.councilLogo} src={appearance === "brand-surface" ? "/assets/homepage/council-of-europe-logo.png" : "/assets/homepage/council-of-europe-logo-on-cream.png"} width={296} height={238} alt="ევროპის საბჭო" priority />
         <div className={styles.campaignLogo} role="img" aria-label="შეაჩერე ძალადობა — იყავი მეგობრული">
-          <Image src="/assets/logo-mark.png" width={66} height={62} alt="" />
-          <Image src="/assets/logo-wordmark.png" width={293} height={62} alt="" />
+          {appearance === "brand-surface" ? <Image src="/assets/footer/stop-violence-inverse.png" width={744} height={124} alt="" /> : <>
+            <Image src="/assets/logo-mark.png" width={66} height={62} alt="" />
+            <Image src="/assets/logo-wordmark.png" width={293} height={62} alt="" />
+          </>}
         </div>
         <div className={styles.partner}>
           <Image src="/assets/footer/education-ministry.png" width={252} height={220} alt="" />

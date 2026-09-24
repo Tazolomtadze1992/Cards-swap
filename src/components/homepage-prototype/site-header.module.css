@@ -25,6 +25,7 @@
 }
 
 .partnersStrip { background: var(--color-surface); border-bottom: 1px solid var(--color-separator-subtle); color: var(--color-text-primary); }
+.partnersStrip[data-appearance="brand-surface"] { background: transparent; border-color: transparent; color: var(--color-text-inverse); }
 .partnersInner { display: flex; align-items: center; gap: var(--space-6); width: min(100%, var(--layout-wide)); min-height: 60px; margin: auto; padding: 8px 32px; }
 .councilLogo { display: block; flex: none; width: 55px; height: 44px; object-fit: contain; }
 .campaignLogo { display: flex; flex: none; align-items: center; gap: 4px; }
