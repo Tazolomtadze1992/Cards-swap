@@ -1,7 +1,7 @@
 .spacer { height: 108px; }
 .frame {
   position: fixed;
-  inset: 0 0 auto;
+  inset: 60px 0 auto;
   z-index: 30;
   background: var(--color-canvas);
   transform: translateY(0);
@@ -26,17 +26,19 @@
 
 .partnersStrip { background: var(--color-surface); border-bottom: 1px solid var(--color-separator-subtle); color: var(--color-text-primary); }
 .partnersInner { display: flex; align-items: center; gap: var(--space-6); width: min(100%, var(--layout-wide)); min-height: 60px; margin: auto; padding: 8px 32px; }
+.councilLogo { display: block; flex: none; width: 55px; height: 44px; object-fit: contain; }
 .campaignLogo { display: flex; flex: none; align-items: center; gap: 4px; }
 .campaignLogo img { display: block; width: auto; height: 32px; object-fit: contain; }
 .partner { display: flex; align-items: center; gap: 8px; max-width: 250px; min-width: 0; }
 .partner img { display: block; flex: none; width: 34px; height: 34px; object-fit: contain; }
 .partner span { font-family: var(--font-body); font-size: 10px; line-height: 1.25; font-weight: var(--type-body-weight); text-wrap: balance; }
 @media (max-width: 700px) {
-  .partnersInner { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 6px 12px; padding: 8px 20px; }
-  .campaignLogo { grid-column: 1 / -1; justify-content: center; }
-  .campaignLogo img { height: 26px; }
-  .partner { gap: 6px; }
-  .partner img { width: 28px; height: 28px; }
+  .partnersInner { justify-content: space-between; gap: 8px; padding: 8px 20px; }
+  .councilLogo { width: 40px; height: 32px; }
+  .campaignLogo img { height: 23px; }
+  .partner { flex: none; }
+  .partner img { width: 26px; height: 26px; }
+  .partner span { display: none; }
 }
 
 .header {
@@ -66,19 +68,10 @@
   --button-hover: var(--color-control-subtle-bg);
 }
 
-.logoLink { display: flex; width: 55px; height: 44px; flex: none; align-items: center; }
-.logoOnLight, .logoOnBrand { width: 55px; height: 44px; object-fit: contain; }
-.logoOnBrand { display: none; }
-.header[data-appearance="brand-surface"] .logoOnLight { display: none; }
-.header[data-appearance="brand-surface"] .logoOnBrand { display: block; }
-
 .navigation {
-  position: absolute;
-  left: 50%;
   display: flex;
   align-items: center;
   gap: 24px;
-  transform: translateX(-50%);
   text-transform: var(--type-label-transform, uppercase);
   font-size: var(--type-label-size);
   line-height: var(--type-label-line);
@@ -134,7 +127,7 @@
 
 @media (max-width: 1400px) {
   .frame[data-menu-open="true"] {
-    height: 100dvh;
+    height: calc(100dvh - var(--strip-offset, 0px));
     overflow: hidden;
     overscroll-behavior: none;
   }
@@ -143,7 +136,7 @@
 
   .frame[data-menu-open="true"] .navigation {
     position: fixed;
-    top: var(--header-height, 108px);
+    top: calc(var(--strip-offset, 0px) + var(--header-height, 108px));
     bottom: 0;
     max-height: none;
     padding-bottom: calc(var(--space-6) + env(safe-area-inset-bottom, 0px));
