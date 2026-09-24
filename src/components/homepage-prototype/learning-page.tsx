@@ -5,7 +5,7 @@ import { Separator } from "../ui/separator";
 import { FilterTrigger, MultiSelectFilter } from "../ui/filters";
 import { LearningCard } from "./learning-card";
 import { TeenLearningCard } from "./teen-learning-card";
-import { teenLearningTopics } from "./teen-learning-data";
+import { teenLearningArticles } from "./teen-learning-data";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
@@ -13,13 +13,11 @@ import { animateNativeDialog, dialogMotion } from "../motion/surface-motion";
 import { Icon } from "../ui/icon";
 import { Button } from "../ui/button";
 import { SiteHeader } from "./site-header";
-import { learningTopics } from "./learning-data";
 import { learningTopics6to9 } from "./learning-data-6-9";
 import { learningTopics10to13 } from "./learning-data-10-13";
 import { labelText } from "./label-text";
 import styles from "./learning.module.css";
 
-const frameColors = ["#00cd9c", "#cc80ff", "#00b68e", "#19aeeb", "#5acc00", "#f888ff"];
 const teenColors = ["#c9e7dd", "#d3a5a8", "#ada3e4", "#d2b9e2", "#a5d089"];
 const middleSchoolColors = ["#FFC800", "#58CC02", "#1CB0F6", "#00CD9C", "#CE82FF"];
 const teenThemes = [
@@ -51,7 +49,6 @@ const youngestThemes = [
   "როგორ დაგიცავს სასამართლო?",
 ] as const;
 const themesByAge = { "6-9": youngestThemes, "10-13": middleSchoolThemes, "14-18": teenThemes };
-const topicThemeIndexes = [0, 0, 0, 0, 1, 2, 3, 3, 4, 5, 5, 6];
 const middleSchoolTopicThemeIndexes = [0, 0, 0, 0, 1, 2, 3, 3, 4, 4, 5, 5, 5, 6];
 const youngestTopicThemeIndexes = [0, 0, 0, 1, 1, 2, 3, 4, 4, 4, 5, 6, 6];
 
@@ -59,7 +56,6 @@ export default function LearningPage({ initialAge = "" }: { initialAge?: string 
   const router = useRouter();
   const [age, setAge] = useState(initialAge);
   const isTeen = age === "14-18";
-  const isMiddleSchool = age === "10-13";
   const isYoungest = age === "6-9";
   const [choosingAge, setChoosingAge] = useState(!initialAge);
   const [selectedThemes, setSelectedThemes] = useState<number[]>([]);
@@ -67,11 +63,13 @@ export default function LearningPage({ initialAge = "" }: { initialAge?: string 
   const ageAnimation = useRef<ReturnType<typeof animateNativeDialog> | null>(null);
   const ageDialog = useRef<HTMLDialogElement>(null);
   const heading = useRef<HTMLHeadingElement>(null);
-  const activeTopics = isMiddleSchool ? learningTopics10to13 : isYoungest ? learningTopics6to9 : learningTopics;
-  const activeTopicThemeIndexes = isMiddleSchool ? middleSchoolTopicThemeIndexes : isYoungest ? youngestTopicThemeIndexes : topicThemeIndexes;
-  const activeThemes = isMiddleSchool ? middleSchoolThemes : isYoungest ? youngestThemes : teenThemes;
-  const filteredTopics = activeTopics.filter((_, index) => !selectedThemes.length || selectedThemes.includes(activeTopicThemeIndexes[index]));
-  const filteredTeenTopics = teenLearningTopics.filter(item => !selectedThemes.length || selectedThemes.includes(item.theme));
+  const activeTopics = isYoungest ? learningTopics6to9 : learningTopics10to13;
+  const activeTopicThemeIndexes = isYoungest ? youngestTopicThemeIndexes : middleSchoolTopicThemeIndexes;
+  const activeThemes = isTeen ? teenThemes : isYoungest ? youngestThemes : middleSchoolThemes;
+  const filteredTopics = activeTopics
+    .map((item, index) => ({ item, themeIndex: activeTopicThemeIndexes[index] }))
+    .filter(({ themeIndex }) => !selectedThemes.length || selectedThemes.includes(themeIndex));
+  const filteredTeenTopics = teenLearningArticles.filter(item => !selectedThemes.length || selectedThemes.includes(item.theme));
 
   useLayoutEffect(() => {
     const dialog = ageDialog.current;
@@ -127,14 +125,13 @@ export default function LearningPage({ initialAge = "" }: { initialAge?: string 
             {labelText(age ? `${age} ასაკის ჯგუფი` : "ყველა ასაკი")}
           </FilterTrigger>
         </div>
-        <p className={styles.count} aria-live="polite">{labelText("ნაჩვენებია : ")}<strong>{labelText(`${isTeen ? filteredTeenTopics.length : filteredTopics.length} თემა`)}</strong></p>
+        <p className={styles.count} aria-live="polite">{labelText("ნაჩვენებია : ")}<strong>{labelText(`${isTeen ? filteredTeenTopics.length : filteredTopics.length} სტატია`)}</strong></p>
       </div>
       <div className={styles.divider}><Separator /></div>
       <div className={styles.grid}>
-        {isTeen ? filteredTeenTopics.map((item, index) => <TeenLearningCard key={item.id} item={item} color={teenColors[index % teenColors.length]} />) : filteredTopics.map((item, index) => {
-          const color = isMiddleSchool || isYoungest ? middleSchoolColors[index % middleSchoolColors.length] : frameColors[learningTopics.indexOf(item) % frameColors.length];
-          return <LearningCard key={item.id} item={item}
-            color={color} eager={index < 3} age={age} />;
+        {isTeen ? filteredTeenTopics.map((item, index) => <TeenLearningCard key={item.id} item={item} themeTitle={teenThemes[item.theme]} color={teenColors[index % teenColors.length]} />) : filteredTopics.map(({ item, themeIndex }, index) => {
+          return <LearningCard key={item.id} item={item} themeTitle={activeThemes[themeIndex]}
+            color={middleSchoolColors[index % middleSchoolColors.length]} eager={index < 3} age={age} />;
         })}
       </div>
     </section>
