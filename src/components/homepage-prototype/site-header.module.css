@@ -51,32 +51,10 @@
   --button-hover: var(--color-control-subtle-bg);
 }
 
-.logoLink {
-  display: flex;
-  width: 55px;
-  height: 44px;
-  flex: none;
-  align-items: center;
-}
-
-.logoOnLight,
-.logoOnBrand {
-  width: 55px;
-  height: 44px;
-  object-fit: contain;
-}
-
-.logoOnBrand { display: none; }
-.header[data-appearance="brand-surface"] .logoOnLight { display: none; }
-.header[data-appearance="brand-surface"] .logoOnBrand { display: block; }
-
 .navigation {
-  position: absolute;
-  left: 50%;
   display: flex;
   align-items: center;
   gap: 24px;
-  transform: translateX(-50%);
   text-transform: var(--type-label-transform, uppercase);
   font-size: var(--type-label-size);
   line-height: var(--type-label-line);
@@ -217,13 +195,6 @@
   .header {
     padding: 24px 20px;
     gap: 24px 12px;
-  }
-
-  .logoLink,
-  .logoOnLight,
-  .logoOnBrand {
-    width: 55px;
-    height: 44px;
   }
 
   .navigation {

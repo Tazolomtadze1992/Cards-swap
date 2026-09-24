@@ -3,11 +3,11 @@
 import { useEffect, useId, useRef, useState } from "react";
 import { menuMotion, useSurfacePresence } from "../motion/surface-motion";
 import { Button } from "../ui/button";
-import Image from "next/image";
 import Link from "next/link";
 import { Icon } from "../ui/icon";
 import { labelText } from "./label-text";
 import { SiteSearchDialog } from "./site-search-dialog";
+import { CallConfirmationDialog } from "./call-confirmation-dialog";
 import styles from "./site-header.module.css";
 
 const navigationItems = [
@@ -28,6 +28,7 @@ type SiteHeaderProps = {
 export function SiteHeader({ activeItem, appearance = "light" }: SiteHeaderProps) {
   const [menuOpen, setMenuOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
+  const [contactOpen, setContactOpen] = useState(false);
   const menu = useSurfacePresence(menuOpen, menuMotion, "(max-width: 1400px)");
   const [hidden, setHidden] = useState(false);
   const [surface, setSurface] = useState(appearance);
@@ -166,20 +167,15 @@ export function SiteHeader({ activeItem, appearance = "light" }: SiteHeaderProps
     };
   }, [menu.present]);
 
-  const contact = <Button asChild size="contact" variant={surface === "brand-surface" ? "inverse" : "primary"}><Link href="/prototypes/homepage#homepage-faq" onClick={() => setMenuOpen(false)}>
+  const contact = <Button size="contact" variant={surface === "brand-surface" ? "inverse" : "primary"} onClick={() => { setMenuOpen(false); setHidden(false); setContactOpen(true); }}>
     <Icon name="phone" size="small" />
     {labelText("კონტაქტი")}
-  </Link></Button>;
+  </Button>;
 
-  const logo = <Link className={styles.logoLink} href="/prototypes/homepage" aria-label="მთავარ გვერდზე დაბრუნება" onClick={() => setMenuOpen(false)}>
-      <Image className={styles.logoOnLight} src="/assets/homepage/council-of-europe-logo-on-cream.png" width={296} height={238} alt="" priority />
-      <Image className={styles.logoOnBrand} src="/assets/homepage/council-of-europe-logo.png" width={296} height={238} alt="" priority />
-    </Link>;
   return <div ref={spacerRef} className={styles.spacer}>
     <div ref={frameRef} className={styles.frame} data-hidden={hidden && !menu.present && !searchOpen} data-appearance={surface} data-scrolled={scrolled} data-menu-open={menu.present}
       role={menu.present ? "dialog" : undefined} aria-modal={menu.present || undefined} aria-label={menu.present ? "მთავარი მენიუ" : undefined}>
     <header ref={headerRef} className={styles.header} data-appearance={surface} onFocusCapture={() => setHidden(false)}>
-    {logo}
     <nav ref={node => { navigationRef.current = node; menu.attach(node); }} id={navigationId} className={styles.navigation} data-open={menu.present} aria-label="მთავარი ნავიგაცია">
       <div className={styles.navigationLinks}>{navigationItems.map(item => <Link href={item.href} key={item.id} aria-current={activeItem === item.id ? "page" : undefined} onClick={() => setMenuOpen(false)}>
         {menu.present ? item.label : labelText(item.label)}
@@ -196,5 +192,11 @@ export function SiteHeader({ activeItem, appearance = "light" }: SiteHeaderProps
   </header>
     </div>
     {searchOpen && <SiteSearchDialog onClose={() => setSearchOpen(false)} />}
+    {contactOpen && <CallConfirmationDialog
+      title="ახლა რეკავ საგანმანათლებლო დაწესებულების მანდატურის სამსახურის ფსიქოსოციალური მომსახურების ცენტრში."
+      prompt="დარწმუნდი რომ ნამდვილად გინდა დარეკვა"
+      phone="0800000088"
+      onClose={() => setContactOpen(false)}
+    />}
   </div>;
 }

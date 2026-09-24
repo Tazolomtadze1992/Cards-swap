@@ -1,10 +1,50 @@
-import { learningTopics } from "./learning-data";
-
-// The first three entries reproduce the Figma copy. Remaining entries reuse
-// existing prototype copy to preview twelve cards; not approved 14–18 content.
 export const teenLearningTopics = [
-  { id: "teen-rights", title: "შენი უფლებები", intro: "უსაფრთხო და საფრთხის შემცველი სიტუაციები", theme: 0 },
-  { id: "teen-safety", title: "უსაფრთხო და საფრთხის შემცველი სიტუაციები", intro: "ემოციური სტრესი, “გაყინვის” რეაქცია და საფრთხის არიდება", theme: 1 },
-  { id: "teen-scenarios", title: "სექსუალური ძალადობის ფორმებთან დაკავშირებული სცენები", intro: "უსაფრთხო და საფრთხის შემცველი სიტუაციები", theme: 3 },
-  ...learningTopics.filter((_, index) => ![3, 4, 6].includes(index)).map((item, index) => ({ ...item, id: `teen-${item.id}`, theme: [0, 0, 0, 2, 3, 4, 5, 5, 6][index] })),
+  {
+    id: "teen-body-and-boundaries",
+    title: "შენი სხეული, გრძნობები და პირადი საზღვრები",
+    intro: "რა გეკუთვნის შენ და როგორ უნდა დაიცვა პირადი საზღვრები.",
+    theme: 0,
+  },
+  {
+    id: "teen-safe-and-unsafe-situations",
+    title: "უსაფრთხო და საფრთხის შემცველი სიტუაციები",
+    intro: "გაიგე, რას ნიშნავს საფრთხის დროს სტრესისგან გაშეშება და რატომ არ არის ეს შენი ბრალი.",
+    theme: 1,
+  },
+  {
+    id: "teen-safety-online-and-in-person",
+    title: "უსაფრთხოება ონლაინ და რეალურ ცხოვრებაში",
+    intro: "რა შეიძლება მოხდეს ინტერნეტში, სახლში, სკოლაში, ეზოში ან სხვა ადგილას.",
+    theme: 2,
+  },
+  {
+    id: "teen-signs-and-myths",
+    title: "ძალადობის ნიშნები და მითები",
+    intro: "ვინ შეიძლება იყოს მოძალადე, რატომ არ ხარ შენ დამნაშავე და რატომ არის ყველა შემთხვევა სხვადასხვანაირი.",
+    theme: 3,
+  },
+  {
+    id: "teen-asking-for-help",
+    title: "დახმარების თხოვნა და ამბის თქმა",
+    intro: "ვის ვუთხრა, როგორ დავიწყო საუბარი და რა გავაკეთო, თუ პირველმა უფროსმა არ მომისმინა.",
+    theme: 4,
+  },
+  {
+    id: "teen-support-services",
+    title: "დახმარების თხოვნა და მხარდაჭერის სერვისები",
+    intro: "ვინ არიან სპეციალისტები, რომლებიც დაგეხმარებიან.",
+    theme: 5,
+  },
+  {
+    id: "teen-what-happens-next",
+    title: "რა შეიძლება მოხდეს შემდეგ",
+    intro: "სასამართლო, მოსამართლე, ფსიქოლოგი და სოციალური მუშაკი.",
+    theme: 6,
+  },
+  {
+    id: "teen-recovery-and-support",
+    title: "მხარდაჭერა და უკეთ გახდომა",
+    intro: "როგორ იღებს ბავშვი დახმარებას, დაცვასა და ემოციურ მხარდაჭერას.",
+    theme: 5,
+  },
 ];

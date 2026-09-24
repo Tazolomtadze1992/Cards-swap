@@ -1,7 +1,7 @@
 import { FaqList } from "./faq-list";
 import { Button } from "../ui/button";
 import styles from "./homepage.module.css";
-import { faqItems } from "./faq-data";
+import { homepageFaqItems } from "./faq-data";
 import { labelText } from "./label-text";
 import { SiteHeader } from "./site-header";
 import { SiteFooter } from "./site-footer";
@@ -30,8 +30,8 @@ export function HomepageFaq() {
       <img src="/assets/homepage/faq-illustration.svg" width={192.999} height={224.94} alt="" />
     </div>
     <h2 id="faq-heading">ხშირად დასმული კითხვები</h2>
-    <FaqList items={faqItems.slice(0, 6)} name="homepage-faq" />
+    <FaqList items={homepageFaqItems} name="homepage-faq" />
     <div className={styles.viewAll}><Button asChild variant="inverse" size="prominent"><a href="/prototypes/faq">{labelText("ყველას ნახვა")}</a></Button></div>
-    <SiteFooter />
+    <SiteFooter appearance="inverse" showDisclaimer />
   </section>;
 }
