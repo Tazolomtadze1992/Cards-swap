@@ -14,7 +14,7 @@ export type ContactNumber = { number: string; tel: string; label: string };
 
 type CopyState = "idle" | "copied" | "error";
 
-export function ContactNumberRow({ phone, onRequestCall112, onRequestSupportCall }: { phone: ContactNumber; onRequestCall112?: () => void; onRequestSupportCall?: () => void }) {
+export function ContactNumberRow({ phone, onRequestCall112, onRequestSupportCall, onRequestCall: requestCall }: { phone: ContactNumber; onRequestCall?: (phone: ContactNumber) => void; onRequestCall112?: () => void; onRequestSupportCall?: () => void }) {
   const [copyState, setCopyState] = useState<CopyState>("idle");
 
   const resetTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -42,7 +42,7 @@ export function ContactNumberRow({ phone, onRequestCall112, onRequestSupportCall
     resetTimer.current = setTimeout(() => setCopyState("idle"), 2500);
   }
 
-  const onRequestCall = phone.tel === "112" ? onRequestCall112 : phone.tel === "0800000088" ? onRequestSupportCall : undefined;
+  const onRequestCall = requestCall ? () => requestCall(phone) : phone.tel === "112" ? onRequestCall112 : phone.tel === "0800000088" ? onRequestSupportCall : undefined;
 
   const copyLabel = copyState === "copied" ? "დაკოპირებულია" : copyState === "error" ? "ვერ დაკოპირდა" : "კოპირება";
 

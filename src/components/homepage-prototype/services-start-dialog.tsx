@@ -8,7 +8,7 @@ import styles from "./services.module.css";
 
 // N5, section 2 and its visual map. These are possible routes, not mandatory steps.
 export function ServicesStartDialog({ onClose, onShowContacts, onRequestCall112 }: { onClose: () => void; onShowContacts: () => void; onRequestCall112: () => void }) {
-  return <Modal title="დახმარება მჭირდება - საიდან დავიწყო?" onClose={onClose}>
+  return <Modal title="დახმარება გჭირდება - საიდან დაიწყო?" onClose={onClose}>
     <ReadingContent width="full">
       <ContentSection as="div">
         <p>ეს რუკა დახმარების ერთ შესაძლო გზას გაჩვენებს. თუმცა იცოდე, რომ ყველა ბავშვის ამბავი ერთნაირი არაა. ყველა ბავშვი ყველა ნაბიჯს არ გადის. შეგიძლია დახმარება იქიდან დაიწყო, ვისთან საუბარიც უფრო უსაფრთხოდ გეჩვენება.</p>
@@ -16,14 +16,14 @@ export function ServicesStartDialog({ onClose, onShowContacts, onRequestCall112 
 
       <ContentSection className={styles.startCallout} width="full">
         <h3>საფრთხე ახლავეა?</h3>
-        <p>თუ შენ ან შენი ახლობელი ვინმემ შეიძლება ახლავე დააზიანოს, გადადი უსაფრთხო ადგილას, თუ ამას შეძლებ, და დარეკე 112-ზე. თუ საფრთხე ახლავე არ არის, მაინც შეგიძლია დახმარება ითხოვო შენთვის უსაფრთხო გზით.</p>
+        <p>თუ შენ ან შენი ახლობელი ვინმემ შეიძლება ახლავე დააზიანოს, გადადი უსაფრთხო ადგილას, თუ ამას შეძლებ, და დარეკე 112-ზე. თუ საფრთხე ახლავე არ არის, მაინც შეგიძლია დახმარება ითხოვო შენთვის უსაფრთხო გზით. იცოდე, რომ დახმარების თხოვნისთვის უფროსების თანხმობა არ გჭირდება.</p>
         <Button variant="call" onClick={onRequestCall112}><Icon name="phone" />{labelText("ზარი 112-ზე")}</Button>
       </ContentSection>
 
       <ContentSection width="full">
         <Accordion type="single" collapsible appearance="light">
           <AccordionItem value="start">
-            <AccordionTrigger>დახმარება მჭირდება — საიდან დავიწყო?</AccordionTrigger>
+            <AccordionTrigger>დახმარება გჭირდება — საიდან დაიწყო?</AccordionTrigger>
             <AccordionContent>
               <ContentSection as="div">
                 <p>შეგიძლია უთხრა სანდო უფროსს, სკოლის თანამშრომელს, მანდატურს, სოციალურ მუშაკს, ექიმს ან პირდაპირ იმ სამსახურს, ვინც ბავშვთა დაცვაზე ზრუნავს. თუ მეგობარს ეუბნები, მას შეუძლია შენთან ერთად მივიდეს უფროსთან.</p>
@@ -39,7 +39,7 @@ export function ServicesStartDialog({ onClose, onShowContacts, onRequestCall112 
             </ContentSection></AccordionContent>
           </AccordionItem>
           <AccordionItem value="support">
-            <AccordionTrigger>რა დახმარება შეიძლება მივიღო?</AccordionTrigger>
+            <AccordionTrigger>რა დახმარება შეიძლება მიიღო?</AccordionTrigger>
             <AccordionContent><ContentSection as="div">
               <p>შეიძლება დაგჭირდეს სხვადასხვანაირი დახმარება. ზოგჯერ პოლიციაც ერთვება.</p>
               <p>ეს ადამიანები სხვადასხვა საქმეს აკეთებენ, მაგრამ შენს დასახმარებლად ერთმანეთს უკავშირდებიან.</p>

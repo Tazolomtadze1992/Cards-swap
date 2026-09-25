@@ -1,6 +1,6 @@
 import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from "../ui/accordion";
 import { Modal } from "../ui/modal";
-import { supportPeople, supportAgencies } from "./services-people-data";
+import { supportPeople } from "./services-people-data";
 import { ReadingContent, ContentSection } from "../ui/reading-content";
 import styles from "./services.module.css";
 
@@ -24,18 +24,9 @@ export function ServicesPeopleDialog({ onClose }: { onClose: () => void }) {
           </AccordionItem>)}
         </Accordion>
       </ContentSection>
-      <ContentSection width="full">
-        <h3>უწყებები, რომლებიც სისტემას ამუშავებენ</h3>
-        <Accordion type="single" collapsible appearance="light">
-          {supportAgencies.map(agency => <AccordionItem value={agency.title} key={agency.title}>
-            <AccordionTrigger headingLevel={4}>{agency.title}</AccordionTrigger>
-            <AccordionContent><p>{agency.responsibility}</p></AccordionContent>
-          </AccordionItem>)}
-        </Accordion>
-      </ContentSection>
       <ContentSection>
         <h3>რას ნიშნავს ეს მარტივად?</h3>
-        <p>შენ არ გევალება ამ უწყებების სახელების დამახსოვრება. მთავარია იცოდე, რომ დახმარება ერთ ადამიანს არ უნდა ეკიდოს. თუ საჭიროა, სხვადასხვა სამსახური ერთმანეთს უკავშირდება და თითოეული თავის საქმეს აკეთებს.</p>
+        <p>შენ არ გევალება ამ უწყებების სახელების დამახსოვრება. მთავარია იცოდე, რომ შენი დახმარება მხოლოდ ერთი ადამიანის საქმე არ არის. თუ საჭიროა, სხვადასხვა სამსახური ერთმანეთს უკავშირდება და თითოეული თავის საქმეს აკეთებს.</p>
       </ContentSection>
     </ReadingContent>
   </Modal>;
