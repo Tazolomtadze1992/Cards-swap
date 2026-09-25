@@ -115,7 +115,7 @@ function CardsPrototypeView({ homepage = false, colors }: { homepage?: boolean; 
       if (id === "faq") router.push("/prototypes/faq");
       if (id === "resources" || id === "video") router.push("/prototypes/resources");
       if (id === "support") router.push("/prototypes/services");
-      if (id === "quiz") router.push("/prototypes/learning/practice");
+      if (id === "quiz") router.push("/prototypes/learning");
     } : undefined} palette={{ support: colors.services, video: colors.video, resources: colors.resources, faq: colors.faq, quiz: colors.quizzes }} /></div>
     {homepage && <HomepageFaq />}
   </main>;
