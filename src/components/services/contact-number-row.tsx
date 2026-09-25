@@ -14,7 +14,7 @@ export type ContactNumber = { number: string; tel: string; label: string };
 
 type CopyState = "idle" | "copied" | "error";
 
-export function ContactNumberRow({ phone, onRequestCall112 }: { phone: ContactNumber; onRequestCall112?: () => void }) {
+export function ContactNumberRow({ phone, onRequestCall112, onRequestSupportCall }: { phone: ContactNumber; onRequestCall112?: () => void; onRequestSupportCall?: () => void }) {
   const [copyState, setCopyState] = useState<CopyState>("idle");
 
   const resetTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -42,6 +42,8 @@ export function ContactNumberRow({ phone, onRequestCall112 }: { phone: ContactNu
     resetTimer.current = setTimeout(() => setCopyState("idle"), 2500);
   }
 
+  const onRequestCall = phone.tel === "112" ? onRequestCall112 : phone.tel === "0800000088" ? onRequestSupportCall : undefined;
+
   const copyLabel = copyState === "copied" ? "დაკოპირებულია" : copyState === "error" ? "ვერ დაკოპირდა" : "კოპირება";
 
   return <div className={styles.contactEntry}>
@@ -61,8 +63,8 @@ export function ContactNumberRow({ phone, onRequestCall112 }: { phone: ContactNu
           </span>
           <span className={styles.copyAnnouncement} role="status">{copyState === "idle" ? "" : `${phone.number} — ${copyLabel}`}</span>
         </Button>
-        {phone.tel === "112" && onRequestCall112
-          ? <Button variant="call" aria-label={`${phone.number} — დარეკვა`} onClick={onRequestCall112}><Icon name="phone" />{labelText("დარეკვა")}</Button>
+        {onRequestCall
+          ? <Button variant="call" aria-label={`${phone.number} — დარეკვა`} onClick={onRequestCall}><Icon name="phone" />{labelText("დარეკვა")}</Button>
           : <Button asChild variant="call"><a href={`tel:${phone.tel}`} aria-label={`${phone.number} — დარეკვა`}><Icon name="phone" />{labelText("დარეკვა")}</a></Button>}
       </div>
     </div>

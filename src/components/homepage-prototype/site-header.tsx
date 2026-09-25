@@ -8,7 +8,7 @@ import Image from "next/image";
 import { Icon } from "../ui/icon";
 import { labelText } from "./label-text";
 import { SiteSearchDialog } from "./site-search-dialog";
-import { CallConfirmationDialog } from "./call-confirmation-dialog";
+import { SupportCallConfirmationDialog } from "./support-call-confirmation-dialog";
 import styles from "./site-header.module.css";
 
 const navigationItems = [
@@ -222,11 +222,6 @@ export function SiteHeader({ activeItem, appearance = "light" }: SiteHeaderProps
     </div>
     </div>
     {searchOpen && <SiteSearchDialog onClose={() => setSearchOpen(false)} />}
-    {contactOpen && <CallConfirmationDialog
-      title="ახლა რეკავ საგანმანათლებლო დაწესებულების მანდატურის სამსახურის ფსიქოსოციალური მომსახურების ცენტრში."
-      prompt="დარწმუნდი რომ ნამდვილად გინდა დარეკვა"
-      phone="0800000088"
-      onClose={() => setContactOpen(false)}
-    />}
+    {contactOpen && <SupportCallConfirmationDialog onClose={() => setContactOpen(false)} />}
   </div>;
 }
