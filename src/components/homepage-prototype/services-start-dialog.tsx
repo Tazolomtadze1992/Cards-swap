@@ -11,7 +11,7 @@ export function ServicesStartDialog({ onClose, onShowContacts, onRequestCall112 
   return <Modal title="დახმარება მჭირდება - საიდან დავიწყო?" onClose={onClose}>
     <ReadingContent width="full">
       <ContentSection as="div">
-        <p>დახმარება შეგიძლია დაიწყო იმ გზით, რომელიც უფრო უსაფრთხოდ გეჩვენება. ყველა ბავშვის ამბავი ერთნაირი არ არის და ყველა ბავშვი ყველა ნაბიჯს არ გადის.</p>
+        <p>ეს რუკა დახმარების ერთ შესაძლო გზას გაჩვენებს. თუმცა იცოდე, რომ ყველა ბავშვის ამბავი ერთნაირი არაა. ყველა ბავშვი ყველა ნაბიჯს არ გადის. შეგიძლია დახმარება იქიდან დაიწყო, ვისთან საუბარიც უფრო უსაფრთხოდ გეჩვენება.</p>
       </ContentSection>
 
       <ContentSection className={styles.startCallout} width="full">
@@ -23,16 +23,10 @@ export function ServicesStartDialog({ onClose, onShowContacts, onRequestCall112 
       <ContentSection width="full">
         <Accordion type="single" collapsible appearance="light">
           <AccordionItem value="start">
-            <AccordionTrigger>ვის შემიძლია მივმართო?</AccordionTrigger>
+            <AccordionTrigger>დახმარება მჭირდება — საიდან დავიწყო?</AccordionTrigger>
             <AccordionContent>
               <ContentSection as="div">
-                <p>შეგიძლია აირჩიო, ვისთან საუბარია შენთვის უსაფრთხო:</p>
-                <ul>
-                  <li><strong>ოჯახი ან სხვა სანდო უფროსი</strong> — მშობელი, მზრუნველი ან ნათესავი, თუ მათთან საუბარი უსაფრთხოა.</li>
-                  <li><strong>მეგობარი ან თანატოლი</strong> — შეუძლია მოგისმინოს და შენთან ერთად მივიდეს უფროსთან.</li>
-                  <li><strong>სკოლა და მანდატურის სამსახური</strong> — მასწავლებელი, სკოლის თანამშრომელი, მანდატური, ფსიქოლოგი ან სოციალური მუშაკი.</li>
-                  <li><strong>პირდაპირ მხარდაჭერის სერვისი</strong> — სოციალური სამსახური, ცხელი ხაზი, ექიმი, პოლიცია, იურიდიული, მუნიციპალური ან არასამთავრობო სერვისი.</li>
-                </ul>
+                <p>შეგიძლია უთხრა სანდო უფროსს, სკოლის თანამშრომელს, მანდატურს, სოციალურ მუშაკს, ექიმს ან პირდაპირ იმ სამსახურს, ვინც ბავშვთა დაცვაზე ზრუნავს. თუ მეგობარს ეუბნები, მას შეუძლია შენთან ერთად მივიდეს უფროსთან.</p>
                 <p>შენი დაცვა მეგობრის პასუხისმგებლობა არ არის — ამაზე უფროსებმა და სამსახურებმა უნდა იზრუნონ.</p>
               </ContentSection>
             </AccordionContent>
@@ -47,14 +41,7 @@ export function ServicesStartDialog({ onClose, onShowContacts, onRequestCall112 
           <AccordionItem value="support">
             <AccordionTrigger>რა დახმარება შეიძლება მივიღო?</AccordionTrigger>
             <AccordionContent><ContentSection as="div">
-              <p>შენი საჭიროებების მიხედვით შეიძლება ჩაერთოს ერთი ან რამდენიმე მიმართულება:</p>
-              <ul>
-                <li>უსაფრთხოება და სოციალური მხარდაჭერა;</li>
-                <li>ფსიქოლოგიური მხარდაჭერა;</li>
-                <li>სამედიცინო დახმარება;</li>
-                <li>უფლებები და იურიდიული დახმარება;</li>
-                <li>თუ საჭიროა — პოლიცია, გამოძიება ან სასამართლო.</li>
-              </ul>
+              <p>შეიძლება დაგჭირდეს სხვადასხვანაირი დახმარება. ზოგჯერ პოლიციაც ერთვება.</p>
               <p>ეს ადამიანები სხვადასხვა საქმეს აკეთებენ, მაგრამ შენს დასახმარებლად ერთმანეთს უკავშირდებიან.</p>
             </ContentSection></AccordionContent>
           </AccordionItem>

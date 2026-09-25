@@ -18,7 +18,11 @@ import styles from "./services.module.css";
 
 export default function ServicesPagePrototype() {
   const [openTopic, setOpenTopic] = useState<(typeof serviceTopics)[number]["id"] | "call-112" | "call-support" | null>(null);
-  const requestCall112 = () => setOpenTopic("call-112");
+  const [call112ReturnTopic, setCall112ReturnTopic] = useState<(typeof serviceTopics)[number]["id"] | null>(null);
+  const requestCall112 = () => {
+    setCall112ReturnTopic(openTopic === "call-112" || openTopic === "call-support" ? null : openTopic);
+    setOpenTopic("call-112");
+  };
   return <div className={styles.page}>
     <SiteHeader activeItem="support" />
     <main className={styles.content}>
@@ -44,6 +48,6 @@ export default function ServicesPagePrototype() {
     {openTopic === "people" && <ServicesPeopleDialog onClose={() => setOpenTopic(null)} />}
     {openTopic === "overview" && <ServicesOverviewDialog onClose={() => setOpenTopic(null)} />}
     {openTopic === "call-support" && <SupportCallConfirmationDialog onClose={() => setOpenTopic("contacts")} />}
-    {openTopic === "call-112" && <ServicesEmergencyCallDialog onClose={() => setOpenTopic(null)} />}
+    {openTopic === "call-112" && <ServicesEmergencyCallDialog onClose={() => setOpenTopic(call112ReturnTopic)} />}
   </div>;
 }
