@@ -6,6 +6,7 @@ import { Button } from "../ui/button";
 import Link from "next/link";
 import Image from "next/image";
 import { Icon } from "../ui/icon";
+import { Separator } from "../ui/separator";
 import { labelText } from "./label-text";
 import { SiteSearchDialog } from "./site-search-dialog";
 import { SupportCallConfirmationDialog } from "./support-call-confirmation-dialog";
@@ -193,13 +194,14 @@ export function SiteHeader({ activeItem, appearance = "light" }: SiteHeaderProps
         </div>
         <div className={styles.partner}>
           <Image src="/assets/footer/education-ministry.png" width={252} height={220} alt="" />
-          <span>განათლების, მეცნიერებისა და ახალგაზრდობის სამინისტრო</span>
+          <span>განათლების, მეცნიერებისა<br />და ახალგაზრდობის სამინისტრო</span>
         </div>
         <div className={styles.partner}>
           <Image src="/assets/footer/resource-officers.png" width={509} height={508} alt="" />
-          <span>საგანმანათლებლო დაწესებულების მანდატურის სამსახური</span>
+          <span>საგანმანათლებლო დაწესებულების<br />მანდატურის სამსახური</span>
         </div>
       </div>
+      <div className={styles.partnersDivider}><Separator tone={appearance === "brand-surface" ? "inverse" : "subtle"} /></div>
     </div>
     <div ref={spacerRef} className={styles.spacer}>
     <div ref={frameRef} className={styles.frame} data-hidden={hidden && !menu.present && !searchOpen} data-appearance={surface} data-scrolled={scrolled} data-menu-open={menu.present}
