@@ -1,7 +1,7 @@
-.spacer { height: 108px; }
+.spacer { height: 76px; }
 .frame {
   position: fixed;
-  inset: 60px 0 auto;
+  inset: 69px 0 auto;
   z-index: 30;
   background: var(--color-canvas);
   transform: translateY(0);
@@ -17,7 +17,7 @@
 }
 .frame[data-hidden="true"] { transform: translateY(-100%); pointer-events: none; }
 .frame:has(:focus-visible) { transform: translateY(0); pointer-events: auto; }
-@media (max-width: 600px) { .spacer { height: 92px; } }
+@media (max-width: 600px) { .spacer { height: 68px; } }
 @media (prefers-reduced-motion: reduce) {
   .frame { --reduced-motion-duration: 120ms; transition: opacity 120ms cubic-bezier(0.25, 1, 0.5, 1); }
   .frame[data-hidden="true"] { transform: none; opacity: 0; }
@@ -27,20 +27,22 @@
 .partnersStrip { position: relative; background: var(--color-surface); border-bottom: 1px solid transparent; color: var(--color-text-primary); }
 .partnersDivider { position: absolute; inset-inline: 0; bottom: 0; width: min(100%, var(--layout-wide)); margin-inline: auto; padding-inline: 32px; }
 .partnersStrip[data-appearance="brand-surface"] { background: transparent; border-color: transparent; color: var(--color-text-inverse); }
-.partnersInner { display: flex; align-items: center; gap: var(--space-6); width: min(100%, var(--layout-wide)); min-height: 60px; margin: auto; padding: 8px 32px; }
-.councilLogo { display: block; flex: none; width: 55px; height: 44px; object-fit: contain; }
+.partnersInner { display: flex; align-items: center; gap: var(--space-6); width: min(100%, var(--layout-wide)); min-height: 68px; margin: auto; padding: var(--space-4) 32px; }
+.councilLogo { display: block; flex: none; width: 45px; height: 36px; object-fit: contain; }
 .campaignLogo { display: flex; flex: none; align-items: center; gap: 4px; }
-.campaignLogo img { display: block; width: auto; height: 32px; object-fit: contain; }
+.campaignLogo img { display: block; width: auto; height: 36px; object-fit: contain; }
 .partner { display: flex; flex: none; align-items: center; gap: 8px; }
-.partner img { display: block; flex: none; width: 34px; height: 34px; object-fit: contain; }
+.partner img { display: block; flex: none; width: 41px; height: 36px; object-fit: contain; }
 .partner span { font-family: var(--font-body); font-size: 10px; line-height: 1.25; font-weight: var(--type-body-weight); white-space: nowrap; }
 @media (max-width: 1400px) { .partner span { display: none; } }
-@media (max-width: 700px) {
+@media (max-width: 600px) {
   .partnersDivider { padding-inline: 20px; }
-  .partnersInner { justify-content: space-between; gap: 8px; padding: 8px 20px; }
-  .councilLogo { width: 40px; height: 32px; }
-  .campaignLogo img { height: 23px; }
-  .partner img { width: 26px; height: 26px; }
+  .partnersInner { justify-content: space-between; gap: 8px; min-height: 52px; padding: var(--space-3) 20px; }
+  .councilLogo { width: 35px; height: 28px; }
+  .campaignLogo { width: clamp(124px, 40vw, 168px); }
+  .campaignLogo img { min-width: 0; max-width: 100%; height: 28px; }
+  .campaignLogo img + img { width: calc(100% - 34px); }
+  .partner img { width: 32px; height: 28px; }
 }
 
 .header {
@@ -52,7 +54,7 @@
   align-items: center;
   justify-content: space-between;
   gap: 24px;
-  padding: 32px;
+  padding: var(--space-4) 32px;
 }
 
 .header[data-appearance="light"] {
@@ -138,7 +140,7 @@
 
   .frame[data-menu-open="true"] .navigation {
     position: fixed;
-    top: calc(var(--strip-offset, 0px) + var(--header-height, 108px));
+    top: calc(var(--strip-offset, 0px) + var(--header-height, 76px));
     bottom: 0;
     max-height: none;
     padding-bottom: calc(var(--space-6) + env(safe-area-inset-bottom, 0px));
@@ -212,7 +214,7 @@
 
 @media (max-width: 600px) {
   .header {
-    padding: 24px 20px;
+    padding: var(--space-3) 20px;
     gap: 24px 12px;
   }
 
