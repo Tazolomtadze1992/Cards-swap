@@ -10,12 +10,6 @@
   font-weight: var(--type-body-weight);
   letter-spacing: var(--type-body-tracking);
 }
-.content { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--space-4); }
+.content { display: grid; row-gap: var(--space-7); }
 .content p { margin: 0; opacity: .72; }
-.georgian { grid-column: 1 / span 5; }
-.english { grid-column: 8 / 13; }
-@media (max-width: 760px) {
-  .content { row-gap: var(--space-7); }
-  .georgian, .english { grid-column: 1 / -1; }
-}
 @media (max-width: 600px) { .footer { margin-top: var(--space-11); padding: var(--space-6) 0 0; } }
