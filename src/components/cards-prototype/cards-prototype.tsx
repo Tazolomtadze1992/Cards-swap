@@ -90,7 +90,7 @@ export function CardDeck({ homepage = false, hoverDuration = 600, returnDuration
               <button ref={element => { triggers.current[card.id] = element; }} className={styles.cardTrigger}
                 aria-label={card.label} aria-expanded={selected} aria-controls={`card-action-${card.id}`}
                 onClick={() => {
-                  if (selected && (card.id === "faq" || card.id === "resources") && onNavigate) { onNavigate(card.id); return; }
+                  if (selected && onNavigate) { onNavigate(card.id); return; }
                   if (selected) close();
                   else setActive(card.id);
                 }} />
