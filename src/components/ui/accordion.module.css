@@ -31,7 +31,7 @@
 .iconVertical { width: 2.5px; height: 20px; }
 .trigger[data-state="open"] .iconVertical { transform: translate(-50%, -50%) scaleY(0); }
 @media (prefers-reduced-motion: no-preference) {
-  .iconVertical { transition: transform 200ms cubic-bezier(0.77, 0, 0.175, 1); }
+  .iconVertical { transition: transform 250ms cubic-bezier(0.22, 1, 0.36, 1); }
 }
 /* A single clipping row changes height so following questions move with the
    answer. Text is never scaled; CSS transitions reverse from the current size. */
@@ -40,14 +40,14 @@
   grid-template-rows: 0fr;
   opacity: 0;
   visibility: hidden;
-  transition: grid-template-rows 180ms cubic-bezier(0.25, 1, 0.5, 1),
-    opacity 180ms cubic-bezier(0.25, 1, 0.5, 1), visibility 0s 180ms;
+  transition: grid-template-rows 260ms cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 220ms cubic-bezier(0.22, 1, 0.36, 1), visibility 0s 260ms;
 }
 .content[data-state="open"] .reveal {
   grid-template-rows: 1fr;
   opacity: 1;
   visibility: visible;
-  transition-duration: 220ms, 220ms, 0s;
+  transition-duration: 300ms, 300ms, 0s;
   transition-delay: 0s;
 }
 .clip { min-height: 0; overflow: hidden; }
