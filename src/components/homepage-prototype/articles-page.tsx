@@ -42,10 +42,12 @@ export default function ArticlesPagePrototype({ recommendedCount, age }: Article
         <p>ბევრ დაუსრულებელ გვერდს გვიჩვენებენ. წლების მანძილზე ამ ტექსტის უამრავი ვერსია გამოჩნდა, ზოგი შემთხვევით დაშვებული შეცდომის გამო, ზოგი კი — განზრახ, ხუმრობით. ვებგვერდი იყენებს Lorem Ipsum-ს, როგორც დროებით ტექსტს წყობის შესავსებად; Lorem Ipsum-ის მოძებნისას კი საძიებო სისტემები ბევრ დაუსრულებელ გვერდს გვიჩვენებენ.</p>
         <p>წლების მანძილზე ამ ტექსტის უამრავი ვერსია გამოჩნდა, ზოგი შემთხვევით დაშვებული შეცდომის გამო, ზოგი კი — განზრახ, ხუმრობით. ვებგვერდი იყენებს Lorem Ipsum-ს, როგორც დროებით ტექსტს წყობის შესავსებად.</p>
       </ContentSection>
+      <div className={styles.scenarioRow}>
+        <Button asChild size="large"><a id="scenario-start" className={styles.scenarioAction} href={`/prototypes/learning/practice/scenario${age === "6-9" ? "?age=6-9" : ""}`}>{labelText("სცენარზე გადასვლა")} <Icon name="chevronsRight" /></a></Button>
+      </div>
       <Separator />
     </ReadingContent></div>
     <section className={styles.recommended} id="recommended" aria-label="რეკომენდებული მასალა">
-      <Button asChild size="large"><a id="scenario-start" className={styles.scenarioAction} href={`/prototypes/learning/practice/scenario${age === "6-9" ? "?age=6-9" : ""}`}>{labelText("სცენარზე გადასვლა")} <Icon name="chevronsRight" /></a></Button>
       <RecommendedMaterials items={recommendations} onOpen={() => router.push("/prototypes/resources")} />
     </section>
   </main>;

@@ -4,9 +4,10 @@
 .titleRow h1 { margin: 0; color: var(--color-text-primary); font-family: var(--font-display); font-size: var(--type-h1-size); line-height: var(--type-h1-line); font-weight: var(--type-h1-weight); }
 
 .heroImage, .sectionImage { display: block; width: 100%; height: auto; border-radius: 12px; object-fit: cover; }
-.recommended { display: flex; width: min(calc(100% - 64px), 1376px); margin: var(--space-recommendations) auto 0; padding-bottom: var(--space-13); flex-direction: column; align-items: center; gap: var(--space-12); scroll-margin-top: 48px; }
+.recommended { display: flex; width: min(calc(100% - 64px), 1376px); margin: var(--space-10) auto 0; padding-bottom: var(--space-13); flex-direction: column; align-items: center; gap: var(--space-12); scroll-margin-top: 48px; }
 
-.scenarioAction { scroll-margin-top: 120px; }
+.scenarioRow { display: flex; justify-content: center; }
+.scenarioAction { scroll-margin-top: var(--space-13); }
 
 @media (max-width: 720px) {
   .article { padding-top: 96px; }
@@ -14,6 +15,6 @@
 
   .heroImage, .sectionImage { min-height: 220px; object-fit: cover; }
 
-  .recommended { width: min(calc(100% - 40px), 1376px); margin-top: var(--space-recommendations); padding-bottom: 96px; gap: calc(var(--space-9) + var(--space-2)); }
+  .recommended { width: min(calc(100% - 40px), 1376px); margin-top: var(--space-8); padding-bottom: 96px; gap: calc(var(--space-9) + var(--space-2)); }
 
 }
