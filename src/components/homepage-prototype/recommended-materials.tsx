@@ -10,7 +10,7 @@ export function RecommendedMaterials({ items, onOpen, showHeading = true }: {
   showHeading?: boolean;
 }) {
   return <div className={styles.content}>
-    {showHeading && <h2>რეკომენდირებული მასალა</h2>}
+    {showHeading && <h2>რეკომენდებული მასალა</h2>}
     <div className={styles.grid} data-count={items.length}>
       {items.map(item => <ResourceCard context="recommendation" item={item} key={item.id} onOpen={onOpen} />)}
     </div>

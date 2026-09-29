@@ -29,7 +29,7 @@ export function LearningEnding({ activity, answers, skipped, heading, onReview, 
   const nextHref = activity.kind === "scenario" ? `/prototypes/learning/practice/quiz${young ? "?age=6-9" : ""}` : young ? "/prototypes/learning/6-9" : "/prototypes/learning";
   return <section className={styles.ending}>
     <div className={styles.resultContent}>
-    {skipped && <h1 className={styles.endingTitle} ref={heading} tabIndex={-1}>რეკომენდირებული მასალა</h1>}
+    {skipped && <h1 className={styles.endingTitle} ref={heading} tabIndex={-1}>რეკომენდებული მასალა</h1>}
     {!skipped && <div className={styles.result}>
       <h1 ref={heading} tabIndex={-1}>{correct === total ? "ყველა პასუხი სწორია!" : "კარგია, რომ ივარჯიშე!"}</h1>
       <div className={styles.score}>
@@ -40,7 +40,7 @@ export function LearningEnding({ activity, answers, skipped, heading, onReview, 
     <p className={styles.takeaway}>{activity.recommendation}</p>
     <div className={styles.resultDivider}><Separator /></div>
     </div>
-    <section className={styles.materials} aria-label="რეკომენდირებული მასალა">
+    <section className={styles.materials} aria-label="რეკომენდებული მასალა">
       <RecommendedMaterials items={previewMaterials} onOpen={setPreview} showHeading={!skipped} />
     </section>
     <ActionRow spacing="airy">

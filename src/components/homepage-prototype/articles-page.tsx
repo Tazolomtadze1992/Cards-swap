@@ -25,7 +25,7 @@ export default function ArticlesPagePrototype({ recommendedCount, age }: Article
     <div className={styles.article}><ReadingContent>
       <div className={styles.titleRow}>
         <h1>სტატიის სათაური</h1>
-        <Button asChild variant="subtle" size="compact"><a href="#recommended">{labelText("გამოტოვე სტატია")} <Icon name="chevronsRight" /></a></Button>
+        <Button asChild variant="subtle" size="compact"><a href="#scenario-start">{labelText("გამოტოვე სტატია")} <Icon name="chevronsRight" /></a></Button>
       </div>
       <Image className={styles.heroImage} src="/assets/articles/article-hero.png" width={1936} height={1446} priority alt="აბსტრაქტული ილუსტრაცია სტატიაში" />
       <ContentSection as="div">
@@ -44,9 +44,9 @@ export default function ArticlesPagePrototype({ recommendedCount, age }: Article
       </ContentSection>
       <Separator />
     </ReadingContent></div>
-    <section className={styles.recommended} id="recommended" aria-label="რეკომენდირებული მასალა">
+    <section className={styles.recommended} id="recommended" aria-label="რეკომენდებული მასალა">
+      <Button asChild size="large"><a id="scenario-start" className={styles.scenarioAction} href={`/prototypes/learning/practice/scenario${age === "6-9" ? "?age=6-9" : ""}`}>{labelText("სცენარზე გადასვლა")} <Icon name="chevronsRight" /></a></Button>
       <RecommendedMaterials items={recommendations} onOpen={() => router.push("/prototypes/resources")} />
-      <Button asChild size="large"><a href={`/prototypes/learning/practice/scenario${age === "6-9" ? "?age=6-9" : ""}`}>{labelText("სცენარზე გადასვლა")} <Icon name="chevronsRight" /></a></Button>
     </section>
   </main>;
 }
