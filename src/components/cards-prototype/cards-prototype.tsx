@@ -8,14 +8,16 @@ import { MobileCardStack } from "./mobile-card-stack";
 import { labelText } from "../homepage-prototype/label-text";
 import { HomepageHero, HomepageFaq } from "../homepage-prototype/homepage-sections";
 
-// Fan geometry belongs to the position in the deck; each card keeps its own colour and illustration.
+// Order follows the site navigation. Fan geometry belongs to the position in the deck;
+// each card keeps its own colour and illustration.
 export const cards = [
-  { id: "support", illustrationWidth: 70.938, illustrationHeight: 73.801, label: "მხარდამჭერი სერვისები", color: "#f0fe83", ink: "#332b2d", x: 0, y: 5.77, width: 361.575, height: 380.813, angle: -14.6 },
+  { id: "quiz", illustrationWidth: 96.001, illustrationHeight: 85.191, label: "სწავლა და პრაქტიკა", color: "#ccacb5", ink: "#31402c", x: 0, y: 5.77, width: 361.575, height: 380.813, angle: -14.6 },
   { id: "resources", illustrationWidth: 92.197, illustrationHeight: 80.192, label: "რესურსები", color: "#97e54c", ink: "#FAF4EA", x: 203.6, y: 41.23, width: 333.255, height: 356.023, angle: -8.21 },
   { id: "glossary", illustrationWidth: 96, illustrationHeight: 76, label: "ლექსიკონი", color: "#ff8361", ink: "#3d1f17", x: 394.63, y: 0, width: 306.458, height: 331.956, angle: -2.88 },
   { id: "faq", illustrationWidth: 79.501, illustrationHeight: 60.537, label: "ხშირად დასმული კითხვები", color: "#5ea8ff", ink: "#ffffff", x: 584.27, y: 54.3, width: 302.694, height: 328.538, angle: 2.17 },
-  { id: "quiz", illustrationWidth: 96.001, illustrationHeight: 85.191, label: "სწავლა და პრაქტიკა", color: "#ccacb5", ink: "#31402c", x: 755.99, y: 6.01, width: 359.652, height: 379.156, angle: 14.13 },
+  { id: "support", illustrationWidth: 70.938, illustrationHeight: 73.801, label: "მხარდამჭერი სერვისები", color: "#f0fe83", ink: "#332b2d", x: 755.99, y: 6.01, width: 359.652, height: 379.156, angle: 14.13 },
 ] as const;
+const cardById = (id: (typeof cards)[number]["id"]) => cards.find(card => card.id === id)!;
 
 const actionLabels: Record<string, string> = {
   support: "სერვისების ნახვა", glossary: "ლექსიკონის ნახვა", resources: "რესურსების ნახვა",
@@ -35,11 +37,11 @@ type CardColors = {
 
 const defaultColors: CardColors = {
   page: { background: "#FAF4EA", heading: "#3F6CC7" },
-  services: { background: cards[0].color, text: cards[0].ink },
-  resources: { background: cards[1].color, text: cards[1].ink },
-  glossary: { background: cards[2].color, text: cards[2].ink },
-  faq: { background: cards[3].color, text: cards[3].ink },
-  quizzes: { background: cards[4].color, text: cards[4].ink },
+  services: { background: cardById("support").color, text: cardById("support").ink },
+  resources: { background: cardById("resources").color, text: cardById("resources").ink },
+  glossary: { background: cardById("glossary").color, text: cardById("glossary").ink },
+  faq: { background: cardById("faq").color, text: cardById("faq").ink },
+  quizzes: { background: cardById("quiz").color, text: cardById("quiz").ink },
 };
 
 type DeckProps = { homepage?: boolean; palette?: CardPalette; hoverDuration?: number; returnDuration?: number; clickDuration?: number; expandedScale?: number; onNavigate?: (id: string) => void };
