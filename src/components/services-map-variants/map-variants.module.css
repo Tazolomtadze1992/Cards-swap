@@ -22,7 +22,6 @@
 .node[data-tone="green"] { --tone-bg: var(--color-success-soft); --tone-border: color-mix(in oklch, var(--color-green-secondary) 55%, transparent); --tone-ink: var(--color-green-primary); }
 .node[data-tone="purple"] { --tone-bg: var(--color-review-soft); --tone-border: color-mix(in oklch, var(--color-review) 45%, transparent); --tone-ink: var(--color-review); }
 .node[data-tone="warm"] { --tone-bg: var(--color-control-subtle-bg); --tone-border: var(--color-border-default); --tone-ink: var(--color-text-primary); }
-.node[data-tone="neutral"] { --tone-bg: var(--color-surface); --tone-border: var(--color-border-default); --tone-ink: var(--color-text-primary); }
 
 .answerTag { display: inline-flex; align-items: center; gap: var(--space-1); width: fit-content; padding: 2px var(--space-3); border-radius: var(--radius-pill); background: color-mix(in oklch, var(--tone-ink, var(--color-text-primary)) 14%, transparent); color: var(--tone-ink, var(--color-text-primary)); font-size: var(--type-label-size); line-height: var(--type-label-line); font-weight: var(--type-label-weight); }
 .note { margin: 0; color: var(--color-text-secondary); font-size: var(--type-body-sm-size); line-height: var(--type-body-sm-line); }

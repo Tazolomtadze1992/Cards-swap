@@ -1,7 +1,7 @@
 // Content of the client's "ბავშვთა დაცვის სისტემის მარტივი რუკა" diagram, transcribed once
 // so the wording stays in one place.
 
-export type Tone = "blue" | "green" | "purple" | "warm" | "neutral";
+export type Tone = "blue" | "green" | "purple" | "warm";
 
 export const mapTitle = "ბავშვთა დაცვის სისტემის მარტივი რუკა";
 export const mapSubtitle = "დახმარება შეიძლება სხვადასხვა გზით დაიწყოს — ყველა ბავშვი ყველა ეტაპს არ გადის";
@@ -30,7 +30,7 @@ export const help: { title: string; tone: Tone }[] = [
   { title: "ფსიქოლოგიური მხარდაჭერა", tone: "purple" },
   { title: "სამედიცინო დახმარება", tone: "green" },
   { title: "უფლებები და იურიდიული დახმარება", tone: "warm" },
-  { title: "თუ საჭიროა: პოლიცია, გამოძიება ან სასამართლო", tone: "neutral" },
+  { title: "თუ საჭიროა: პოლიცია, გამოძიება ან სასამართლო", tone: "blue" },
 ];
 
 export const ongoing = "მიმდინარე მხარდაჭერა, უსაფრთხოება და აღდგენა";
