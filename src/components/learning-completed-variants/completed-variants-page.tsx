@@ -5,9 +5,9 @@
 import Link from "next/link";
 import Image from "next/image";
 import type { CSSProperties } from "react";
-import { useEffect, useState } from "react";
 import { Card, CardContent, CardTitle } from "../ui/card";
 import { Icon } from "../ui/icon";
+import { VariantSwitcher, useVariant } from "../prototype-tools/variant-switcher";
 import { Separator } from "../ui/separator";
 import { SiteHeader } from "../homepage-prototype/site-header";
 import { learningTopics10to13 } from "../homepage-prototype/learning-data-10-13";
@@ -27,23 +27,7 @@ const variants = [
 type VariantId = (typeof variants)[number]["id"];
 
 export default function CompletedVariantsPage({ initialVariant = 1 }: { initialVariant?: number }) {
-  const [variant, setVariant] = useState(Math.min(Math.max(initialVariant, 1), variants.length));
-
-  useEffect(() => {
-    const url = new URL(window.location.href);
-    url.searchParams.set("v", String(variant));
-    window.history.replaceState(null, "", url);
-  }, [variant]);
-
-  useEffect(() => {
-    function onKey(event: KeyboardEvent) {
-      if (event.target instanceof HTMLElement && event.target.closest("input, textarea, select")) return;
-      if (event.key === "ArrowRight") setVariant(v => v % variants.length + 1);
-      if (event.key === "ArrowLeft") setVariant(v => (v + variants.length - 2) % variants.length + 1);
-    }
-    window.addEventListener("keydown", onKey);
-    return () => window.removeEventListener("keydown", onKey);
-  }, []);
+  const [variant, setVariant] = useVariant(variants.length, initialVariant);
 
   const variantId = variants[variant - 1].id;
 
@@ -63,7 +47,7 @@ export default function CompletedVariantsPage({ initialVariant = 1 }: { initialV
           eager={index < 3} variant={completed.has(index) ? variantId : undefined} />)}
       </div>
     </section>
-    <VariantSwitcher value={variant} onChange={setVariant} />
+    <VariantSwitcher variants={variants} value={variant} onChange={setVariant} label="Completed-topic variants" />
   </main>;
 }
 
@@ -90,24 +74,4 @@ function TopicCard({ item, color, eager, variant }: { item: (typeof learningTopi
       </CardContent>
     </Link>
   </Card>;
-}
-
-function VariantSwitcher({ value, onChange }: { value: number; onChange: (v: number) => void }) {
-  const current = variants[value - 1];
-  const prev = () => onChange((value + variants.length - 2) % variants.length + 1);
-  const next = () => onChange(value % variants.length + 1);
-  return <nav className={styles.switcher} aria-label="Completed-topic variants">
-    <div className={styles.switcherInfo}>
-      <strong>{value}. {current.name}</strong>
-      <span>{current.note}</span>
-    </div>
-    <div className={styles.switcherControls}>
-      <button type="button" className={styles.arrow} onClick={prev} aria-label="Previous variant"><span className={styles.flip}><Icon name="arrowRight" /></span></button>
-      <div className={styles.numbers} role="radiogroup" aria-label="Variant">
-        {variants.map((item, index) => <button key={item.id} type="button" role="radio" aria-checked={value === index + 1}
-          aria-label={`${index + 1}. ${item.name}`} title={item.name} onClick={() => onChange(index + 1)}>{index + 1}</button>)}
-      </div>
-      <button type="button" className={styles.arrow} onClick={next} aria-label="Next variant"><Icon name="arrowRight" /></button>
-    </div>
-  </nav>;
 }

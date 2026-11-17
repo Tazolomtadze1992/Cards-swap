@@ -1,3 +1,4 @@
+import type { ReactNode } from "react";
 import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from "../ui/accordion";
 import { Button } from "../ui/button";
 import { Icon } from "../ui/icon";
@@ -6,13 +7,22 @@ import { ReadingContent, ContentSection } from "../ui/reading-content";
 import { labelText } from "./label-text";
 import styles from "./services.module.css";
 
+export const servicesStartTitle = "დახმარება გჭირდება - საიდან დაიწყო?";
+
 // N5, section 2 and its visual map. These are possible routes, not mandatory steps.
 export function ServicesStartDialog({ onClose, onShowContacts, onRequestCall112 }: { onClose: () => void; onShowContacts: () => void; onRequestCall112: () => void }) {
-  return <Modal title="დახმარება გჭირდება - საიდან დაიწყო?" onClose={onClose}>
-    <ReadingContent width="full">
+  return <Modal title={servicesStartTitle} onClose={onClose}>
+    <ServicesStartBody onShowContacts={onShowContacts} onRequestCall112={onRequestCall112} />
+  </Modal>;
+}
+
+/** Dialog body; `map` renders under the introduction, which already refers to it. */
+export function ServicesStartBody({ map, onShowContacts, onRequestCall112 }: { map?: ReactNode; onShowContacts: () => void; onRequestCall112: () => void }) {
+  return <ReadingContent width="full">
       <ContentSection as="div">
         <p>ეს რუკა დახმარების ერთ შესაძლო გზას გაჩვენებს. თუმცა იცოდე, რომ ყველა ბავშვის ამბავი ერთნაირი არაა. ყველა ბავშვი ყველა ნაბიჯს არ გადის. შეგიძლია დახმარება იქიდან დაიწყო, ვისთან საუბარიც უფრო უსაფრთხოდ გეჩვენება.</p>
       </ContentSection>
+      {map}
 
       <ContentSection className={styles.startCallout} width="full">
         <h3>საფრთხე ახლავეა?</h3>
@@ -59,6 +69,5 @@ export function ServicesStartDialog({ onClose, onShowContacts, onRequestCall112 
         <p>მიმართე სხვა სანდო უფროსს ან სერვისს. დახმარების თხოვნა ისევ შეგიძლია.</p>
         <Button onClick={onShowContacts}>{labelText("სერვისების ნახვა")}<Icon name="chevronsRight" /></Button>
       </ContentSection>
-    </ReadingContent>
-  </Modal>;
+    </ReadingContent>;
 }
