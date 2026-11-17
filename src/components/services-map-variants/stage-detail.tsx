@@ -50,6 +50,6 @@ export function StageDetail({ id, compact = false }: { id: StageId; compact?: bo
   </div>;
   return <div className={styles.detail}>
     <h4 className={styles.detailHeading}>{map.ongoing}</h4>
-    <p className={styles.fallback}><Icon name="alert" />{map.fallback}</p>
+    <p className={styles.fallback}>{map.fallback}</p>
   </div>;
 }

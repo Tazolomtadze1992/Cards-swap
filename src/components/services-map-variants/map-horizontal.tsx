@@ -74,7 +74,7 @@ export function MapHorizontal() {
         </li>
       </ol>
     </div>
-    <p className={styles.fallback}><Icon name="alert" />{map.fallback}</p>
+    <p className={styles.fallback}>{map.fallback}</p>
   </div>;
 }
 

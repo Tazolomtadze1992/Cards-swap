@@ -49,7 +49,7 @@ export function MapVertical() {
         <Box tone="green" strong big>{map.ongoing}</Box>
       </li>
     </ol>
-    <p className={styles.fallback}><Icon name="alert" />{map.fallback}</p>
+    <p className={styles.fallback}>{map.fallback}</p>
   </div>;
 }
 

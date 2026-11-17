@@ -34,7 +34,7 @@ export const help: { title: string; tone: Tone }[] = [
 ];
 
 export const ongoing = "მიმდინარე მხარდაჭერა, უსაფრთხოება და აღდგენა";
-export const fallback = "თუ პირველმა ადამიანმა ვერ დაგეხმარა, მიმართე სხვა სანდო უფროსს ან სერვისს.";
+export const fallback = "თუ პირველი ადამიანმა ვერ დაგეხმარა, მიმართე სხვა სანდო უფროსს ან სერვისს.";
 
 /** Five stages, named after the dialog's existing accordion questions so the map and text agree. */
 export const stages = [
