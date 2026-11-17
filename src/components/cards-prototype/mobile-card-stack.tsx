@@ -12,14 +12,14 @@ type StackCard = { id: string; label: string; color: string; ink: string };
 type Props = { cards: readonly StackCard[]; palette?: Partial<Record<string, { background: string; text: string }>>; onNavigate?: (id: string) => void };
 const descriptions: Record<string, string> = {
   support: "იპოვე სანდო დახმარება და გაიგე, ვის შეგიძლია მიმართო.",
-  video: "უყურე მოკლე ვიდეოებს და გაიგე მეტი ონლაინ უსაფრთხოებაზე.",
+  glossary: "გაიგე რთული სიტყვებისა და ტერმინების მნიშვნელობა მარტივად.",
   resources: "აღმოაჩინე სასარგებლო მასალა და პრაქტიკული რჩევები.",
   faq: "იპოვე პასუხები ონლაინ უსაფრთხოების შესახებ შენს კითხვებზე.",
   quiz: "გამოცადე შენი ცოდნა და ივარჯიშე რეალურ სიტუაციებში.",
 };
 const actions: Record<string, string> = {
-  support: "დახმარების ნახვა", video: "ვიდეოების ნახვა", resources: "რესურსების ნახვა",
-  faq: "კითხვების ნახვა", quiz: "ქვიზების ნახვა",
+  support: "სერვისების ნახვა", glossary: "ლექსიკონის ნახვა", resources: "რესურსების ნახვა",
+  faq: "კითხვების ნახვა", quiz: "სწავლა და პრაქტიკის ნახვა",
 };
 const settle = { type: "spring" as const, stiffness: 330, damping: 30, mass: 0.85 };
 const stackPose = (rank: number) => ({ x: rank * 5, y: rank * 3, rotate: rank * 2, scale: 1 - rank * 0.012 });

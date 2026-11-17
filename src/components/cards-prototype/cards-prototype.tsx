@@ -8,17 +8,18 @@ import { MobileCardStack } from "./mobile-card-stack";
 import { labelText } from "../homepage-prototype/label-text";
 import { HomepageHero, HomepageFaq } from "../homepage-prototype/homepage-sections";
 
+// Fan geometry belongs to the position in the deck; each card keeps its own colour and illustration.
 export const cards = [
-  { id: "support", illustrationWidth: 70.938, illustrationHeight: 73.801, label: "სერვისები და დახმარება", color: "#f0fe83", ink: "#332b2d", x: 0, y: 5.77, width: 361.575, height: 380.813, angle: -14.6 },
-  { id: "video", illustrationWidth: 98.879, illustrationHeight: 67.613, label: "ვიდეო ბიბლიოთეკა", color: "#ff8361", ink: "#3d1f17", x: 203.6, y: 41.23, width: 333.255, height: 356.023, angle: -8.21 },
-  { id: "resources", illustrationWidth: 92.197, illustrationHeight: 80.192, label: "რესურსები", color: "#97e54c", ink: "#FAF4EA", x: 394.63, y: 0, width: 306.458, height: 331.956, angle: -2.88 },
+  { id: "support", illustrationWidth: 70.938, illustrationHeight: 73.801, label: "მხარდამჭერი სერვისები", color: "#f0fe83", ink: "#332b2d", x: 0, y: 5.77, width: 361.575, height: 380.813, angle: -14.6 },
+  { id: "resources", illustrationWidth: 92.197, illustrationHeight: 80.192, label: "რესურსები", color: "#97e54c", ink: "#FAF4EA", x: 203.6, y: 41.23, width: 333.255, height: 356.023, angle: -8.21 },
+  { id: "glossary", illustrationWidth: 96, illustrationHeight: 76, label: "ლექსიკონი", color: "#ff8361", ink: "#3d1f17", x: 394.63, y: 0, width: 306.458, height: 331.956, angle: -2.88 },
   { id: "faq", illustrationWidth: 79.501, illustrationHeight: 60.537, label: "ხშირად დასმული კითხვები", color: "#5ea8ff", ink: "#ffffff", x: 584.27, y: 54.3, width: 302.694, height: 328.538, angle: 2.17 },
-  { id: "quiz", illustrationWidth: 96.001, illustrationHeight: 85.191, label: "ქვიზები და სცენარები", color: "#ccacb5", ink: "#31402c", x: 755.99, y: 6.01, width: 359.652, height: 379.156, angle: 14.13 },
+  { id: "quiz", illustrationWidth: 96.001, illustrationHeight: 85.191, label: "სწავლა და პრაქტიკა", color: "#ccacb5", ink: "#31402c", x: 755.99, y: 6.01, width: 359.652, height: 379.156, angle: 14.13 },
 ] as const;
 
 const actionLabels: Record<string, string> = {
-  support: "დახმარების ნახვა", video: "ვიდეოების ნახვა", resources: "რესურსების ნახვა",
-  faq: "კითხვების ნახვა", quiz: "ქვიზების ნახვა",
+  support: "სერვისების ნახვა", glossary: "ლექსიკონის ნახვა", resources: "რესურსების ნახვა",
+  faq: "კითხვების ნახვა", quiz: "სწავლა და პრაქტიკის ნახვა",
 };
 
 type CardPalette = Partial<Record<(typeof cards)[number]["id"], { background: string; text: string }>>;
@@ -26,8 +27,8 @@ type CardPalette = Partial<Record<(typeof cards)[number]["id"], { background: st
 type CardColors = {
   page: { background: string; heading: string };
   services: { background: string; text: string };
-  video: { background: string; text: string };
   resources: { background: string; text: string };
+  glossary: { background: string; text: string };
   faq: { background: string; text: string };
   quizzes: { background: string; text: string };
 };
@@ -35,8 +36,8 @@ type CardColors = {
 const defaultColors: CardColors = {
   page: { background: "#FAF4EA", heading: "#3F6CC7" },
   services: { background: cards[0].color, text: cards[0].ink },
-  video: { background: cards[1].color, text: cards[1].ink },
-  resources: { background: cards[2].color, text: cards[2].ink },
+  resources: { background: cards[1].color, text: cards[1].ink },
+  glossary: { background: cards[2].color, text: cards[2].ink },
   faq: { background: cards[3].color, text: cards[3].ink },
   quizzes: { background: cards[4].color, text: cards[4].ink },
 };
@@ -113,10 +114,11 @@ function CardsPrototypeView({ homepage = false, colors }: { homepage?: boolean; 
     {homepage && <HomepageHero />}
     <div id="homepage-cards"><CardDeck homepage={homepage} onNavigate={homepage ? id => {
       if (id === "faq") router.push("/prototypes/faq");
-      if (id === "resources" || id === "video") router.push("/prototypes/resources");
+      if (id === "resources") router.push("/prototypes/resources");
+      if (id === "glossary") router.push("/prototypes/glossary");
       if (id === "support") router.push("/prototypes/services");
       if (id === "quiz") router.push("/prototypes/learning");
-    } : undefined} palette={{ support: colors.services, video: colors.video, resources: colors.resources, faq: colors.faq, quiz: colors.quizzes }} /></div>
+    } : undefined} palette={{ support: colors.services, resources: colors.resources, glossary: colors.glossary, faq: colors.faq, quiz: colors.quizzes }} /></div>
     {homepage && <HomepageFaq />}
   </main>;
 }
