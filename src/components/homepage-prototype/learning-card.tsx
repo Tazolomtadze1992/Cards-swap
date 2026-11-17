@@ -8,11 +8,13 @@ type LearningCardProps = {
   color: string;
   eager?: boolean;
   age?: string;
+  /** Topic the child has already finished: the card fades back so unfinished topics lead. */
+  completed?: boolean;
 };
 
-export function LearningCard({ item, color, eager = false, age }: LearningCardProps) {
-  return <Card asChild className={styles.card} style={{ "--card-color": color } as CSSProperties}>
-    <Link id={`topic-${item.id}`} href={age === "6-9" ? "/prototypes/articles?age=6-9" : "/prototypes/articles"} aria-label={`${item.title} — სტატიის გახსნა`}>
+export function LearningCard({ item, color, eager = false, age, completed = false }: LearningCardProps) {
+  return <Card asChild className={styles.card} data-completed={completed || undefined} style={{ "--card-color": color } as CSSProperties}>
+    <Link id={`topic-${item.id}`} href={age === "6-9" ? "/prototypes/articles?age=6-9" : "/prototypes/articles"} aria-label={`${item.title} — ${completed ? "დასრულებულია, თავიდან გავლა" : "სტატიის გახსნა"}`}>
       <CardContent className={styles.body}>
         <div className={styles.thumbnail}>
           {/* eslint-disable-next-line @next/next/no-img-element */}

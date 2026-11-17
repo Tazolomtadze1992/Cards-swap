@@ -16,3 +16,7 @@
   :global(html[data-input-mode="keyboard"]) .card { transition: none; }
   :global(html[data-input-mode="keyboard"]) .card:active { transform: none; }
 }
+/* Finished topic: softer frame, faded illustration and title. */
+.card[data-completed] { background: color-mix(in oklch, var(--card-color) 40%, var(--color-surface)); }
+.card[data-completed] .body { border-color: color-mix(in oklch, var(--card-color) 40%, var(--color-surface)); }
+.card[data-completed] :is(.thumbnail img, .copy) { opacity: 0.55; }
