@@ -30,7 +30,7 @@
 .lead { margin: 0; color: var(--color-text-secondary); }
 .note { margin: 0; color: var(--color-text-secondary); font-size: var(--type-body-sm-size); line-height: var(--type-body-sm-line); }
 .hint { color: var(--color-text-secondary); font-size: var(--type-label-size); font-weight: var(--type-label-weight); }
-.fallback { margin: var(--space-6) 0 0; color: var(--orange); text-align: center; text-wrap: balance; font-weight: 600; font-size: var(--type-body-size); line-height: var(--type-body-line); }
+.fallback { margin: var(--space-6) 0 0; color: var(--orange); text-align: center; text-wrap: balance; font-weight: 600; font-size: var(--type-body-sm-size); line-height: var(--type-body-sm-line); }
 .flip { display: inline-grid; transform: scaleX(-1); }
 .roundButton { display: grid; place-items: center; width: 40px; height: 40px; border: 0; border-radius: 50%; background: var(--color-control-subtle-bg); color: var(--color-text-primary); cursor: pointer; }
 .roundButton:disabled { opacity: 0.35; cursor: default; }
