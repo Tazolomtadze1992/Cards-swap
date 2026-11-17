@@ -1,5 +1,5 @@
 // Content of the client's "ბავშვთა დაცვის სისტემის მარტივი რუკა" diagram, transcribed once
-// so every presentation variant shows identical wording.
+// so the wording stays in one place.
 
 export type Tone = "blue" | "green" | "purple" | "warm" | "danger";
 
@@ -35,13 +35,3 @@ export const help: { title: string; tone: Tone }[] = [
 
 export const ongoing = "მიმდინარე მხარდაჭერა, უსაფრთხოება და აღდგენა";
 export const fallback = "თუ პირველი ადამიანი ვერ დაგეხმარა, მიმართე სხვა სანდო უფროსს ან სერვისს.";
-
-/** Five stages, named after the dialog's existing accordion questions so the map and text agree. */
-export const stages = [
-  { id: "danger", short: "საფრთხე ახლავეა?" },
-  { id: "who", short: "ვის უთხრა?" },
-  { id: "first", short: "რა მოხდება პირველად?" },
-  { id: "help", short: "რა დახმარება შეიძლება მიიღო?" },
-  { id: "next", short: "რა ხდება მერე?" },
-] as const;
-export type StageId = (typeof stages)[number]["id"];
