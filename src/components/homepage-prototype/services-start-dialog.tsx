@@ -65,7 +65,7 @@ export function ServicesStartBody({ onShowContacts, onRequestCall112 }: { onShow
       </ContentSection>
 
       <ContentSection className={styles.startCallout} width="full">
-        <h3>თუ პირველმა ადამიანმა ვერ დაგეხმარა</h3>
+        <h3>თუ პირველი ადამიანი ვერ დაგეხმარა</h3>
         <p>მიმართე სხვა სანდო უფროსს ან სერვისს. დახმარების თხოვნა ისევ შეგიძლია.</p>
         <Button onClick={onShowContacts}>{labelText("სერვისების ნახვა")}<Icon name="chevronsRight" /></Button>
       </ContentSection>
