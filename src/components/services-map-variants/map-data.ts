@@ -1,7 +1,7 @@
 // Content of the client's "ბავშვთა დაცვის სისტემის მარტივი რუკა" diagram, transcribed once
 // so the wording stays in one place.
 
-export type Tone = "blue" | "green" | "purple" | "warm" | "danger";
+export type Tone = "blue" | "green" | "purple" | "warm" | "danger" | "neutral";
 
 export const mapTitle = "ბავშვთა დაცვის სისტემის მარტივი რუკა";
 export const mapSubtitle = "დახმარება შეიძლება სხვადასხვა გზით დაიწყოს — ყველა ბავშვი ყველა ეტაპს არ გადის";

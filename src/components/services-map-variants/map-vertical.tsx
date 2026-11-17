@@ -18,8 +18,8 @@ export function MapVertical() {
       <li className={styles.vRow} data-size="m">
         <Box tone="warm" strong>{map.dangerQuestion}</Box>
         <div className={styles.vBranches}>
-          <Box tone="danger" tag={map.dangerYes.answer}>{map.dangerYes.text}<small className={styles.jump}>↓ პირდაპირ პირველ პასუხზე</small></Box>
-          <Box tone="green" tag={map.dangerNo.answer}>{map.dangerNo.text}</Box>
+          <Box tone="neutral" tag={map.dangerYes.answer}>{map.dangerYes.text}<small className={styles.jump}>↓ პირდაპირ პირველ პასუხზე</small></Box>
+          <Box tone="neutral" tag={map.dangerNo.answer}>{map.dangerNo.text}</Box>
         </div>
       </li>
       <Down />
