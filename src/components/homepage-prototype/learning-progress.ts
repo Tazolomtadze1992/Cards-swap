@@ -44,8 +44,15 @@ function subscribe(listener: () => void) {
   return () => { listeners.delete(listener); };
 }
 
+/**
+ * Demo only: one topic per age group always shows as finished, so the dimmed card is visible
+ * on the learning page without completing a quiz. Remove once real progress is in use.
+ * (LAW-1018-ART-01 is the second card for both 10–13 and 14–18.)
+ */
+export const demoCompletedTopics: ReadonlySet<string> = new Set(["PSY-69-ART-02", "LAW-1018-ART-01"]);
+
 /** Ids of finished topics; empty on the server and on first render. */
 export function useCompletedTopics(): ReadonlySet<string> {
   const raw = useSyncExternalStore(subscribe, () => read(completedKey) ?? "[]", () => "[]");
-  return useMemo(() => new Set(parse(raw)), [raw]);
+  return useMemo(() => new Set([...demoCompletedTopics, ...parse(raw)]), [raw]);
 }
