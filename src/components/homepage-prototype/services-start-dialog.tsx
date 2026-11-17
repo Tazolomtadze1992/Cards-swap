@@ -1,9 +1,9 @@
-import type { ReactNode } from "react";
 import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from "../ui/accordion";
 import { Button } from "../ui/button";
 import { Icon } from "../ui/icon";
 import { Modal } from "../ui/modal";
 import { ReadingContent, ContentSection } from "../ui/reading-content";
+import { ServicesMap } from "../services-map-variants/services-map";
 import { labelText } from "./label-text";
 import styles from "./services.module.css";
 
@@ -16,13 +16,13 @@ export function ServicesStartDialog({ onClose, onShowContacts, onRequestCall112 
   </Modal>;
 }
 
-/** Dialog body; `map` renders under the introduction, which already refers to it. */
-export function ServicesStartBody({ map, onShowContacts, onRequestCall112 }: { map?: ReactNode; onShowContacts: () => void; onRequestCall112: () => void }) {
+/** Dialog body; the map sits under the introduction, which already refers to it. */
+export function ServicesStartBody({ onShowContacts, onRequestCall112 }: { onShowContacts: () => void; onRequestCall112: () => void }) {
   return <ReadingContent width="full">
       <ContentSection as="div">
         <p>ეს რუკა დახმარების ერთ შესაძლო გზას გაჩვენებს. თუმცა იცოდე, რომ ყველა ბავშვის ამბავი ერთნაირი არაა. ყველა ბავშვი ყველა ნაბიჯს არ გადის. შეგიძლია დახმარება იქიდან დაიწყო, ვისთან საუბარიც უფრო უსაფრთხოდ გეჩვენება.</p>
       </ContentSection>
-      {map}
+      <ServicesMap />
 
       <ContentSection className={styles.startCallout} width="full">
         <h3>საფრთხე ახლავეა?</h3>

@@ -16,6 +16,7 @@ import { SiteHeader } from "./site-header";
 import { learningTopics6to9 } from "./learning-data-6-9";
 import { learningTopics10to13 } from "./learning-data-10-13";
 import { labelText } from "./label-text";
+import { useCompletedTopics } from "./learning-progress";
 import styles from "./learning.module.css";
 
 const teenColors = ["#c9e7dd", "#d3a5a8", "#ada3e4", "#d2b9e2", "#a5d089"];
@@ -63,6 +64,7 @@ export default function LearningPage({ initialAge = "" }: { initialAge?: string 
   const ageAnimation = useRef<ReturnType<typeof animateNativeDialog> | null>(null);
   const ageDialog = useRef<HTMLDialogElement>(null);
   const heading = useRef<HTMLHeadingElement>(null);
+  const completedTopics = useCompletedTopics();
   const activeTopics = isYoungest ? learningTopics6to9 : learningTopics10to13;
   const activeTopicThemeIndexes = isYoungest ? youngestTopicThemeIndexes : middleSchoolTopicThemeIndexes;
   const activeThemes = isTeen ? teenThemes : isYoungest ? youngestThemes : middleSchoolThemes;
@@ -131,7 +133,7 @@ export default function LearningPage({ initialAge = "" }: { initialAge?: string 
       <div className={styles.grid}>
         {isTeen ? filteredTeenTopics.map((item, index) => <TeenLearningCard key={item.id} item={item} color={teenColors[index % teenColors.length]} />) : filteredTopics.map(({ item }, index) => {
           return <LearningCard key={item.id} item={item}
-            color={middleSchoolColors[index % middleSchoolColors.length]} eager={index < 3} age={age} />;
+            color={middleSchoolColors[index % middleSchoolColors.length]} eager={index < 3} age={age} completed={completedTopics.has(item.id)} />;
         })}
       </div>
     </section>

@@ -10,6 +10,7 @@ import { RecommendedMaterials } from "../homepage-prototype/recommended-material
 import { Separator } from "../ui/separator";
 import { resources, type ResourceItem } from "../homepage-prototype/resources-data";
 import { labelText } from "../homepage-prototype/label-text";
+import { finishCurrentTopic } from "../homepage-prototype/learning-progress";
 import type { LearningActivity } from "./learning-content";
 import styles from "./learning-flow.module.css";
 
@@ -26,6 +27,8 @@ export function LearningEnding({ activity, answers, skipped, heading, onReview, 
   const [preview, setPreview] = useState<ResourceItem | null>(null);
   const dialog = useRef<HTMLDialogElement>(null);
   useEffect(() => { if (preview) dialog.current?.showModal(); }, [preview]);
+  // The quiz is the topic's last activity: reaching its results finishes the topic.
+  useEffect(() => { if (activity.kind === "quiz") finishCurrentTopic(); }, [activity.kind]);
   const nextHref = activity.kind === "scenario" ? `/prototypes/learning/practice/quiz${young ? "?age=6-9" : ""}` : young ? "/prototypes/learning/6-9" : "/prototypes/learning";
   return <section className={styles.ending}>
     <div className={styles.resultContent}>
