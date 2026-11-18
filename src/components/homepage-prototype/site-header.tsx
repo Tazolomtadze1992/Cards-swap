@@ -186,7 +186,6 @@ export function SiteHeader({ activeItem, appearance = "light" }: SiteHeaderProps
     {/* The logo strip stays cream on every page, including the blue homepage. */}
     <div ref={partnersRef} className={styles.partnersStrip} aria-label="პარტნიორი ორგანიზაციები">
       <div className={styles.partnersInner}>
-        <Image className={styles.councilLogo} src="/assets/homepage/council-of-europe-logo-on-cream.png" width={296} height={238} alt="ევროპის საბჭო" priority />
         <div className={styles.campaignLogo} role="img" aria-label="შეაჩერე ძალადობა — იყავი მეგობრული">
           <Image src="/assets/logo-mark.png" width={66} height={62} alt="" />
           <Image src="/assets/logo-wordmark.png" width={293} height={62} alt="" />
@@ -199,6 +198,7 @@ export function SiteHeader({ activeItem, appearance = "light" }: SiteHeaderProps
           <Image src="/assets/footer/resource-officers.png" width={509} height={508} alt="" />
           <span>საგანმანათლებლო დაწესებულების<br />მანდატურის სამსახური</span>
         </div>
+        <Image className={styles.councilLogo} src="/assets/homepage/council-of-europe-logo-on-cream.png" width={296} height={238} alt="ევროპის საბჭო" priority />
       </div>
       <div className={styles.partnersDivider}><Separator tone="subtle" /></div>
     </div>
